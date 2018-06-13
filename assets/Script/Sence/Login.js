@@ -1,0 +1,290 @@
+
+
+var loginModel = require("../mode/loginModel");
+var userMode = require("../mode/userMode");
+
+
+cc.Class({
+    extends: cc.Component,
+
+    properties: {
+
+        editPhone:{
+        	default:null,
+        	type:cc.EditBox
+        },
+
+        editName:{
+        	default:null,
+        	type:cc.EditBox
+        },
+
+        editPassword:{
+        	default:null,
+        	type:cc.EditBox
+        },
+
+        editCheck:{
+        	default:null,
+        	type:cc.EditBox
+        },
+
+        checkImg:{
+            default:null,
+            type:cc.Sprite
+        },
+
+        forgetPassBtn:{
+            default:null,
+            type:cc.Button
+        },
+        registerBtn:{
+            default:null,
+            type:cc.Button
+        },
+        loginBtn:{
+            default:null,
+            type:cc.Button
+        },
+
+        toggleBtn:{
+            default:null,
+            type:cc.Toggle
+        },
+
+        downMenuBtn:{
+            default:null,
+            type:cc.Button
+        },
+
+        namePrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
+        nameList:{
+            default:null,
+            type:cc.Node,
+        },
+
+        allPhone:null,
+        currName:null,
+    },
+
+    // LIFE-CYCLE CALLBACKS:
+
+    onLoad () {
+        this.allPhone = {};
+
+        cc.log('this.nameList', this.nameList);
+        // this.nameList.visible = true;
+
+        this.nameList.active = false;
+    },
+
+    updateNameList(){
+        var list = this.nameList.getChildByName('scrollview');//scrollview
+        var view = list.getChildByName('view');
+
+        var content = view.getChildByName('content');;//.addChild(item);
+        cc.log('list.content', list.content);
+        content.removeAllChild();
+        for(var i=0;i<10;i++){
+            var name = cc.instantiate(this.namePrefab);
+            var nameitem = name.getComponent('nameitem');
+            nameitem.setData("安其拉"+i);
+            nameitem.registerEvent(this.onTouchNameItem, this);
+            content.addChild(name);
+          
+        }
+    },
+
+    onTouchNameItem(arg){
+        this.editName.string = arg;
+        cc.log('arguments: ', arg);
+        this.nameList.active = false;
+
+        this.autoInputPassword(this.editPhone.string, arg);
+    },
+
+    start () {
+        cc.log('start: ');
+    },
+
+    onEnable: function () {
+        cc.log('onEnable: ');
+        // this.node.on('foobar', this._sayHello, this);
+      },
+    
+      onDisable: function () {
+        cc.log('onDisable: ');
+        // this.node.off('foobar', this._sayHello, this);
+      },
+    // update (dt) {},
+//phone
+    onPhoneEditDidBegan: function(editbox, customEventData) {
+        //这里 editbox 是一个 cc.EditBox 对象
+        //这里的 customEventData 参数就等于你之前设置的 "foobar"
+        cc.log('onEditDidBegan: ', customEventData);
+    },
+    //假设这个回调是给 editingDidEnded 事件的
+    onPhoneEditDidEnded: function(editbox, customEventData) {
+        //这里 editbox 是一个 cc.EditBox 对象
+        //这里的 customEventData 参数就等于你之前设置的 "foobar"
+
+        cc.log('onEditDidEnded: ', customEventData);
+    },
+    //假设这个回调是给 textChanged 事件的
+    onPhoneTextChanged: function(text, editbox, customEventData) {
+        var phone = editbox.string;
+        if(phone.length == 11){
+            var one = userMode.allPhone[''+phone];
+            if(!one){
+                //联网获取数据
+                var params = {
+                    phone: phone
+                }
+                loginModel.repLrole(params, this.requestLrole, this );
+            }
+        }
+    },
+
+    requestLrole(data){
+        var phone = data.phone;
+        userMode.allPhone[''+phone] = data.list;
+        //刷新任命列表
+
+    },
+    //假设这个回调是给 editingReturn 事件的
+    onPhoneEditingReturn: function(editbox,  customEventData) {
+    },
+
+
+    //nickname
+    onNameEditDidBegan: function(editbox, customEventData) {
+    },
+
+    onNameEditDidEnded: function(editbox, customEventData) {
+    },
+
+    onNameTextChanged: function(text, editbox, customEventData) {
+    },
+
+    onNameEditingReturn: function(editbox,  customEventData) {
+        var name = editbox.string;
+        //查找本地数据，不全密码
+        this.autoInputPassword(name, this.editPhone.string);
+    },
+
+    autoInputPassword(nane, phone){
+        if(phone.length != 11){
+            return;
+        }
+
+
+        this.editPassword.string = '';
+    },
+        //Password
+        onPasswordEditDidBegan: function(editbox, customEventData) {
+        },
+
+        onPasswordEditDidEnded: function(editbox, customEventData) {
+        },
+
+        onPasswordTextChanged: function(text, editbox, customEventData) {
+        },
+
+        onPasswordEditingReturn: function(editbox,  customEventData) {
+        },
+
+
+
+
+    //Check
+    onCheckEditDidBegan: function(editbox, customEventData) {
+    },
+
+    onCheckEditDidEnded: function(editbox, customEventData) {
+    },
+
+    onCheckTextChanged: function(text, editbox, customEventData) {
+    },
+    
+    onCheckEditingReturn: function(editbox,  customEventData) {
+    },
+
+
+
+        //nickname
+        onNameEditDidBegan: function(editbox, customEventData) {
+        },
+
+        onNameEditDidEnded: function(editbox, customEventData) {
+        },
+
+        onNameTextChanged: function(text, editbox, customEventData) {
+        },
+
+        onNameEditingReturn: function(editbox,  customEventData) {
+        },
+
+
+
+
+    onForgetBtton: function(btn) {
+        //这里 editbox 是一个 cc.EditBox 对象
+        //这里的 customEventData 参数就等于你之前设置的 "foobar"
+
+        cc.log('btn: ', btn);
+
+        // cc.director.loadScene('HelloWorld');
+    },
+
+    onRegisterBtton: function(btn) {
+        cc.director.loadScene('Register');
+    },
+
+    onLoginBtton: function(btn) {
+        if(this.editPhone.string.length != 11){
+            cc.log('手机号不够11位 ');
+        }else{
+            
+        }
+
+        var params = {
+            phone: this.editPhone.string,
+            invite: this.editCheck.string,
+            password: this.editPassword.string,
+            code: code
+        }
+        loginModel.repLogin(params, this.requestLogin, this );
+        // cc.director.loadScene('mainScene');
+
+    },
+
+    requestLogin: function(btn) {
+        cc.director.loadScene('mainScene');
+    },
+
+    onToggleBtton: function(btn) {
+        //这里 editbox 是一个 cc.EditBox 对象
+        //这里的 customEventData 参数就等于你之前设置的 "foobar"
+
+        cc.log('btn: ', btn);
+
+        // cc.director.loadScene('HelloWorld');
+    },
+
+    onDownmenuBtton: function(btn) {
+        if(this.editPhone.string.length != 11){
+            return;
+        }
+        var visible = this.nameList.active;
+        this.nameList.active = visible?false:true;
+
+        if(this.nameList.active){
+            this.updateNameList();
+        }
+    },
+
+});
