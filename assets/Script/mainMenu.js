@@ -19,14 +19,17 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-    },
 
+    },
+    mainSence:null,
+
+    alllayer:null,
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
     start () {
-
+        this.alllayer = ['familyNode', 'menuNode'];
     },
 
     onUserInfo:function(obj,data){
@@ -62,10 +65,26 @@ cc.Class({
     },
 
     onFamily:function(obj,data){
-        cc.log('----->onFamily');
+        var ws = cc.director.getWinSize();
+        cc.log('----->onFamily: ', this.alllayer);
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
+        var currname = 'familyNode';
+        this.showLayer(currname);
 
+    },
+
+    showLayer:function(name){
+        var ws = cc.director.getWinSize();;
+        var currname = name;
+        for(var i=0; i<this.alllayer.length;i++){
+            var layername = this.alllayer[i];
+            if(layername == currname){
+                this.node.mainSence[layername].x = 0;
+            }else{
+                this.node.mainSence[layername].x = -ws.width;
+            }
+        }
 
     },
     // update (dt) {}, family

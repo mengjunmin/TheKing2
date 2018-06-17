@@ -1,7 +1,7 @@
 
 var basePopup = require("basePopup");
 cc.Class({
-    extends: basePopup,
+    extends: cc.Component,
 
     properties: {
         // foo: {
@@ -20,6 +20,8 @@ cc.Class({
         //     }
         // },
 
+        
+
         backBtn :{
             default:null,
             type:cc.Button
@@ -35,7 +37,7 @@ cc.Class({
             type:cc.Prefab,
         },
     },
-
+    mainSence:null,
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {

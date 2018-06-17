@@ -26,13 +26,13 @@ cc.Class({
         // // this.back.opacity = 100;
         // this.addChild(this.back);
 
-        this.back = new cc.Node();
-        this.back.setSize(Size);
-        this.addChild(this.back);
+        // this.back = new cc.Node();
+        // this.back.setSize(Size);
+        // this.addChild(this.back);
 
-        this.content = new cc.Node();
-        this.content.setSize(Size);
-        this.addChild(this.content);
+        // this.content = new cc.Node();
+        // this.content.setSize(Size);
+        // this.addChild(this.content);
 
 
         // var sister1 = this.getComponent(cc.Sprite);

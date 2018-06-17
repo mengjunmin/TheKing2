@@ -36,6 +36,11 @@ cc.Class({
         	type:cc.Prefab
         },
 
+        familyPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
         hudPrefab:{
         	default:null,
         	type:cc.Prefab
@@ -45,7 +50,7 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-        menuNode:{
+        baselayerNode:{
             default:null,
             type:cc.Node
         },
@@ -57,16 +62,17 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-        familyNode:{
-            default:null,
-            type:cc.Node,
-        },
+ 
         hudNode:{
             default:null,
             type:cc.Node
         },
+
+
     },
 
+    familyNode:null,
+    menuNode:null,
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
@@ -77,12 +83,20 @@ cc.Class({
         cc.log('----->vs', vs);
         cc.log('----->vo', vo);
 
+
+
+        var family = cc.instantiate(this.familyPrefab);
+        this.baselayerNode.addChild(family);
+        family.mainSence = this;
+        this.familyNode = family;
+        family.x = -ws.width;
+
         var menu = cc.instantiate(this.menuPrefab);
-        this.menuNode.addChild(menu);
+        this.baselayerNode.addChild(menu);
+        menu.mainSence = this;
+        this.menuNode = menu;
 
         var hud = cc.instantiate(this.hudPrefab);
-        // hud.x = vo.x;
-        // hud.y = vs.height/2;
         this.hudNode.addChild(hud);
 
         // var popup = new basePopup();

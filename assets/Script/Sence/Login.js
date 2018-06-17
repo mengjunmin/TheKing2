@@ -258,7 +258,6 @@ cc.Class({
             code: 'code',
         }
         loginModel.repLogin(params, this.requestLogin, this );
-        // cc.director.loadScene('mainScene');
 
     },
 
