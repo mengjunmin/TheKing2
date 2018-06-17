@@ -71,29 +71,22 @@ cc.Class({
 
     },
 
+    //邀请码
+     onInvitationEditDidBegan: function(editbox, customEventData) {
+    },
 
+    onInvitationEditDidEnded: function(editbox, customEventData) {
 
-    
+    },
 
-        //邀请码
-        onInvitationEditDidBegan: function(editbox, customEventData) {
+    onInvitationTextChanged: function(text, editbox, customEventData) {
 
-        },
+      editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
+    },
 
-        onInvitationEditDidEnded: function(editbox, customEventData) {
+    onInvitationEditingReturn: function(editbox,  customEventData) {
 
-        },
-
-        onInvitationTextChanged: function(text, editbox, customEventData) {
-
-            editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
-        },
-
-        onInvitationEditingReturn: function(editbox,  customEventData) {
-
-        },
-
-
+    },
 
 
     //Check验证码
@@ -114,12 +107,10 @@ cc.Class({
 
     },
 
-
-
     onCheckBtton: function(btn) {
         cc.log('btn: ', btn);
         var phone = this.editPhone.string;
-        if(phone.length != 11){
+        if(phone.length != 1){
             cc.log('手机号不够11位 ');
         }else{
             registerModel.repSMS(phone, this.requestGetSMS, this);
@@ -141,23 +132,23 @@ cc.Class({
         var code = this.editCheck.string;
         var invitation = this.editInvitation.string;
 
-        if(phone.length != 11){
+        if(phone.length != 11){//11
             cc.log('手机号不够11位 ');
             return;
         }
-        if(code.length != 4){
+        if(code.length != 4){//4
             cc.log('手机号不够11位 ');
             return;
         }
-        if(invitation.length != 6){
+        if(invitation.length != 6){//6
             cc.log('手机号不够11位 ');
             return;
         }
 
          var pp = {
-            phone:argu.phone,
-            code: argu.code,
-            invite: argu.invite
+            phone:phone,
+            code: code,
+            invite: invitation
          }
         registerModel.repRegister(pp, this.requestLogin, this);
     
