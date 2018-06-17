@@ -3,7 +3,8 @@ var FileManager = require("./fileManager");
 var userMode = cc.Class({
     // 成员变量
     userAcount:null,
-    name : "",
+    name : "userMode",
+    nickname:'',
     age : 0,
     uid : 0,
     token : '',
@@ -13,11 +14,13 @@ var userMode = cc.Class({
 
 
     ctor () {
-        this.name = "Leovany";
+        console.log('[userMode]  ctor');
+        this.nickname = "Leovany";
         this.age = 20;
         this.userAcount = {};
         this.phone = 0;
         this.allName = {};
+        console.log('this.allName:',this.allName);
     },
 
 

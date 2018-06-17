@@ -89,10 +89,14 @@ cc.Class({
         var content = view.getChildByName('content');;//.addChild(item);
         cc.log('list.content', list.content);
         content.removeAllChild();
+
+        var currPhone = this.editPhone.string;
+        var currPhoneName = this.allPhone[currPhone];
         for(var i=0;i<10;i++){
             var name = cc.instantiate(this.namePrefab);
             var nameitem = name.getComponent('nameitem');
-            nameitem.setData("安其拉"+i);
+            // nameitem.setData("安其拉"+i);
+            nameitem.setData(currPhoneName[i]);
             nameitem.registerEvent(this.onTouchNameItem, this);
             content.addChild(name);
           
@@ -123,22 +127,18 @@ cc.Class({
     // update (dt) {},
 //phone
     onPhoneEditDidBegan: function(editbox, customEventData) {
-        //这里 editbox 是一个 cc.EditBox 对象
-        //这里的 customEventData 参数就等于你之前设置的 "foobar"
-        cc.log('onEditDidBegan: ', customEventData);
-    },
-    //假设这个回调是给 editingDidEnded 事件的
-    onPhoneEditDidEnded: function(editbox, customEventData) {
-        //这里 editbox 是一个 cc.EditBox 对象
-        //这里的 customEventData 参数就等于你之前设置的 "foobar"
 
-        cc.log('onEditDidEnded: ', customEventData);
+    },
+
+    onPhoneEditDidEnded: function(editbox, customEventData) {
+
     },
     //假设这个回调是给 textChanged 事件的
     onPhoneTextChanged: function(text, editbox, customEventData) {
         var phone = editbox.string;
-        if(phone.length == 11){
-            var one = userMode.allPhone[''+phone];
+        if(phone.length == 1){
+            console.log('------>userMode.allName:', userMode.getInstance().allName);
+            var one = userMode.getInstance().allName[''+phone];
             if(!one){
                 //联网获取数据
                 var params = {
@@ -152,7 +152,7 @@ cc.Class({
     requestLrole(data){
         var phone = data.phone;
         userMode.allPhone[''+phone] = data.list;
-        //刷新任命列表
+
 
     },
     //假设这个回调是给 editingReturn 事件的
@@ -184,18 +184,19 @@ cc.Class({
 
         this.editPassword.string = '';
     },
-        //Password
-        onPasswordEditDidBegan: function(editbox, customEventData) {
-        },
+    //Password
+    onPasswordEditDidBegan: function(editbox, customEventData) {
+    },
 
-        onPasswordEditDidEnded: function(editbox, customEventData) {
-        },
+    onPasswordEditDidEnded: function(editbox, customEventData) {
+    },
 
-        onPasswordTextChanged: function(text, editbox, customEventData) {
-        },
+    onPasswordTextChanged: function(text, editbox, customEventData) {
+        editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
+    },
 
-        onPasswordEditingReturn: function(editbox,  customEventData) {
-        },
+    onPasswordEditingReturn: function(editbox,  customEventData) {
+    },
 
 
 
@@ -208,36 +209,35 @@ cc.Class({
     },
 
     onCheckTextChanged: function(text, editbox, customEventData) {
+        editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
     },
     
     onCheckEditingReturn: function(editbox,  customEventData) {
+
     },
 
 
 
-        //nickname
-        onNameEditDidBegan: function(editbox, customEventData) {
-        },
+    //nickname
+    onNameEditDidBegan: function(editbox, customEventData) {
 
-        onNameEditDidEnded: function(editbox, customEventData) {
-        },
+    },
 
-        onNameTextChanged: function(text, editbox, customEventData) {
-        },
+    onNameEditDidEnded: function(editbox, customEventData) {
 
-        onNameEditingReturn: function(editbox,  customEventData) {
-        },
+    },
 
+    onNameTextChanged: function(text, editbox, customEventData) {
 
+    },
+
+    onNameEditingReturn: function(editbox,  customEventData) {
+
+    },
 
 
     onForgetBtton: function(btn) {
-        //这里 editbox 是一个 cc.EditBox 对象
-        //这里的 customEventData 参数就等于你之前设置的 "foobar"
-
-        cc.log('btn: ', btn);
-
-        // cc.director.loadScene('HelloWorld');
+        cc.director.loadScene('RetrievePassword');
     },
 
     onRegisterBtton: function(btn) {
@@ -255,7 +255,7 @@ cc.Class({
             phone: this.editPhone.string,
             invite: this.editCheck.string,
             password: this.editPassword.string,
-            code: code
+            code: 'code',
         }
         loginModel.repLogin(params, this.requestLogin, this );
         // cc.director.loadScene('mainScene');
@@ -267,12 +267,7 @@ cc.Class({
     },
 
     onToggleBtton: function(btn) {
-        //这里 editbox 是一个 cc.EditBox 对象
-        //这里的 customEventData 参数就等于你之前设置的 "foobar"
-
         cc.log('btn: ', btn);
-
-        // cc.director.loadScene('HelloWorld');
     },
 
     onDownmenuBtton: function(btn) {

@@ -15,6 +15,8 @@
 //var testurl = "http://httpbin.org/post";
 //var serverAddress = "http://192.168.0.14:3000/up";
 
+
+
 var HttpMethod_GET = "GET";
 var HttpMethod_POST = "POST";
 
@@ -332,7 +334,7 @@ var RequestWrapper = cc.Class({
 
 var Request = new RequestNet();
 
-
+module.exports = Request;
 
 
 

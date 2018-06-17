@@ -55,24 +55,20 @@ cc.Class({
     // update (dt) {},
 //phone
     onPhoneEditDidBegan: function(editbox, customEventData) {
-        cc.log('onEditDidBegan: ', customEventData);
+
     },
     //假设这个回调是给 editingDidEnded 事件的
     onPhoneEditDidEnded: function(editbox, customEventData) {
 
-        cc.log('onEditDidEnded: ', customEventData);
     },
     //假设这个回调是给 textChanged 事件的
     onPhoneTextChanged: function(text, editbox, customEventData) {
 
-        cc.log('onTextChanged: ', customEventData);
         // this.label.string = text;
     },
     //假设这个回调是给 editingReturn 事件的
     onPhoneEditingReturn: function(editbox,  customEventData) {
 
-
-        cc.log('onEditingReturn: ', customEventData);
     },
 
 
@@ -82,26 +78,19 @@ cc.Class({
         //邀请码
         onInvitationEditDidBegan: function(editbox, customEventData) {
 
-            cc.log('onEditDidBegan: ', customEventData);
         },
 
         onInvitationEditDidEnded: function(editbox, customEventData) {
 
-    
-            cc.log('onEditDidEnded: ', customEventData);
         },
 
         onInvitationTextChanged: function(text, editbox, customEventData) {
 
-    
-            cc.log('onTextChanged: ', customEventData);
-            // this.label.string = text;
+            editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
         },
 
         onInvitationEditingReturn: function(editbox,  customEventData) {
 
-    
-            cc.log('onEditingReturn: ', customEventData);
         },
 
 
@@ -110,26 +99,19 @@ cc.Class({
     //Check验证码
     onCheckEditDidBegan: function(editbox, customEventData) {
 
-        cc.log('onEditDidBegan: ', customEventData);
     },
 
     onCheckEditDidEnded: function(editbox, customEventData) {
 
-
-        cc.log('onEditDidEnded: ', customEventData);
     },
 
     onCheckTextChanged: function(text, editbox, customEventData) {
 
-
-        cc.log('onTextChanged: ', customEventData);
-        // this.label.string = text;
+        editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
     },
     
     onCheckEditingReturn: function(editbox,  customEventData) {
 
-
-        cc.log('onEditingReturn: ', customEventData);
     },
 
 

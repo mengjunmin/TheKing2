@@ -8,6 +8,7 @@ var registerModel = cc.Class({
 
 
     ctor() {
+        console.log('--->registerModel ctor');
         this.callback = null;
         this.target = null;
     },
