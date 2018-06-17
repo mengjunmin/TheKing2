@@ -166,7 +166,7 @@ cc.Class({
     onDoneBtton: function(btn) {
         //这里 editbox 是一个 cc.EditBox 对象
         //这里的 customEventData 参数就等于你之前设置的 "foobar"
-        var uid = this.userMode.uid;
+        var uid = userMode.getInstance().uid;
         var nick = this.editName.string;
         var sex = this.sex;
         var head = this.head;
