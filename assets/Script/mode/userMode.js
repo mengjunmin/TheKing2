@@ -11,7 +11,7 @@ var userMode = cc.Class({
     phone : 0,
 
     allName:null,
-
+    familyTreeName:null,
 
     ctor () {
         console.log('[userMode]  ctor');
@@ -20,6 +20,7 @@ var userMode = cc.Class({
         this.userAcount = {};
         this.phone = 0;
         this.allName = {};
+        this.familyTreeName = null;
         console.log('this.allName:',this.allName);
     },
 

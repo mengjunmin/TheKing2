@@ -8,9 +8,10 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-        back:{
+
+        bgPrefab:{
             default:null,
-            type:cc.Node
+            type:cc.Prefab,
         },
     },
 
@@ -19,25 +20,16 @@ cc.Class({
         cc.log("Square");   // 再调用子构造函数
         var Size = cc.director.getVisibleSize();
         console.log('----->base popup');
+         var self = this;
 
-        // this.back = new cc.Node();
-        // this.back.setContentSize(Size);
-        // this.back.color = cc.color(255,255,0,255);
-        // // this.back.opacity = 100;
-        // this.addChild(this.back);
-
-        // this.back = new cc.Node();
-        // this.back.setSize(Size);
-        // this.addChild(this.back);
-
-        // this.content = new cc.Node();
-        // this.content.setSize(Size);
-        // this.addChild(this.content);
+        var ws = cc.director.getWinSize();
 
 
-        // var sister1 = this.getComponent(cc.Sprite);
-        // cc.loader.loadRes("resources/monster001_b", cc.SpriteFrame, function (err, spriteFrame) {
-        //     sister1.spriteFrame = spriteFrame;
+        // cc.loader.loadRes("bg", function (err, texture) {
+        //     var node = new cc.Node();
+        //     var sprite = node.addComponent(cc.Sprite);
+        //     sprite.spriteFrame.setTexture(texture);
+        //     self.back.addChild(node);
         // });
     
         
@@ -45,8 +37,19 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
     
     onLoad () {
+        var bg = cc.instantiate(this.bgPrefab);
+        bg.opacity = 100;
+        this.node.addChild(bg,-1);
 
+        bg.on(cc.Node.EventType.TOUCH_START, function (event) {
+            console.log('----->base popup  TOUCH_START');
 
+        }, this);
+
+        bg.on(cc.Node.EventType.TOUCH_END, function (event) {
+
+            console.log('----->base popup  TOUCH_END');
+        }, this)
 
     },
 

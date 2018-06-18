@@ -46,6 +46,11 @@ cc.Class({
         	type:cc.Prefab
         },
 
+        mailPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
         gameNode:{
             default:null,
             type:cc.Node
@@ -87,13 +92,16 @@ cc.Class({
 
         var family = cc.instantiate(this.familyPrefab);
         this.baselayerNode.addChild(family);
-        family.mainSence = this;
+        var familyJs = family.getComponent('family');  //family
+        familyJs.mainSence = this;
         this.familyNode = family;
         family.x = -ws.width;
 
         var menu = cc.instantiate(this.menuPrefab);
         this.baselayerNode.addChild(menu);
-        menu.mainSence = this;
+        var menuJs = menu.getComponent('mainMenu');  //family
+        menuJs.setCallBack(this.onMenuCallBack, this);
+        menuJs.mainSence = this;
         this.menuNode = menu;
 
         var hud = cc.instantiate(this.hudPrefab);
@@ -102,6 +110,15 @@ cc.Class({
         // var popup = new basePopup();
         // this.popupNode.addChild(popup);
 
+    },
+
+    onMenuCallBack(data){
+        cc.log('----->onMenuCallBack:', data);
+        if(data == 'onMail'){
+            var mail = cc.instantiate(this.mailPrefab);
+            this.popupNode.addChild(mail);
+
+        }
     },
 
     start () {

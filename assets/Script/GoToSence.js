@@ -53,5 +53,6 @@ cc.Class({
             cc.director.loadScene('mainScene');
         }
 
-    }
+    },
+    
 });

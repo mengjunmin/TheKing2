@@ -1,5 +1,9 @@
 
 var basePopup = require("basePopup");
+var userMode = require("./mode/userMode");
+var familyModel = require("./mode/familyModel");
+var Utils = require("./mode/Utils");
+
 cc.Class({
     extends: cc.Component,
 
@@ -27,6 +31,16 @@ cc.Class({
             type:cc.Button
         },
 
+        joinBtn :{
+            default:null,
+            type:cc.Button
+        },
+
+        duihuanBtn :{
+            default:null,
+            type:cc.Button
+        },
+
         tree1:{
             default:null,
             type:cc.Prefab,
@@ -36,6 +50,11 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+        
+        treeNode:{
+            default:null,
+            type:cc.Node,
+        }
     },
     mainSence:null,
     // LIFE-CYCLE CALLBACKS:
@@ -49,19 +68,37 @@ cc.Class({
     start () {
         //发起联网请求。获取加载那个tree。
 
-        this.addTree();
+        var pp = {
+            uid: 11111,
+            token: 'qeqeqweqeqwe',
+        }
+        familyModel.repFamilyList(pp, this.repFamilyList, this);
     },
 
-    addTree:function(){
+    reqFamilyList(data){
+        var istree = data.list&&data.list.length>0;
+
+        if(istree){
+            this.updataTree(data);
+            
+        }else{
+
+        }
+
+        this.joinBtn.active = !istree;
+    },
+
+    updataTree:function(data){
+        
         var type = 1;
         var tree = null;
         if(type == 1){
             tree = cc.instantiate(this.tree1);
         }else if(type == 2){
-            vtree = cc.instantiate(this.tree2);
+            tree = cc.instantiate(this.tree2);
         }
         if(tree){
-            this.node.addChild(tree);
+            this.treeNode.addChild(tree);
         }
         
     },
@@ -70,6 +107,27 @@ cc.Class({
         cc.log('----->onShop');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
+        Utils.goToLayer(this.mainSence, "menuNode");
+
+    },
+
+    onJoin:function(obj,data){
+        cc.log('----->onJoin');
+        var pp = {
+            uid: 11111,
+            token: 'qeqeqweqeqwe',
+        }
+        familyModel.repFamilyJoin(pp, this.reqJoin, this);
+
+    },
+
+    reqJoin(data){
+        cc.log('----->reqJoin:', data);
+        this.updataTree(data);
+    },
+
+    onDuihuan:function(obj,data){
+        cc.log('----->onDuihuan');
 
 
     },

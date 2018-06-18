@@ -349,6 +349,9 @@
     "hudPrefab": {
       "__uuid__": "8b0532dc-a7cd-46fa-9543-f2bd923227f6"
     },
+    "mailPrefab": {
+      "__uuid__": "22077052-186b-43f2-9906-1f3c537035b9"
+    },
     "gameNode": null,
     "baselayerNode": {
       "__id__": 3
@@ -359,8 +362,6 @@
     },
     "hudNode": {
       "__id__": 5
-    },
-    "familyNode": null,
-    "menuNode": null
+    }
   }
 ]
