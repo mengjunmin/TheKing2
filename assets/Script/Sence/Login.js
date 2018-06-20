@@ -86,9 +86,8 @@ cc.Class({
         var list = this.nameList.getChildByName('scrollview');//scrollview
         var view = list.getChildByName('view');
 
-        var content = view.getChildByName('content');;//.addChild(item);
-        cc.log('list.content', list.content);
-        content.removeAllChild();
+        var content = view.getChildByName('content');
+        content.removeAllChildren();
 
         var currPhone = this.editPhone.string;
         var currPhoneName = this.allPhone[currPhone];

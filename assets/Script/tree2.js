@@ -46,7 +46,7 @@ cc.Class({
         var head1Js = head1.getComponent('head');
         head1Js,setData(this._objectSelf );
 
-        var branch = this.getBranchForUid(this._objectSelf.uid);
+        var branch = this.getBranchForObj(this._objectSelf);
         var num = branch.length;
 
         if(num>0){
@@ -67,7 +67,10 @@ cc.Class({
             sun3Js,setData(branch[2] );
         }
 
-
+        var higherUp = this.getHigherUpForObj(this._objectSelf);
+        var father =  this.node.getChildByName("father");
+        var fatherJs = father.getComponent('head');
+        fatherJs,setData(higherUp );
 
     },
 

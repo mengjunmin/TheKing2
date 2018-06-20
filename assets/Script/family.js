@@ -94,10 +94,15 @@ cc.Class({
         var tree = null;
         if(type == 1){
             tree = cc.instantiate(this.tree1);
+            var tree1js = tree.getComponent('tree1');
+            tree1js,setData(data );
         }else if(type == 2){
             tree = cc.instantiate(this.tree2);
+            var tree2js = tree.getComponent('tree2');
+            tree2js,setData(data );
         }
         if(tree){
+
             this.treeNode.addChild(tree);
         }
         

@@ -31,10 +31,17 @@ cc.Class({
             default:null,
             type:cc.Sprite
         },
-        info:{
+        content:{
             default:null,
             type:cc.Label,
-        }
+        },
+
+        title:{
+            default:null,
+            type:cc.Label,
+        },
+
+        _data:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -42,11 +49,17 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.info.string = '111';
+        
     },
 
-    updateView(data){
+    setData(data){
+        this._data = data;
+        this.updateView();
+    },
 
+    updateView(){
+        this.title.string = this._data.title;
+        this.content.string = this._data.content;
     },
 
     // update (dt) {},

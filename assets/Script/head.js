@@ -26,6 +26,7 @@ cc.Class({
             type:cc.Sprite,
         },
 
+        _data:null,
     },
 
    
@@ -87,6 +88,15 @@ cc.Class({
         });
     },
 
+    setData(data){
+        this._data = data;
+
+        var nick = this._data.nick;
+        var head = this._data.head;
+
+        this.setName(nick);
+        this.setUserAvatar(head);
+    },
 
 
     // update (dt) {},

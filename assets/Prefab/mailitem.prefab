@@ -51,8 +51,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 570,
-      "height": 140
+      "width": 220,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -60,8 +60,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 3,
-      "y": 872
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -72,7 +72,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "icon",
+    "_name": "content",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -100,13 +100,13 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0,
+      "y": 0.49999999999999994
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 109,
-      "height": 111
+      "width": 160,
+      "height": 22
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -114,8 +114,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -197,
-      "y": 0
+      "x": -91,
+      "y": -13
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -125,30 +125,26 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 2
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "a28c2c4a-9526-438e-afcb-d083b65b7d57"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
+    "_useOriginalSize": false,
+    "_actualFontSize": 20,
+    "_fontSize": 20,
+    "_lineHeight": 20,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "content",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -158,12 +154,12 @@
     "asset": {
       "__uuid__": "cdb01cb4-5e06-40d4-8d68-8a06bd20229c"
     },
-    "fileId": "6eGMWMQD9BNZb678iN0JhF",
+    "fileId": "96s6K7Dr1MbZBnmrB+9gXL",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "info",
+    "_name": "title",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -192,12 +188,12 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0.49999999999999994
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 258,
-      "height": 53
+      "width": 31,
+      "height": 20
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -205,8 +201,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -120.99999999999997,
-      "y": 0
+      "x": -87,
+      "y": 12
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -224,18 +220,18 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 20,
+    "_fontSize": 20,
+    "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "Label",
-    "_N$horizontalAlign": 0,
+    "_N$string": "title",
+    "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 1
+    "_N$overflow": 0
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -245,7 +241,7 @@
     "asset": {
       "__uuid__": "cdb01cb4-5e06-40d4-8d68-8a06bd20229c"
     },
-    "fileId": "96s6K7Dr1MbZBnmrB+9gXL",
+    "fileId": "b7csvykyZGbpt/sfqkyEI8",
     "sync": false
   },
   {
@@ -282,12 +278,14 @@
       "__id__": 1
     },
     "_enabled": true,
-    "icon": {
+    "icon": null,
+    "content": {
       "__id__": 3
     },
-    "info": {
+    "title": {
       "__id__": 6
-    }
+    },
+    "_data": null
   },
   {
     "__type__": "cc.PrefabInfo",

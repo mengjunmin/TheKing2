@@ -1506,7 +1506,11 @@
     },
     "itemPrefab": {
       "__uuid__": "cdb01cb4-5e06-40d4-8d68-8a06bd20229c"
-    }
+    },
+    "mailList": {
+      "__id__": 29
+    },
+    "_data": null
   },
   {
     "__type__": "cc.PrefabInfo",
