@@ -25,36 +25,35 @@ cc.Class({
         var ws = cc.director.getWinSize();
 
 
-        // cc.loader.loadRes("bg", function (err, texture) {
-        //     var node = new cc.Node();
-        //     var sprite = node.addComponent(cc.Sprite);
-        //     sprite.spriteFrame.setTexture(texture);
-        //     self.back.addChild(node);
-        // });
-    
+
+
         
     },
     // LIFE-CYCLE CALLBACKS:
     
     onLoad () {
+
+        console.log('----->base popup  onLoad');
+    },
+
+    setBlackGroud(){
         var bg = cc.instantiate(this.bgPrefab);
         bg.opacity = 100;
         this.node.addChild(bg,-1);
-
+        
         bg.on(cc.Node.EventType.TOUCH_START, function (event) {
             console.log('----->base popup  TOUCH_START');
-
+            return true;
         }, this);
 
         bg.on(cc.Node.EventType.TOUCH_END, function (event) {
 
             console.log('----->base popup  TOUCH_END');
         }, this)
-
     },
-
-
+    
     start () {
+        console.log('----->base popup  start');
 
     },
 

@@ -43,6 +43,11 @@ cc.Class({
         	type:cc.Prefab
         },
 
+        shopPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
         gameNode:{
             default:null,
             type:cc.Node
@@ -110,6 +115,9 @@ cc.Class({
             var mail = cc.instantiate(this.mailPrefab);
             this.popupNode.addChild(mail);
 
+        }else if(data == 'onShop'){
+            var shop = cc.instantiate(this.shopPrefab);
+            this.popupNode.addChild(shop);
         }
     },
 

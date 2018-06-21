@@ -25,6 +25,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.setBlackGroud();
         console.log('mail list  onLoad');
         this._mailList = this.node.getChildByName('scrollview');
         var view = this._mailList.getChildByName('view');

@@ -42,6 +42,20 @@ cc.Class({
             type: cc.ToggleContainer,
         },
 
+        avatarlistPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
+        popup:{
+        	default:null,
+        	type:cc.Node
+        },
+
+        userAvatar:{
+        	default:null,
+        	type:cc.Sprite
+        },
 
         sex: 0,
         head: 0,
@@ -155,6 +169,27 @@ cc.Class({
     onAvatarBtton: function(btn) {
         //换出头像框列表，注册回调获取avatar。
         this.head = 1;
+        var list = cc.instantiate(this.avatarlistPrefab);
+        this.popup.addChild(list);
+        var avatarJs = list.getComponent('avatarList');  //family
+        avatarJs.setData(0);
+        avatarJs.setCallBack(this.onAvatarList, this);
+    },
+
+    onAvatarList(data){
+        cc.log('onAvatarList: ', data);
+        this.setUserAvatar(data);
+    },
+
+    setUserAvatar:function(avatar){
+        var self = this;
+        var idx = avatar<10?('00'+avatar):('0'+avatar);
+        var newavatar = "monster" + idx + '_s'
+        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
+            cc.log('----->spriteFrame:', spriteFrame);
+            self.userAvatar.spriteFrame = spriteFrame;
+
+        });
     },
 
     onSexBtton: function(btn, data) {
