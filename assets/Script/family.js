@@ -116,8 +116,8 @@ cc.Class({
         cc.log('----->onShop');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
-        Utils.goToLayer(this.mainSence, "menuNode");
-
+        // Utils.goToLayer(this.mainSence, "menuNode");
+        this.mainSence.goToLayer("mainMenu");
     },
 
     onJoin:function(obj,data){

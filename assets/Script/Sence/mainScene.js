@@ -58,10 +58,7 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-        shopNode:{
-            default:null,
-            type:cc.Node
-        },
+
         popupNode:{
             default:null,
             type:cc.Node
@@ -72,11 +69,10 @@ cc.Class({
             type:cc.Node
         },
 
+        
 
     },
-
-    familyNode:null,
-    menuNode:null,
+    allLayer:null,
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
@@ -87,21 +83,10 @@ cc.Class({
         cc.log('----->vs', vs);
         cc.log('----->vo', vo);
 
+        this.allLayer = {};
 
 
-        var family = cc.instantiate(this.familyPrefab);
-        this.baselayerNode.addChild(family);
-        var familyJs = family.getComponent('family');  //family
-        familyJs.mainSence = this;
-        this.familyNode = family;
-        family.x = -ws.width;
-
-        var menu = cc.instantiate(this.menuPrefab);
-        this.baselayerNode.addChild(menu);
-        var menuJs = menu.getComponent('mainMenu');  //family
-        menuJs.setCallBack(this.onMenuCallBack, this);
-        menuJs.mainSence = this;
-        this.menuNode = menu;
+        this.createLayer("mainMenu");
 
         var hud = cc.instantiate(this.hudPrefab);
         this.hudNode.addChild(hud);
@@ -147,19 +132,40 @@ cc.Class({
         for(var i=0; i<Utils.alllayer.length;i++){
             var layername = Utils.alllayer[i];
             if(layername == currname){
-                if(this[layername]){
-                    this[layername].x = 0;
+                
+                if(!this.allLayer[layername]){
+                    this.createLayer(layername);
                 }else{
-                    
+                    this.allLayer[layername].x = 0;
                 }
                 
             }else{
-                this[layername].x = -ws.width;
+                if(this.allLayer[layername]){
+                    this.allLayer[layername].x = -ws.width;
+                }
             }
         }
     
     },
 
+    createLayer(layer){
+        if(layer == "mainMenu"){
+            var menu = cc.instantiate(this.menuPrefab);
+            this.baselayerNode.addChild(menu);
+            var menuJs = menu.getComponent('mainMenu');  //family
+            menuJs.setCallBack(this.onMenuCallBack, this);
+            menuJs.mainSence = this;
+            this.allLayer['mainMenu'] = menu;
+
+        }else if(layer == "family"){
+            var family = cc.instantiate(this.familyPrefab);
+            this.baselayerNode.addChild(family);
+            var familyJs = family.getComponent('family');  //family
+            familyJs.mainSence = this;
+            this.allLayer['family'] = family;
+
+        }
+    },
     
     // update (dt) {},
 });

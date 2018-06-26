@@ -70,8 +70,8 @@ cc.Class({
     },
 
     onFamily:function(obj,data){
-        var currname = 'familyNode';
-        Utils.goToLayer(this.mainSence, currname);
+        this.mainSence.goToLayer("family");
+        // Utils.goToLayer(this.mainSence, currname);
 
     },
 
