@@ -68,6 +68,10 @@ cc.Class({
     start () {
         //发起联网请求。获取加载那个tree。
 
+
+    },
+
+    getList(){
         var pp = {
             uid: 11111,
             token: 'qeqeqweqeqwe',

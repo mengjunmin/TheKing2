@@ -19,4 +19,5 @@ var goToLayer = function(sence, layername){
 
 module.exports = {
     goToLayer: goToLayer,
+    alllayer: alllayer,
 };

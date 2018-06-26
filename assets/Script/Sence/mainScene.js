@@ -3,6 +3,8 @@ var global = require('../mode/Global');
 var hud = require('../hud'); 
 var Singleton = require("../mode/Singleton");
 var basePopup = require("../basePopup");
+var Utils = require("../mode/Utils");
+
 
 cc.Class({
     extends: cc.Component,
@@ -137,7 +139,26 @@ cc.Class({
         
     },
 
+    // var alllayer = ['familyNode', 'menuNode'];
 
+    goToLayer (layername){
+        var ws = cc.director.getWinSize();;
+        var currname = layername;
+        for(var i=0; i<Utils.alllayer.length;i++){
+            var layername = Utils.alllayer[i];
+            if(layername == currname){
+                if(this[layername]){
+                    this[layername].x = 0;
+                }else{
+                    
+                }
+                
+            }else{
+                this[layername].x = -ws.width;
+            }
+        }
+    
+    },
 
     
     // update (dt) {},
