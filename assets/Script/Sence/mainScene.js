@@ -35,6 +35,11 @@ cc.Class({
         	type:cc.Prefab
         },
 
+        userinfoPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
         hudPrefab:{
         	default:null,
         	type:cc.Prefab
@@ -163,6 +168,13 @@ cc.Class({
             var familyJs = family.getComponent('family');  //family
             familyJs.mainSence = this;
             this.allLayer['family'] = family;
+
+        }else if(layer == "userinfo"){
+            var userinfo = cc.instantiate(this.userinfoPrefab);
+            this.baselayerNode.addChild(userinfo);
+            var userinfoJs = userinfo.getComponent('userInfo');  //family
+            userinfoJs.mainSence = this;
+            this.allLayer['userinfo'] = userinfo;
 
         }
     },

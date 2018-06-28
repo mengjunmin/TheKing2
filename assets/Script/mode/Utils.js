@@ -1,7 +1,7 @@
 
 
 
-var alllayer = ['family', 'mainMenu'];
+var alllayer = ['family', 'mainMenu','userinfo'];
 
 var goToLayer = function(sence, layername){
     // var ws = cc.director.getWinSize();;

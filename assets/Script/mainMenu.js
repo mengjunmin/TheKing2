@@ -41,7 +41,7 @@ cc.Class({
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
 
-        this.onCallBack('onUserInfo');
+        this.mainSence.goToLayer("userinfo");
     },
 
     onMail:function(obj,data){

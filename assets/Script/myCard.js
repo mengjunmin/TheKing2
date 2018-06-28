@@ -1,0 +1,106 @@
+var basePopup = require("./basePopup");
+var myCardModel = require("./mode/myCardModel");
+
+
+cc.Class({
+    extends: basePopup,
+
+    properties: {
+        closeBtn:{
+            default:null,
+            type:cc.Button
+        },
+        itemPrefab :{
+            default:null,
+            type:cc.Prefab,
+        },
+
+        _list:null,
+        _listcontent:null,
+        _data:null,
+
+
+    },
+
+    // LIFE-CYCLE CALLBACKS:
+
+    onLoad () {
+        this.setBlackGroud();
+        console.log('shop list  onLoad');
+        this._list = this.node.getChildByName('scrollview');
+        var view = this._list.getChildByName('view');
+        this._listcontent = view.getChildByName('content');
+
+    },
+
+    start () {
+        this.getList();
+    },
+
+    getList(){
+        var pp = {
+            uid: 11111,
+            token: 'qeqeqweqeqwe',
+        }
+        // shopModel.repShopList(pp, this.repList, this);
+        this.repList(null);
+    },
+
+    repList(data){
+        console.log("======>repList");
+        this._data = data;
+        this._data = [
+            {
+                "id": 1,
+                "name": "11111",
+                "price": "121212",
+            },
+            {
+                "id": 2,
+                "name": "11111",
+                "price": "121212",
+            },
+            {
+                "id": 3,
+                "name": "11111",
+                "price": "121212",
+            },
+            {
+                "id": 4,
+                "name": "11111",
+                "price": "121212",
+            }
+        ];
+
+        this.updataList();
+    },
+
+    updataList(){
+        this.cleanList();
+        for(var i=0;i<this._data.length;i++){
+            var item = cc.instantiate(this.itemPrefab);
+            var itemJs = item.getComponent('myCarditem');
+            itemJs.setData(this._data[i]);
+            itemJs.setCallBack(this.onItem, this);
+            this._listcontent.addChild(item);
+        }
+    },
+
+    onItem(data){
+        //购买请求
+        console.log('  myCarditem:', data);
+    },
+
+    cleanList(){
+        if(this._listcontent){
+            this._listcontent.removeAllChildren();
+        }
+    },
+
+    onCloseBtn(){
+        console.log('  myReward onCloseBtn');
+        this.cleanList();
+        this.node.destroy();
+    }
+    // update (dt) {},
+});
