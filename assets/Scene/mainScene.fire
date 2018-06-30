@@ -355,10 +355,21 @@
     "mailPrefab": {
       "__uuid__": "22077052-186b-43f2-9906-1f3c537035b9"
     },
+    "historyScorePrefab": {
+      "__uuid__": "a600bd63-0be8-4b6c-9671-763317410b5a"
+    },
     "shopPrefab": {
       "__uuid__": "49cdd6a7-4563-458b-b5f5-7a997c9c0f1a"
     },
-    "gameNode": null,
+    "myRewardPrefab": {
+      "__uuid__": "5eb2f517-1b6f-45ba-88c8-db844932a7a8"
+    },
+    "myCardPrefab": {
+      "__uuid__": "ded00a54-ba0a-402b-9925-17f493e660f3"
+    },
+    "notePrefab": {
+      "__uuid__": "e457bbaa-d1b9-47d8-8eab-826535b34a0d"
+    },
     "baselayerNode": {
       "__id__": 3
     },

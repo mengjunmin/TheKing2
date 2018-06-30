@@ -33,6 +33,10 @@ cc.Class({
 
     },
 
+    setData(data){
+        this._conf = data;
+    },
+
     start () {
         this.getList();
     },
@@ -99,6 +103,9 @@ cc.Class({
 
     onCloseBtn(){
         console.log('  historyScore onCloseBtn');
+        if(this._conf.closeCallback){
+            this._conf.closeCallback.apply(this._conf.closeCallbackObj, [this.node]);
+        }
         this.cleanList();
         this.node.destroy();
     }

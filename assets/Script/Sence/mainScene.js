@@ -4,71 +4,61 @@ var hud = require('../hud');
 var Singleton = require("../mode/Singleton");
 var basePopup = require("../basePopup");
 var Utils = require("../mode/Utils");
-
+var popupManager = require("../popupManager");
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
         menuPrefab:{
         	default:null,
         	type:cc.Prefab
         },
-
         familyPrefab:{
         	default:null,
         	type:cc.Prefab
         },
-
         userinfoPrefab:{
         	default:null,
         	type:cc.Prefab
         },
-
         hudPrefab:{
         	default:null,
         	type:cc.Prefab
         },
-
         mailPrefab:{
         	default:null,
         	type:cc.Prefab
         },
-
+        historyScorePrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
         shopPrefab:{
         	default:null,
         	type:cc.Prefab
         },
-
-        gameNode:{
-            default:null,
-            type:cc.Node
+        myRewardPrefab:{
+        	default:null,
+        	type:cc.Prefab
         },
+        myCardPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+        notePrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
         baselayerNode:{
             default:null,
             type:cc.Node
         },
-
         popupNode:{
             default:null,
             type:cc.Node
         },
- 
         hudNode:{
             default:null,
             type:cc.Node
@@ -101,19 +91,38 @@ cc.Class({
 
     },
 
+    aaa(data){
+        cc.log('----->aaa:', data);
+    },
+
     onMenuCallBack(data){
         cc.log('----->onMenuCallBack:', data);
         if(data == 'onMail'){
-            var mail = cc.instantiate(this.mailPrefab);
-            this.popupNode.addChild(mail);
+            // var mail = cc.instantiate(this.mailPrefab);
+            // this.popupNode.addChild(mail);
+
+            var conf = {
+                closeCallback: this.aaa,       // 取消按钮的回调方法
+                closeCallbackObj: this,     // 取消按钮的回调this
+            };
+            popupManager.create('mail', conf);
+
 
         }else if(data == 'onShop'){
-            var shop = cc.instantiate(this.shopPrefab);
-            this.popupNode.addChild(shop);
+            // var shop = cc.instantiate(this.shopPrefab);
+            // this.popupNode.addChild(shop);
+
+            popupManager.create('shop', {});
+        }else if(data == 'onGame'){
+
+            popupManager.create('note', {});
         }
+
     },
 
     start () {
+        popupManager.init(this);
+
         var self = this;
         cc.log('----->start');
         setTimeout(function(){

@@ -82,7 +82,7 @@ cc.Class({
     },
 
     onCallBack:function(data){
-        if (this.callback) this.callback.apply(this.objecttarget, [data]);
+        if (this.callback) this.callback.apply(this.objecttarget, [data, 9]);
     }
     // update (dt) {}, family
 });

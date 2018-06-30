@@ -13,8 +13,21 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+    
     },
 
+    // CONF:{
+    //     title:null,
+    //     content:null,
+    //     cancelCallback: null,      // 取消
+    //     cancelCallbackObj: null,   // 取消
+    //     okCallback: null,      // 确定
+    //     okCallbackObj: null,   // 确定
+    //     closeCallback: null,       // 取消按钮的回调方法
+    //     closeCallbackObj: null,     // 取消按钮的回调this
+    // },
+
+    _conf:null,
 
     ctor:function () {
         cc.log("Square");   // 再调用子构造函数

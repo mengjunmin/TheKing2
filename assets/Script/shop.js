@@ -37,6 +37,10 @@ cc.Class({
         this.getShopList();
     },
 
+    setData(data){
+        this._conf = data;
+    },
+
     getShopList(){
         var pp = {
             uid: 11111,
@@ -99,6 +103,9 @@ cc.Class({
 
     onCloseBtn(){
         console.log('  shop onCloseBtn');
+        if(this._conf.closeCallback){
+            this._conf.closeCallback.apply(this._conf.closeCallbackObj, [this.node]);
+        }
         this.cleanList();
         this.node.destroy();
     }
