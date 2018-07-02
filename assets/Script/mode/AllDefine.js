@@ -2,8 +2,9 @@
 
 
 module.exports = {
+    startApp    :   "startapp",
     AccountKey : "useraccount",
-    serverAddress : "http://192.168.0.2:3000/",
+    serverAddress : "http://118.190.149.141",
 
 
 

@@ -68,7 +68,13 @@ var userData=JSON.parse(encrypt.decrypt(cipherText,secretkey,256));
         this.saveDataJson(phone, data);
     },
 
-
+    readStartApp(){
+        var value = this.readData(AllDefine.startApp);
+        return value;
+    },
+    saveStartApp(){
+        this.saveData(AllDefine.startApp);
+    },
 
 
 });

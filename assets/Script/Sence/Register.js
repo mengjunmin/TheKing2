@@ -38,6 +38,7 @@ cc.Class({
             type:cc.Button
         },
 
+        checkCount:null,
 
     },
 
@@ -49,7 +50,8 @@ cc.Class({
     },
 
     start () {
-
+        this.checkCount = 0;
+        cc.log('------->this.checkBtn: ', this.checkBtn);
     },
 
     // update (dt) {},
@@ -110,11 +112,33 @@ cc.Class({
     onCheckBtton: function(btn) {
         cc.log('btn: ', btn);
         var phone = this.editPhone.string;
-        if(phone.length != 1){
+        if(phone.length != 11){
             cc.log('手机号不够11位 ');
         }else{
             registerModel.repSMS(phone, this.requestGetSMS, this);
+            this.lockCheckBtn();
         }
+    },
+
+    checkBtnCount(d){
+        var lable = this.checkBtn.node.getChildByName('title');
+        var title = lable.getComponent(cc.Label);
+        cc.log('------->title: ', title);
+        if(this.checkCount == 0){
+            this.unschedule(this.checkBtnCount);
+            this.checkBtn.enabled = true;
+            title.string = '获取验证码';
+            return;
+        }
+        this.checkCount--;
+        title.string = ''+this.checkCount;
+        // cc.log('------->lable.string: ', lable.string);
+
+    },
+    lockCheckBtn(){
+        this.checkBtn.enabled = false;
+        this.checkCount = 120;
+        this.schedule(this.checkBtnCount, 1);
     },
 
     requestGetSMS (data){
