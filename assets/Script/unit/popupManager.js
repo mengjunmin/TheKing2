@@ -22,6 +22,10 @@ var popupManager = {
     create:function(name, context) {
         var self = this;
         var newpopup=null;
+        if(!_sence&&!_layer){
+            cc.log('---->_sence==null   _layer==null');
+            return;
+        }
 
         var closeBack = function(...args){
             // cc.log('---->closeBack:', this);
@@ -75,7 +79,7 @@ var popupManager = {
         }
 
 
-
+        conf = context;
         if(newpopup){
             for(var key in mastconf){
                 conf[key] = mastconf[key];

@@ -45,7 +45,7 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0,
-    "autoReleaseAssets": false
+    "autoReleaseAssets": true
   },
   {
     "__type__": "cc.Node",
@@ -3413,7 +3413,10 @@
     "avatarlistPrefab": {
       "__uuid__": "bd3d4a44-394d-480b-a7bf-ce688340b964"
     },
-    "popup": {
+    "notePrefab": {
+      "__uuid__": "e457bbaa-d1b9-47d8-8eab-826535b34a0d"
+    },
+    "popupNode": {
       "__id__": 91
     },
     "userAvatar": {

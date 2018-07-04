@@ -2,13 +2,20 @@
 
 var loginModel = require("../mode/loginModel");
 var userMode = require("../mode/userMode");
-
+var popupManager = require("../popupManager");
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        notePrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+        popupNode:{
+            default:null,
+            type:cc.Node
+        },
         editPhone:{
         	default:null,
         	type:cc.EditBox
@@ -112,6 +119,7 @@ cc.Class({
 
     start () {
         cc.log('start: ');
+        popupManager.init(this);
     },
 
     onEnable: function () {

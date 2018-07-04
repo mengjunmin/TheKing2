@@ -1,5 +1,7 @@
 var Request = require("../network/Request");
 var allDefine = require("./AllDefine");
+var GeneralServerRequest = require("../network/GeneralServerRequest");
+var popupManager = require("../unit/popupManager");
 
 // var registerModel = cc.Class({
 //     // 成员变量
@@ -57,7 +59,7 @@ var allDefine = require("./AllDefine");
 // });
 
 
-var registerModel = {
+var registerModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -73,14 +75,28 @@ var registerModel = {
 
     repRegister(argu, callback, context) {
         var self = this;
-        var pp = {
+        var params = {
             phone: argu.phone,
             code: argu.code,
             invite: argu.invite
         }
         console.log("----->repRegister");
-        var url = allDefine.serverAddress + 'onRegister';
-        Request.Post(url, callback, context, pp, false);
+        // var url = allDefine.serverAddress + '/g1/user/login1';
+        // Request.Post(url, callback, context, params, false);
+        var router = '/g1/user/login1';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repRegister  onSuccess: ", result);
+                if (callback) callback.apply(context);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repRegister  onFail: ", result , errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
@@ -88,9 +104,37 @@ var registerModel = {
     repSMS(phone, callback, context) {
         var self = this;
         console.log("----->repSMS");
-        var url = allDefine.serverAddress + '/g1/code/sms';
-        Request.Post(url, callback, context, { phone: phone }, false);
+        // var url = allDefine.serverAddress + '/g1/code/sms';
+        // Request.Post(url, callback, context, { phone: phone }, false);
 
+        var params = {
+            phone: phone
+        };
+        var router = '/g1/code/sms';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repSMS  onSuccess: ", result);
+                if (callback) callback.apply(context);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repSMS  onFail: ", result , errorCode);
+
+                // var CONF = {
+                //     title:'1234',
+                //     content:"actionHandler.msg",
+                //     okLabel:null,
+                //     cancelLabel:null,
+                //     cancelCallback: null,      // 取消
+                //     cancelCallbackObj: self,   // 取消
+                //     okCallback: null,      // 确定
+                //     okCallbackObj: self,   // 确定
+                // };
+                // popupManager.create('note', CONF);
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
     repFullInfo(argu, callback, context) {
@@ -104,12 +148,30 @@ var registerModel = {
             anpassword: argu.anpassword
         }
         console.log("----->repFullInfo");
-        var url = allDefine.serverAddress + '/g1/user/update';
-        Request.Post(url, callback, context, params, false);
+        // var url = allDefine.serverAddress + '/g1/user/update';
+        // Request.Post(url, callback, context, params, false);
+
+        var router = '/g1/user/update';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repFullInfo  onSuccess: ", result);
+                if (callback) callback.apply(context);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repFullInfo  onFail: ", result , errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
 
-};
+});
 
+
+
+var registerModel = new registerModel();
 module.exports = registerModel;

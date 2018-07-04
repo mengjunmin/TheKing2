@@ -1,6 +1,8 @@
 
 var Request = require("./Request");
 var allDefine = require("./AllDefine");
+var popupManager = require("../unit/popupManager");
+
 
  var   serverTime  =   0;  //服务器时间
  var   lasetServerTimeUpdateTime   =   0;  //上一次更新服务器时间的时间
@@ -77,7 +79,7 @@ var GeneralServerRequest = cc.Class({
                 url  += '&';
                 url += (key + '=' + data[key]);
             }
-            Request.Post(url, resultFun, this, isHideLoading);
+            Request.Get(url, resultFun, this, isHideLoading);
         }
         
     },
@@ -129,27 +131,26 @@ var RequestResultHandler = cc.Class({
 
 
     var ErrorActionMap = {};
-    var ErrorAction =  cc.Class({
-
+    var ErrorAction =  {
         initActionMap() {
             var map = {};
             map[ErrorCode.INTERNAL_SERVER_ERROR] = {
-                msg: game.Tools.lang('內部伺服器錯誤'),
+                msg: ('內部伺服器錯誤'),
                 onConfirm: null,
                 onCancel: null
             };
             map[ErrorCode.INVALID_REQUEST_PARAMS] = {
-                msg: game.Tools.lang('非法參數'),
+                msg: ('非法參數'),
                 onConfirm: null,
                 onCancel: null
             };
             map[ErrorCode.IO_ERROR] = {
-                msg: game.Tools.lang('網路異常，請點擊確定按鈕重試'),
+                msg: ('網路異常，請點擊確定按鈕重試'),
                 onConfirm: ErrorAction.retry,
                 onCancel: ErrorAction.clearQueue
             };
             map[ErrorCode.BLACKCARD] = {
-                msg: game.Tools.lang('使用者資訊異常，登錄失敗。'),
+                msg: ('使用者資訊異常，登錄失敗。'),
                 onConfirm: ErrorAction.onCloseWindow,
                 onCancel: ErrorAction.onCloseWindow
             };
@@ -157,24 +158,30 @@ var RequestResultHandler = cc.Class({
         },
 
         onCloseWindow(){
-            UpSDKModel.Ins.closeWindow();
+            // UpSDKModel.Ins.closeWindow();
+            cc.log('<onCloseWindow>');
         },
 
         reload() {
-            PPGame.Ins.reload();
+            // PPGame.Ins.reload();
+            cc.log('<reload>');
         },
 
         retry() {
-            game.Request.retry();
+            Request.retry();
+            cc.log('<retry>');
         },
 
         clearQueue() {
-            game.Request.clearQueue();
+            Request.clearQueue();
         },
 
         notifyError(code, cb) {
             var self = this;
             var actionHandler = ErrorActionMap[code];
+            cc.log('[ErrorAction] notifyError  ErrorActionMap:', ErrorActionMap);
+            cc.log('[ErrorAction] notifyError  code:', code);
+            cc.log('[ErrorAction] notifyError  actionHandler:', actionHandler);
             if (actionHandler) {
                 var confirmCallback = function () {
                     if (actionHandler.onConfirm) {
@@ -188,13 +195,19 @@ var RequestResultHandler = cc.Class({
                     }
                     return cb(true);
                 };
-                ui.UILayer.Ins.popup(ui.PopUpIds.NOTIFICATION, {
-                    content: actionHandler.msg,
-                    confirmCallback: confirmCallback,
-                    confirmCallbackObj: self,
-                    cancelCallback: cancelCallback,
-                    cancelCallbackObj: self
-                });
+
+                var CONF = {
+                    title:'1234',
+                    content:actionHandler.msg,
+                    okLabel:null,
+                    cancelLabel:null,
+                    cancelCallback: cancelCallback,      // 取消
+                    cancelCallbackObj: self,   // 取消
+                    okCallback: confirmCallback,      // 确定
+                    okCallbackObj: self,   // 确定
+                };
+                popupManager.create('note', CONF);
+
             } else {
                 return cb(false);
             }
@@ -206,16 +219,22 @@ var RequestResultHandler = cc.Class({
                 return cb(true);
             };
 
-            ui.UILayer.Ins.popup(ui.PopUpIds.NOTIFICATION, {
-                content: code + ':' + msg,
-                confirmCallback: closeCallback,
-                confirmCallbackObj: self,
-                cancelCallback: closeCallback,
-                cancelCallbackObj: self
-            });
-        }
-    });
 
+            var CONF = {
+                title:'1234',
+                content:code + ':' + msg,
+                okLabel:null,
+                cancelLabel:null,
+                cancelCallback: closeCallback,      // 取消
+                cancelCallbackObj: self,   // 取消
+                okCallback: closeCallback,      // 确定
+                okCallbackObj: self,   // 确定
+            };
+            popupManager.create('note', CONF);
+        }
+    };
+
+    ErrorAction.initActionMap();
 
 var GeneralServerRequest = new GeneralServerRequest();
 

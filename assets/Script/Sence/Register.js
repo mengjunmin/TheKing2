@@ -1,10 +1,21 @@
 var registerModel = require("../mode/registerModel");
 var userMode = require("../mode/userMode");
+var popupManager = require("../popupManager");
+
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
+        notePrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
+
+        popupNode:{
+            default:null,
+            type:cc.Node
+        },
 
         editPhone:{
             default:null,
@@ -50,6 +61,7 @@ cc.Class({
     },
 
     start () {
+        popupManager.init(this);
         this.checkCount = 0;
         cc.log('------->this.checkBtn: ', this.checkBtn);
     },
@@ -123,7 +135,7 @@ cc.Class({
     checkBtnCount(d){
         var lable = this.checkBtn.node.getChildByName('title');
         var title = lable.getComponent(cc.Label);
-        cc.log('------->title: ', title);
+        // cc.log('------->title: ', title);
         if(this.checkCount == 0){
             this.unschedule(this.checkBtnCount);
             this.checkBtn.enabled = true;

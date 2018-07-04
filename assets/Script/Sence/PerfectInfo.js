@@ -1,5 +1,6 @@
 var registerModel = require("../mode/registerModel");
 var userMode = require("../mode/userMode");
+var popupManager = require("../popupManager");
 
 cc.Class({
     extends: cc.Component,
@@ -47,9 +48,14 @@ cc.Class({
         	type:cc.Prefab
         },
 
-        popup:{
+        notePrefab:{
         	default:null,
-        	type:cc.Node
+        	type:cc.Prefab
+        },
+
+        popupNode:{
+            default:null,
+            type:cc.Node
         },
 
         userAvatar:{
@@ -71,7 +77,7 @@ cc.Class({
     },
 
     start() {
-
+        popupManager.init(this);
     },
 
     // update (dt) {},
