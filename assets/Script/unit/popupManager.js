@@ -45,37 +45,27 @@ var popupManager = {
         if(name == 'mail'){
             newpopup = cc.instantiate(_sence.mailPrefab);
             var popupJs = newpopup.getComponent('mail');
-
         }else if(name == 'shop'){
             newpopup = cc.instantiate(_sence.shopPrefab);
             var popupJs = newpopup.getComponent('shop');
-
         }else if(name == 'historyscore'){
             newpopup = cc.instantiate(_sence.historyScorePrefab);
             var popupJs = newpopup.getComponent('historyScore');
-
         }else if(name == 'myreward'){
             newpopup = cc.instantiate(_sence.myRewardPrefab);
             var popupJs = newpopup.getComponent('myReward');
-
         }else if(name == 'mycard'){
             newpopup = cc.instantiate(_sence.myCardPrefab);
-            var popupJs = newpopup.getComponent('myCard');
-            
+            var popupJs = newpopup.getComponent('myCard');  
         }else if(name == 'note'){
             newpopup = cc.instantiate(_sence.notePrefab);
-            var popupJs = newpopup.getComponent('note');
-            conf = {
-                title:'null',
-                content:'12345678890',
-                cancelCallback: function(){
-                    cc.log('---->note  cancelCallback: ');
-                },      // 取消
-                cancelCallbackObj: null,   // 取消
-                okCallback: null,      // 确定
-                okCallbackObj: null,   // 确定
-            };
-            
+            var popupJs = newpopup.getComponent('note');  
+        }else if(name == 'avatarlist'){
+            newpopup = cc.instantiate(_sence.avatarlistPrefab);
+            var popupJs = newpopup.getComponent('avatarList');  
+        }else if(name == 'namelist'){
+            newpopup = cc.instantiate(_sence.nameListPrefab);
+            var popupJs = newpopup.getComponent('nameList');  
         }
 
 

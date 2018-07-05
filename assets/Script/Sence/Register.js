@@ -173,11 +173,11 @@ cc.Class({
             return;
         }
         if(code.length != 4){//4
-            cc.log('手机号不够11位 ');
+            cc.log('验证码错误');
             return;
         }
         if(invitation.length != 6){//6
-            cc.log('手机号不够11位 ');
+            cc.log('邀请码错误');
             return;
         }
 

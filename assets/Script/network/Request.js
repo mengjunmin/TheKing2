@@ -66,6 +66,7 @@ var RequestNet = cc.Class({
     },
 
     Get(url, callback, context, isHideLoading) {
+        cc.log('----->Get: ', HttpMethod_GET);
         this.addQueue(HttpMethod_GET, url, callback, context, null, isHideLoading);
     },
 
@@ -75,6 +76,7 @@ var RequestNet = cc.Class({
 
     addQueue(type, url, callback, context, message, isHideLoading) {
         var data = new RequestData(type, url, callback, context, message, isHideLoading);
+        cc.log('----->addQueue   data: ', data);
         this.queue.push(data);
         this.next();
     },

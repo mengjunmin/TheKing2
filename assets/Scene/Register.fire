@@ -1087,7 +1087,7 @@
       "__uuid__": "67e68bc9-dad5-4ad9-a2d8-7e03d458e32f"
     },
     "_N$returnType": 0,
-    "_N$inputFlag": 0,
+    "_N$inputFlag": 4,
     "_N$inputMode": 6,
     "_N$fontSize": 29,
     "_N$lineHeight": 40,
@@ -1107,7 +1107,7 @@
       "b": 127,
       "a": 255
     },
-    "_N$maxLength": 10,
+    "_N$maxLength": 4,
     "_N$stayOnTop": false
   },
   {
@@ -1327,7 +1327,7 @@
       "b": 127,
       "a": 255
     },
-    "_N$maxLength": 4,
+    "_N$maxLength": 6,
     "_N$stayOnTop": false
   },
   {
@@ -2185,7 +2185,7 @@
       "__id__": 37
     },
     "editCheck": {
-      "__id__": 37
+      "__id__": 29
     },
     "checkBtn": {
       "__id__": 58

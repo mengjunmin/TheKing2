@@ -75,8 +75,12 @@ var GeneralServerRequest = cc.Class({
             Request.Post(url, resultFun, this, data, isHideLoading);
         }else{
             url = url + '?';
+            var first = false;
             for(var key in data){
-                url  += '&';
+                if(first){
+                    url  += '&';
+                }
+                first = true;
                 url += (key + '=' + data[key]);
             }
             Request.Get(url, resultFun, this, isHideLoading);

@@ -63,15 +63,9 @@ cc.Class({
             default:null,
             type:cc.Button
         },
-
-        namePrefab:{
-        	default:null,
-        	type:cc.Prefab
-        },
-
-        nameList:{
+        nameListPrefab:{
             default:null,
-            type:cc.Node,
+            type:cc.Prefab
         },
 
         allPhone:null,
@@ -83,10 +77,6 @@ cc.Class({
     onLoad () {
         this.allPhone = {};
 
-        cc.log('this.nameList', this.nameList);
-        // this.nameList.visible = true;
-
-        this.nameList.active = false;
     },
 
     updateNameList(){
@@ -110,10 +100,9 @@ cc.Class({
     },
 
     onTouchNameItem(arg){
-        this.editName.string = arg;
-        cc.log('arguments: ', arg);
-        this.nameList.active = false;
+        cc.log('onTouchNameItem: ',arg);
 
+        this.editName.string = arg;
         this.autoInputPassword(this.editPhone.string, arg);
     },
 
@@ -278,14 +267,17 @@ cc.Class({
 
     onDownmenuBtton: function(btn) {
         if(this.editPhone.string.length != 11){
+            cc.log('手机号不够11位 ');
             return;
         }
-        var visible = this.nameList.active;
-        this.nameList.active = visible?false:true;
 
-        if(this.nameList.active){
-            this.updateNameList();
-        }
+        var conf = {
+            fun:this.onTouchNameItem,
+            target:this,
+            data:["1111111","222222","3333333","444444","5555555"],
+        };
+        popupManager.create('namelist', conf);
+
     },
 
 });

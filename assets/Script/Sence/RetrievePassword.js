@@ -186,7 +186,7 @@ cc.Class({
     },
 
     requestGetSMS(data){
-        cc.log('---->onGetSMS: ', data);
+        cc.log('---->requestGetSMS: ', data);
     },
 
 

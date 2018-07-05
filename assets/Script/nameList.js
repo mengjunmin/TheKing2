@@ -1,5 +1,4 @@
 var basePopup = require("./basePopup");
-var mailModel = require("./mode/mailModel");
 
 
 cc.Class({
@@ -14,12 +13,9 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
-
-        _mailList:null,
+        _List:null,
         _listcontent:null,
-        _avatars:null,
-        _selectIdx:null,
-
+        _data:null,
         _fun:null,
         _target:null,
 
@@ -29,44 +25,40 @@ cc.Class({
 
     onLoad () {
         this.setBlackGroud();
-        console.log('mail list  onLoad');
-        this._mailList = this.node.getChildByName('scrollview');
-        var view = this._mailList.getChildByName('view');
+        this._List = this.node.getChildByName('scrollview');
+        var view = this._List.getChildByName('view');
         this._listcontent = view.getChildByName('content');
 
+    },
 
+    setData(data){
+        this._conf = data;
+        this._data = this._conf.data;
+        this._fun = data.fun;
+        this._target = data.target;
+        cc.log('namelist  setData: ', data);
     },
 
     start () {
-        this._avatars= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
         this.updataList();
-    },
-
-
-    setData(data){
-        console.log("======>avatarList");
-        this._conf = data;
-        this._selectIdx = data.idx;
-        this._fun = data.fun;
-        this._target = data.target;
-
     },
 
     updataList(){
         this.cleanList();
-        for(var i=0;i<this._avatars.length;i++){
+        for(var i=0;i<this._data.length;i++){
             var item = cc.instantiate(this.itemPrefab);
-            var itemJs = item.getComponent('avataritem');
-            itemJs.setData(this._avatars[i]);
-            itemJs.setCallBack(this.onItem, this);
+            var itemJs = item.getComponent('nameitem');
+            itemJs.setData(this._data[i]);
+            itemJs.registerEvent(this.onTouchNameItem, this);
             this._listcontent.addChild(item);
         }
+
     },
 
-
-    onItem(idx){
-        console.log('  idx: ',idx);
-        this._selectIdx = idx;
+    onTouchNameItem(arg){
+        cc.log('[namelist]  arguments: ', arg);
+        this.onCallBack(arg);
+        this.onCloseBtn();
     },
 
     cleanList(){
@@ -75,23 +67,17 @@ cc.Class({
         }
     },
 
-
     onCallBack(data){
         if(this._fun)
             this._fun.call(this._target, data);
     },
 
     onCloseBtn(){
-        console.log('  mail onCloseBtn');
-        if(this._selectIdx != this._conf.idx){
-            this.onCallBack(this._selectIdx);
-        }
-        this.cleanList();
-
         if(this._conf.closeCallback){
             this._conf.closeCallback.apply(this._conf.closeCallbackObj, [this.node]);
         }
 
+        this.cleanList();
         this.node.destroy();
     }
     // update (dt) {},

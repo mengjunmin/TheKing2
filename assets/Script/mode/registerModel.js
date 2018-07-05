@@ -2,7 +2,7 @@ var Request = require("../network/Request");
 var allDefine = require("./AllDefine");
 var GeneralServerRequest = require("../network/GeneralServerRequest");
 var popupManager = require("../unit/popupManager");
-
+var userMode = require("./userMode");
 // var registerModel = cc.Class({
 //     // 成员变量
 //     callback: null,
@@ -81,14 +81,15 @@ var registerModel = cc.Class({
             invite: argu.invite
         }
         console.log("----->repRegister");
-        // var url = allDefine.serverAddress + '/g1/user/login1';
-        // Request.Post(url, callback, context, params, false);
+
         var router = '/g1/user/login1';
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
-                console.log("----->repRegister  onSuccess: ", result);
-                if (callback) callback.apply(context);
+                userMode.getInstance().uid = result.data._id;
+                userMode.getInstance().uid = result.t;
+
+                if (callback) callback.apply(context, [result]);
             },
             onFail: function(result, errorCode) {
                 console.log("----->repRegister  onFail: ", result , errorCode);
@@ -103,9 +104,6 @@ var registerModel = cc.Class({
     //  /g1/code/sms
     repSMS(phone, callback, context) {
         var self = this;
-        console.log("----->repSMS");
-        // var url = allDefine.serverAddress + '/g1/code/sms';
-        // Request.Post(url, callback, context, { phone: phone }, false);
 
         var params = {
             phone: phone
@@ -115,7 +113,7 @@ var registerModel = cc.Class({
             context: this,
             onSuccess: function(result) {
                 console.log("----->repSMS  onSuccess: ", result);
-                if (callback) callback.apply(context);
+                if (callback) callback.apply(context, [result]);
             },
             onFail: function(result, errorCode) {
                 console.log("----->repSMS  onFail: ", result , errorCode);
@@ -145,7 +143,7 @@ var registerModel = cc.Class({
             sex: argu.sex,
             head: argu.head,
             password: argu.password,
-            anpassword: argu.anpassword
+            //anpassword: argu.anpassword
         }
         console.log("----->repFullInfo");
         // var url = allDefine.serverAddress + '/g1/user/update';
@@ -156,7 +154,7 @@ var registerModel = cc.Class({
             context: this,
             onSuccess: function(result) {
                 console.log("----->repFullInfo  onSuccess: ", result);
-                if (callback) callback.apply(context);
+                if (callback) callback.apply(context, [result]);
             },
             onFail: function(result, errorCode) {
                 console.log("----->repFullInfo  onFail: ", result , errorCode);

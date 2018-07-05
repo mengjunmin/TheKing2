@@ -13,7 +13,16 @@
 */
 
 
+/*
+、、跨域访问图片
+var self = this;
+var url = "xxxxxx";
+cc.loader.loadImg(url, {isCrossOrigin : true }, function(err,img){
+    var logo  = new cc.Sprite(img);
+     self.addChild(logo);
+});
 
+*/
 
 
 

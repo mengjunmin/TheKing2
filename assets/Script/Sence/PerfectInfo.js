@@ -174,12 +174,19 @@ cc.Class({
 
     onAvatarBtton: function(btn) {
         //换出头像框列表，注册回调获取avatar。
-        this.head = 1;
-        var list = cc.instantiate(this.avatarlistPrefab);
-        this.popup.addChild(list);
-        var avatarJs = list.getComponent('avatarList');  //family
-        avatarJs.setData(0);
-        avatarJs.setCallBack(this.onAvatarList, this);
+        // this.head = 1;
+        // var list = cc.instantiate(this.avatarlistPrefab);
+        // this.popupNode.addChild(list);
+        // var avatarJs = list.getComponent('avatarList');  //family
+        // avatarJs.setData(0);
+        // avatarJs.setCallBack(this.onAvatarList, this);
+
+        var conf = {
+            idx:1,
+            fun:this.onAvatarList,
+            target:this,
+        };
+        popupManager.create('avatarlist', conf);
     },
 
     onAvatarList(data){
