@@ -194,8 +194,10 @@ cc.Class({
         cc.log('---->requestLogin: ', data);
 
         var token = data.t;
-        userMode.token = token;
-        
+        var uid = data.data._id;
+        userMode.getInstance().token = token;
+        userMode.getInstance().uid = uid;
+
         cc.director.loadScene('PerfectInfo');
 
     },

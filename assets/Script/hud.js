@@ -9,6 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var global = require('Global'); 
+var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: cc.Component,
@@ -63,10 +64,13 @@ cc.Class({
         //     cc.log('----->texture:', texture);
         //     self.userHead.setTexture(texture);
         // });
-  
-        this.setUserAvatar(global.user['avatar']|| '001');
+
+        var faceid = userMode.getInstance().face_id;
+        var nick = userMode.getInstance().nick;
+
+        this.setUserAvatar(faceid);
         this.setUserFrame(global.user['frame'] || '001');
-        this.setName(global.user['nickName']);
+        this.setName(nick);
         this.setGold(global.user['userGold']);
         this.setLevel(global.user['userLevel']);
     },
@@ -114,7 +118,11 @@ cc.Class({
 
     setUserAvatar:function(avatar){
         var self = this;
-        if(avatar == '') return;
+        if(avatar<10){
+            avatar = '00'+avatar;
+        }else{
+            avatar = '0'+avatar;
+        }
 
         if(this._currAvatar != ''){
             var avatar = "monster" + this._currFrame + '_s';
@@ -122,7 +130,7 @@ cc.Class({
         }
 
         this._currAvatar = avatar;
-        var newavatar = "monster" + '001' + '_s';
+        var newavatar = "monster" + avatar + '_s';
         cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
             cc.log('----->spriteFrame:', spriteFrame);
             self.userAvatar.spriteFrame = spriteFrame;

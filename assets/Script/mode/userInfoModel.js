@@ -1,5 +1,8 @@
 var Request = require("../network/Request");
 var allDefine = require("./AllDefine");
+var GeneralServerRequest = require("../network/GeneralServerRequest");
+var popupManager = require("../unit/popupManager");
+var userMode = require("./userMode");
 
 var userInfoModel = {
     // 成员变量

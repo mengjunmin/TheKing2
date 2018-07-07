@@ -4,12 +4,17 @@ var userMode = cc.Class({
     // 成员变量
     userAcount:null,
     name : "userMode",
-    nickname:'',
+
+    nick:'',
     age : 0,
     uid : 0,
     token : '',
     phone : 0,
-
+    sex: 0,
+    face_id:0,
+    frame:0,
+    password:0,
+    
     allName:null,
     familyTreeName:null,
 
@@ -21,6 +26,7 @@ var userMode = cc.Class({
         this.phone = 0;
         this.allName = {};
         this.familyTreeName = null;
+        this.face_id = 1;
         console.log('this.allName:',this.allName);
     },
 

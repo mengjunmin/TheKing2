@@ -1,6 +1,7 @@
 var registerModel = require("../mode/registerModel");
 var userMode = require("../mode/userMode");
 var popupManager = require("../popupManager");
+var fileManager = require("../mode/fileManager");
 
 cc.Class({
     extends: cc.Component,
@@ -65,7 +66,7 @@ cc.Class({
 
         sex: 0,
         head: 0,
-
+        temp:null,
 
     },
 
@@ -92,8 +93,8 @@ cc.Class({
     },
     //假设这个回调是给 textChanged 事件的
     onNameTextChanged: function(text, editbox, customEventData) {
-
-        cc.log('onTextChanged: ', customEventData);
+        editbox.string = editbox.string.replace(/(^\s+)|(\s+$)/g,"");//去除空格
+        cc.log('onNameTextChanged: ', editbox.string);
         // this.label.string = text;
     },
     //假设这个回调是给 editingReturn 事件的
@@ -110,26 +111,21 @@ cc.Class({
 
     //邀请码
     onPasswordEditDidBegan: function(editbox, customEventData) {
-
         cc.log('onEditDidBegan: ', customEventData);
     },
 
     onPasswordEditDidEnded: function(editbox, customEventData) {
-
-
         cc.log('onEditDidEnded: ', customEventData);
     },
 
     onPasswordTextChanged: function(text, editbox, customEventData) {
 
-
+        editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
         cc.log('onTextChanged: ', customEventData);
         // this.label.string = text;
     },
 
     onPasswordEditingReturn: function(editbox, customEventData) {
-
-
         cc.log('onEditingReturn: ', customEventData);
     },
 
@@ -138,26 +134,19 @@ cc.Class({
 
     //Check验证码
     onAnPasswordEditDidBegan: function(editbox, customEventData) {
-
         cc.log('onEditDidBegan: ', customEventData);
     },
 
     onAnPasswordEditDidEnded: function(editbox, customEventData) {
-
-
         cc.log('onEditDidEnded: ', customEventData);
     },
 
     onAnPasswordTextChanged: function(text, editbox, customEventData) {
-
-
+        editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
         cc.log('onTextChanged: ', customEventData);
-        // this.label.string = text;
     },
 
     onAnPasswordEditingReturn: function(editbox, customEventData) {
-
-
         cc.log('onEditingReturn: ', customEventData);
     },
 
@@ -206,8 +195,7 @@ cc.Class({
     },
 
     onSexBtton: function(btn, data) {
-        cc.log('btn: ', btn);
-        cc.log('data: ', data);
+        cc.log('onSexBtton: ', data);
         this.sex = data;
     },
 
@@ -215,28 +203,55 @@ cc.Class({
         //这里 editbox 是一个 cc.EditBox 对象
         //这里的 customEventData 参数就等于你之前设置的 "foobar"
         var uid = userMode.getInstance().uid;
+        var token = userMode.getInstance().token;
         var nick = this.editName.string;
         var sex = this.sex;
         var head = this.head;
         var password = this.editPassword.string;
         var anpassword = this.editAnPassword.string;
 
-        var params = {
-            uid: uid,
-            nick: nick,
-            sex: sex,
-            head: head,
-            password: password,
-            anpassword: anpassword
+        if(nick==null || nick==''){
+            cc.log('name can not null');
+            return;
+        }
+        if(password==anpassword ){
+            if(password==null || password==''){
+                cc.log('密码不一致');
+                return;
+            }
+            if(password<6 || password>10){
+                cc.log('密码长度6-10');
+                return;
+            }
+        }else{
+            cc.log('password and anpassword  is not same');
+            return;
         }
 
-        registerModel.repFullInfo(params, this.requestLogin, this);
+        var params = {
+            uid: uid,
+            token: token,
+            nick: nick,
+            sex: sex,
+            face_id: head,
+            password: password
+        };
+        this.temp = params;
+
+        registerModel.repUpdateUser(params, this.requestLogin, this);
         cc.log('btn: ', btn); //PerfectInfo
 
         // cc.director.loadScene('HelloWorld');
     },
 
     requestLogin(data) {
+
+        for(var key in this.temp){
+            userMode.getInstance()[key] = this.temp[key];
+        }
+
+        fileManager.getInstance().saveStartApp();
+
         cc.director.loadScene('mainScene');
     },
 

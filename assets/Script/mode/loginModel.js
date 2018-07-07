@@ -1,33 +1,66 @@
 
 var Request = require("../network/Request");
 var allDefine = require("./AllDefine");
+var GeneralServerRequest = require("../network/GeneralServerRequest");
+var popupManager = require("../unit/popupManager");
+var userMode = require("./userMode");
+
 
 var loginModel = cc.Class({
+    ctor () {
+        console.log('--->loginModel ctor');
+        this.callback = null;
+        this.target = null;
+    },
+    repLogin(argu, callback, target, failcallback, failtarget) {
+        var self = this;
+        var params = {
+            phone: argu.phone,
+            invite: argu.invite,
+            password: argu.password,
+            code: argu.code
+        }
 
-    statics:{
-        repLogin(argu, callback, target) {
-            var self = this;
-            var params = {
-                phone: argu.phone,
-                invite: argu.invite,
-                password: argu.password,
-                code: argu.code
+        var router = '/g1/user/login2';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repLogin  onSuccess: ", result);
+                if (callback) callback.apply(target, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repLogin  onFail: ", result , errorCode);
+                if (failcallback) failcallback.apply(failtarget, [result]);
             }
-            var url = allDefine.serverAddress+'/g1/user/login2';
-            Request.Post(url, callback, target, params, false);
-        
-        },
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+    
+    },
     
         
-        repLrole  (argu, callback, target) {
-            var self = this;
-            var params = {
-                phone: argu.phone
+    repLrole  (argu, callback, target) {
+        var self = this;
+        var params = {
+            phone: argu.phone
+        }
+
+        var router = '/g1/user/lrole';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repLrole  onSuccess: ", result);
+                if (callback) callback.apply(target, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repLrole  onFail: ", result , errorCode);
+
             }
-            var url = allDefine.serverAddress+'/g1/user/lrole';
-            Request.Post(url, callback, target, params, false);
-        
-        },
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+    
+    },
 //完整用户信息
 
 /*
@@ -47,16 +80,30 @@ var loginModel = cc.Class({
     "g_vitality": 0.87
 }
 */
-        repUserFull  (argu, callback, target) {
-            var self = this;
-            var params = {
-                uid: argu.uid,
-                token: argu.token,
-            }
-            var url = allDefine.serverAddress+'/g1/user/full';
-            Request.Post(url, callback, target, params, false);
-        
+
+repUserFull  (argu, callback, target) {
+    var self = this;
+    var params = {
+        uid: argu.uid,
+        t: argu.token,
+    }
+
+    var router = '/g1/user/full';
+    var requestResultMethod = {
+        context: this,
+        onSuccess: function(result) {
+            console.log("----->repUserFull  onSuccess: ", result);
+            if (callback) callback.apply(target, [result]);
         },
+        onFail: function(result, errorCode) {
+            console.log("----->repUserFull  onFail: ", result , errorCode);
+
+        }
+    };
+
+    GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+
+},
 
 //用户小信息
 
@@ -68,27 +115,58 @@ var loginModel = cc.Class({
     "head": ""
 }
 */
-        repUserSimple  (argu, callback, target) {
-            var self = this;
-            var params = {
-                uid: argu.uid,
-                token: argu.token,
-            }
-            var url = allDefine.serverAddress+'/g1/user/simple';
-            Request.Post(url, callback, target, params, false);
-        
+repUserSimple  (argu, callback, target) {
+    var self = this;
+    var params = {
+        uid: argu.uid,
+        t: argu.token,
+    }
+
+
+    var router = '/g1/user/simple';
+    var requestResultMethod = {
+        context: this,
+        onSuccess: function(result) {
+            console.log("----->repUserSimple  onSuccess: ", result);
+            if (callback) callback.apply(target, [result]);
         },
+        onFail: function(result, errorCode) {
+            console.log("----->repUserSimple  onFail: ", result , errorCode);
 
-    },
+        }
+    };
 
-    ctor () {
-        console.log('--->loginModel ctor');
-        this.callback = null;
-        this.target = null;
-    },
+    GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
+},
+
+
+repImageCode  (argu, callback, target) {
+    var self = this;
+    var params = {
+        phone: argu.phone,
+    };
+
+    var router = '/g1/code/image';
+    var requestResultMethod = {
+        context: this,
+        onSuccess: function(result) {
+            console.log("----->repUserSimple  onSuccess: ", result);
+            if (callback) callback.apply(target, [result]);
+        },
+        onFail: function(result, errorCode) {
+            console.log("----->repUserSimple  onFail: ", result , errorCode);
+
+        }
+    };
+
+    GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+
+},
 
 
 });
 
-module.exports = loginModel;
+var LoginModel = new loginModel();
+
+module.exports = LoginModel;

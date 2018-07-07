@@ -3024,6 +3024,9 @@
     "checkImg": {
       "__id__": 58
     },
+    "checkLable": {
+      "__id__": 50
+    },
     "forgetPassBtn": {
       "__id__": 63
     },
@@ -3043,6 +3046,6 @@
       "__uuid__": "7d7c62e8-477a-4ac9-8a2d-7592d2aba260"
     },
     "allPhone": null,
-    "currName": null
+    "loginCount": 0
   }
 ]

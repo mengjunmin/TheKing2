@@ -1,6 +1,10 @@
 var Request = require("../network/Request");
+var GeneralServerRequest = require("../network/GeneralServerRequest");
+var popupManager = require("../unit/popupManager");
+var userMode = require("./userMode");
 
-var RetrievePasswordModel = cc.Class({
+
+var retrievePasswordModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -17,28 +21,59 @@ var RetrievePasswordModel = cc.Class({
     repSMS(phone, callback, context) {
         var self = this;
         console.log("----->repSMS");
-        var url = serverAddress + '/g1/code/sms';
-        Request.Post(url, callback, context, { phone: phone }, false);
+        var params = {
+            phone: phone
+        };
+        var router = '/g1/code/sms';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repSMS  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repSMS  onFail: ", result , errorCode);
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
     repRetrievePassword(argu, callback, context) {
         var self = this;
 
-         var params = {
-            phone:argu.phone,
+        var params = {
+            phone: argu.phone,
             code: argu.code,
-            invite: 'invite',
+            invite: argu.invite,
             password:argu.password,
-            nick:argu.nick,
-         }
-        console.log("----->repFullInfo");
-        var url = serverAddress + '/g1/user/fgt';
-        Request.Post(url, callback, context, params, false);
+        }
+        console.log("----->repRetrievePassword");
+
+        var router = '/g1/user/fgt';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                userMode.getInstance().uid = result.data._id;
+                userMode.getInstance().uid = result.t;
+
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repRetrievePassword  onFail: ", result , errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
 
 });
 
+
+
+var RetrievePasswordModel = new retrievePasswordModel();
 module.exports = RetrievePasswordModel;

@@ -51,7 +51,7 @@ cc.Class({
     },
 
     refreshView(){
-        this.lable.string = this.data;
+        this.lable.string = this.data['nick'] || '-------';
     },
     // update (dt) {},
 });

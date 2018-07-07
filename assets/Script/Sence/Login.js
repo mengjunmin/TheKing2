@@ -35,10 +35,13 @@ cc.Class({
         	default:null,
         	type:cc.EditBox
         },
-
         checkImg:{
             default:null,
             type:cc.Sprite
+        },
+        checkLable:{
+            default:null,
+            type:cc.Label
         },
 
         forgetPassBtn:{
@@ -69,40 +72,24 @@ cc.Class({
         },
 
         allPhone:null,
-        currName:null,
+        loginCount:0,
+        selectAcount:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.allPhone = {};
-
-    },
-
-    updateNameList(){
-        var list = this.nameList.getChildByName('scrollview');//scrollview
-        var view = list.getChildByName('view');
-
-        var content = view.getChildByName('content');
-        content.removeAllChildren();
-
-        var currPhone = this.editPhone.string;
-        var currPhoneName = this.allPhone[currPhone];
-        for(var i=0;i<10;i++){
-            var name = cc.instantiate(this.namePrefab);
-            var nameitem = name.getComponent('nameitem');
-            // nameitem.setData("安其拉"+i);
-            nameitem.setData(currPhoneName[i]);
-            nameitem.registerEvent(this.onTouchNameItem, this);
-            content.addChild(name);
-          
-        }
+        this.loginCount = 0;
+        this.selectAcount = {};
+        this.showImgCode(false);
     },
 
     onTouchNameItem(arg){
-        cc.log('onTouchNameItem: ',arg);
+        cc.log('[login]  onTouchNameItem: ',arg);
 
-        this.editName.string = arg;
+        this.editName.string = arg['nick'] || '-------';
+        this.selectAcount = arg;
         this.autoInputPassword(this.editPhone.string, arg);
     },
 
@@ -132,9 +119,9 @@ cc.Class({
     //假设这个回调是给 textChanged 事件的
     onPhoneTextChanged: function(text, editbox, customEventData) {
         var phone = editbox.string;
-        if(phone.length == 1){
-            console.log('------>userMode.allName:', userMode.getInstance().allName);
-            var one = userMode.getInstance().allName[''+phone];
+        if(phone.length == 11){
+            console.log('------>this.allPhone:', this.allPhone);
+            var one = this.allPhone[''+phone];
             if(!one){
                 //联网获取数据
                 var params = {
@@ -146,9 +133,14 @@ cc.Class({
     },
 
     requestLrole(data){
-        var phone = data.phone;
-        userMode.allPhone[''+phone] = data.list;
-
+        var list = data.list;
+        if(list.length>0){
+            var one = list[0];
+            var _id = one._id;
+            var arr = _id.split("@");
+            this.allPhone[arr[1]] = data.list;
+            console.log('------>this.allPhone:', this.allPhone);
+        }
 
     },
     //假设这个回调是给 editingReturn 事件的
@@ -167,9 +159,9 @@ cc.Class({
     },
 
     onNameEditingReturn: function(editbox,  customEventData) {
-        var name = editbox.string;
-        //查找本地数据，不全密码
-        this.autoInputPassword(name, this.editPhone.string);
+        // var name = editbox.string;
+        // //查找本地数据，不全密码
+        // this.autoInputPassword(name, this.editPhone.string);
     },
 
     autoInputPassword(nane, phone){
@@ -237,7 +229,9 @@ cc.Class({
     },
 
     onRegisterBtton: function(btn) {
-        cc.director.loadScene('Register');
+        // cc.director.loadScene('Register');
+
+        this.getImgCode();
     },
 
     onLoginBtton: function(btn) {
@@ -246,19 +240,31 @@ cc.Class({
         }else{
             
         }
-
+        var invite = this.selectAcount.invite;
+        var phone = this.editPhone.string;
+        var password = this.editPassword.string;
         var params = {
-            phone: this.editPhone.string,
-            invite: this.editCheck.string,
-            password: this.editPassword.string,
+            phone: phone,
+            invite: invite,
+            password: password,
             code: 'code',
         }
-        loginModel.repLogin(params, this.requestLogin, this );
+        loginModel.repLogin(params, this.requestLogin, this,  this.requestLoginFail, this);
 
     },
 
-    requestLogin: function(btn) {
+    requestLogin: function(data) {
+        //登录成功，返回个人数据。
+
+
+
         cc.director.loadScene('mainScene');
+    },
+
+    requestLoginFail: function(data) {
+        //显示图片验证码
+
+
     },
 
     onToggleBtton: function(btn) {
@@ -266,18 +272,51 @@ cc.Class({
     },
 
     onDownmenuBtton: function(btn) {
-        if(this.editPhone.string.length != 11){
+        var phone = this.editPhone.string;
+        if(phone.length != 11){
             cc.log('手机号不够11位 ');
             return;
         }
 
+        var list = this.allPhone[phone];
+
         var conf = {
             fun:this.onTouchNameItem,
             target:this,
-            data:["1111111","222222","3333333","444444","5555555"],
+            data:list,
         };
         popupManager.create('namelist', conf);
 
     },
+
+
+    //图片验证码
+    showImgCode(isshow){
+        this.editCheck.node.active = isshow;
+        this.checkImg.node.active = isshow;
+        this.checkLable.node.active = isshow;
+    },
+
+    getImgCode(){
+        if(this.editPhone.string.length != 11){
+            cc.log('手机号不够11位 ');
+        }else{
+            
+        }
+
+        var params = {
+            phone: this.editPhone.string,
+        }
+        loginModel.repImageCode(params, this.requestImgCode, this);
+    },
+
+    requestImgCode(data){
+        cc.log('----->requestImgCode: ', data);
+    },
+
+
+
+
+
 
 });

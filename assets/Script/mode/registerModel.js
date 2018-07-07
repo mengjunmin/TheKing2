@@ -135,17 +135,17 @@ var registerModel = cc.Class({
         GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
-    repFullInfo(argu, callback, context) {
+    repUpdateUser(argu, callback, context) {
         var self = this;
         var params = {
             uid: argu.uid,
+            t:argu.token,
             nick: argu.nick,
             sex: argu.sex,
-            head: argu.head,
-            password: argu.password,
-            //anpassword: argu.anpassword
+            face_id: argu.face_id,
+            password: argu.password
         }
-        console.log("----->repFullInfo");
+        console.log("----->repUpdateUser");
         // var url = allDefine.serverAddress + '/g1/user/update';
         // Request.Post(url, callback, context, params, false);
 
@@ -153,11 +153,11 @@ var registerModel = cc.Class({
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
-                console.log("----->repFullInfo  onSuccess: ", result);
+                console.log("----->repUpdateUser  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
             onFail: function(result, errorCode) {
-                console.log("----->repFullInfo  onFail: ", result , errorCode);
+                console.log("----->repUpdateUser  onFail: ", result , errorCode);
 
             }
         };
@@ -171,5 +171,5 @@ var registerModel = cc.Class({
 
 
 
-var registerModel = new registerModel();
-module.exports = registerModel;
+var RegisterModel = new registerModel();
+module.exports = RegisterModel;

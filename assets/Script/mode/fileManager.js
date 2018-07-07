@@ -73,7 +73,7 @@ var userData=JSON.parse(encrypt.decrypt(cipherText,secretkey,256));
         return value;
     },
     saveStartApp(){
-        this.saveData(AllDefine.startApp);
+        this.saveData(AllDefine.startApp,1);
     },
 
 
