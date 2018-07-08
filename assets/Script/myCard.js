@@ -44,7 +44,7 @@ cc.Class({
     getList(){
         var pp = {
             uid: 11111,
-            token: 'qeqeqweqeqwe',
+            t: 'qeqeqweqeqwe',
         }
         // shopModel.repShopList(pp, this.repList, this);
         this.repList(null);

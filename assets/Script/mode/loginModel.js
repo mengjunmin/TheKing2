@@ -85,7 +85,7 @@ repUserFull  (argu, callback, target) {
     var self = this;
     var params = {
         uid: argu.uid,
-        t: argu.token,
+        t: argu.t,
     }
 
     var router = '/g1/user/full';
@@ -119,7 +119,7 @@ repUserSimple  (argu, callback, target) {
     var self = this;
     var params = {
         uid: argu.uid,
-        t: argu.token,
+        t: argu.t,
     }
 
 

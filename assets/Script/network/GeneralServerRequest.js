@@ -10,7 +10,7 @@ var popupManager = require("../unit/popupManager");
 
 
  var ErrorCode = {
-    INTERNAL_SERVER_ERROR:1,
+    // INTERNAL_SERVER_ERROR:1,
     INVALID_REQUEST_PARAMS:2,
     ACTIVITY_NOT_OPEN:3, //活动尚未开启
     ACTIVITY_END:4, //活动结束

@@ -32,7 +32,7 @@ cc.Class({
 
         for(var i=0;i<data.length;i++){
             var one = data[i];
-            if(one.uid == userMode.getInstance().uid){
+            if(one.uid == userMode.getInstance().user.uid){
                 this._objectSelf = one;
                 break;
             }

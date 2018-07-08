@@ -42,7 +42,7 @@ var shopModel = {
         var self = this;
         var pp = {
             uid: argu.uid,
-            token: argu.token,
+            t: argu.t,
         }
         console.log("----->repMailList");
         var url = allDefine.serverAddress + '/g1/msg/list';
@@ -61,7 +61,7 @@ var shopModel = {
         console.log("----->repDellMail");
         var pp = {
             uid: argu.uid,
-            token: argu.token,
+            t: argu.t,
             ids:1
         }
         var url = allDefine.serverAddress + '/g1/msg/list';

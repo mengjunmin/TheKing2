@@ -74,6 +74,7 @@ cc.Class({
         allPhone:null,
         loginCount:0,
         selectAcount:null,
+        showImage:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -82,7 +83,8 @@ cc.Class({
         this.allPhone = {};
         this.loginCount = 0;
         this.selectAcount = {};
-        this.showImgCode(false);
+        this.showImage = false;
+        this.showImgCode(this.showImage);
     },
 
     onTouchNameItem(arg){
@@ -229,41 +231,61 @@ cc.Class({
     },
 
     onRegisterBtton: function(btn) {
-        // cc.director.loadScene('Register');
+        cc.director.loadScene('Register');
 
-        this.getImgCode();
+        // this.getImgCode();
     },
 
     onLoginBtton: function(btn) {
-        if(this.editPhone.string.length != 11){
-            cc.log('手机号不够11位 ');
-        }else{
-            
-        }
         var invite = this.selectAcount.invite;
         var phone = this.editPhone.string;
         var password = this.editPassword.string;
+        var nick = this.editName.string;
+
+        if(phone.length != 11){
+            cc.log('手机号不够11位 ');
+            return;
+        }
+        if(nick.length == 0){
+            cc.log('输入昵称');
+            return;
+        }
+        if(password.length == 0){
+            cc.log('输入密码 ');
+            return;
+        }
+
         var params = {
             phone: phone,
             invite: invite,
             password: password,
-            code: 'code',
+        };
+
+        if(this.showImage){
+            if(this.editCheck.string==0){
+                cc.log('输入验证码');
+                return;
+            }else{
+                params['code'] = this.editCheck.string;
+            }
         }
+
         loginModel.repLogin(params, this.requestLogin, this,  this.requestLoginFail, this);
 
     },
 
     requestLogin: function(data) {
         //登录成功，返回个人数据。
-
-
+        userMode.getInstance().updataUser(data.data);
 
         cc.director.loadScene('mainScene');
     },
 
     requestLoginFail: function(data) {
         //显示图片验证码
-
+        var image = data.image;
+        this.showImage = image;
+        this.showImgCode(image);
 
     },
 

@@ -65,7 +65,7 @@ cc.Class({
         },
 
         sex: 0,
-        head: 0,
+        faceid: 0,
         temp:null,
 
     },
@@ -179,12 +179,14 @@ cc.Class({
     },
 
     onAvatarList(data){
-        cc.log('onAvatarList: ', data);
+        this.faceid = data;
         this.setUserAvatar(data);
+        cc.log('onAvatarList: this.faceid: ', this.faceid);
     },
 
     setUserAvatar:function(avatar){
         var self = this;
+        
         var idx = avatar<10?('00'+avatar):('0'+avatar);
         var newavatar = "monster" + idx + '_s'
         cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
@@ -202,11 +204,11 @@ cc.Class({
     onDoneBtton: function(btn) {
         //这里 editbox 是一个 cc.EditBox 对象
         //这里的 customEventData 参数就等于你之前设置的 "foobar"
-        var uid = userMode.getInstance().uid;
-        var token = userMode.getInstance().token;
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var nick = this.editName.string;
         var sex = this.sex;
-        var head = this.head;
+        var faceid = this.faceid;
         var password = this.editPassword.string;
         var anpassword = this.editAnPassword.string;
 
@@ -230,24 +232,21 @@ cc.Class({
 
         var params = {
             uid: uid,
-            token: token,
+            token: t,
             nick: nick,
             sex: sex,
-            face_id: head,
+            face_id: faceid,
             password: password
         };
         this.temp = params;
 
         registerModel.repUpdateUser(params, this.requestLogin, this);
-        cc.log('btn: ', btn); //PerfectInfo
-
-        // cc.director.loadScene('HelloWorld');
     },
 
     requestLogin(data) {
 
         for(var key in this.temp){
-            userMode.getInstance()[key] = this.temp[key];
+            userMode.getInstance().user[key] = this.temp[key];
         }
 
         fileManager.getInstance().saveStartApp();

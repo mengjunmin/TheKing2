@@ -42,7 +42,7 @@ var myCardModel = {
         var self = this;
         var pp = {
             uid: argu.uid,
-            token: argu.token,
+            t: argu.t,
         }
         console.log("----->repMailList");
         var url = allDefine.serverAddress + '/g1/msg/list';

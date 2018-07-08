@@ -45,6 +45,9 @@ cc.Class({
 
     updataList(){
         this.cleanList();
+        if(!this._data){
+            return;
+        }
         for(var i=0;i<this._data.length;i++){
             var item = cc.instantiate(this.itemPrefab);
             var itemJs = item.getComponent('nameitem');

@@ -3,6 +3,7 @@ var global = require('../mode/Global');
 var Utils = require("../mode/Utils");
 var popupManager = require("../popupManager");
 var fileManager = require("../mode/fileManager");
+var userMode = require("../mode/userMode");
 
 cc.Class({
     extends: cc.Component,
@@ -36,7 +37,7 @@ cc.Class({
         //     self.readData();
             
         // },2000);
-
+        userMode.getInstance();
         this.scheduleOnce(function() {
             // 这里的 this 指向 component
             this.readData();

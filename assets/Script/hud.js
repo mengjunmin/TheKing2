@@ -65,8 +65,8 @@ cc.Class({
         //     self.userHead.setTexture(texture);
         // });
 
-        var faceid = userMode.getInstance().face_id;
-        var nick = userMode.getInstance().nick;
+        var faceid = userMode.getInstance().user.face_id;
+        var nick = userMode.getInstance().user.nick;
 
         this.setUserAvatar(faceid);
         this.setUserFrame(global.user['frame'] || '001');

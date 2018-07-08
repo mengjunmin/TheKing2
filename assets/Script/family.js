@@ -74,7 +74,7 @@ cc.Class({
     getList(){
         var pp = {
             uid: 11111,
-            token: 'qeqeqweqeqwe',
+            t: 'qeqeqweqeqwe',
         }
         familyModel.repFamilyList(pp, this.repFamilyList, this);
     },
@@ -124,7 +124,7 @@ cc.Class({
         cc.log('----->onJoin');
         var pp = {
             uid: 11111,
-            token: 'qeqeqweqeqwe',
+            t: 'qeqeqweqeqwe',
         }
         familyModel.repFamilyJoin(pp, this.reqJoin, this);
 

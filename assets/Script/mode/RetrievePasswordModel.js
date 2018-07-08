@@ -55,8 +55,6 @@ var retrievePasswordModel = cc.Class({
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
-                userMode.getInstance().uid = result.data._id;
-                userMode.getInstance().uid = result.t;
 
                 if (callback) callback.apply(context, [result]);
             },

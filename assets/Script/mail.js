@@ -44,7 +44,7 @@ cc.Class({
     getMailList(){
         var pp = {
             uid: 11111,
-            token: 'qeqeqweqeqwe',
+            t: 'qeqeqweqeqwe',
         }
         // mailModel.repMailList(pp, this.repMailList, this);
         this.repMailList(null);
@@ -101,7 +101,7 @@ cc.Class({
     dellMail(id){
         var pp = {
             uid: 11111,
-            token: 'qeqeqweqeqwe',
+            t: 'qeqeqweqeqwe',
             ids:id
         }
         mailModel.repDellMail(pp, this.repDellMail, this);

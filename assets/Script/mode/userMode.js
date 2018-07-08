@@ -1,33 +1,36 @@
 var FileManager = require("./fileManager");
 
-var userMode = cc.Class({
-    // 成员变量
-    userAcount:null,
-    name : "userMode",
 
+
+var userData = {
     nick:'',
     age : 0,
     uid : 0,
-    token : '',
+    t : '',
     phone : 0,
     sex: 0,
     face_id:0,
     frame:0,
     password:0,
-    
+};
+
+var userMode = cc.Class({
+    // 成员变量
+    userAcount:null,
+    name : "userMode",
+  
+    user:null,
     allName:null,
     familyTreeName:null,
 
     ctor () {
         console.log('[userMode]  ctor');
-        this.nickname = "Leovany";
-        this.age = 20;
+        this.user = userData;
+
         this.userAcount = {};
-        this.phone = 0;
         this.allName = {};
         this.familyTreeName = null;
-        this.face_id = 1;
-        console.log('this.allName:',this.allName);
+        console.log('[userMode]   this.user: ',this.user);
     },
 
 
@@ -54,7 +57,11 @@ var userMode = cc.Class({
         var data = FileManager.getInstance.readUserAcount(this.phone);
     },
 
-
+    updataUser(data){
+        for(var key in data){
+            this.user[key] = data[key];
+        }
+    },
 
 
 });

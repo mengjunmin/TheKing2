@@ -27,7 +27,7 @@ var familyModel = {
         var self = this;
         var pp = {
             uid: argu.uid,
-            token: argu.token,
+            t: argu.t,
         }
         console.log("----->repFamilyJoin");
         var url = allDefine.serverAddress + '/g1/family/join';
@@ -78,7 +78,7 @@ var familyModel = {
         console.log("----->repFamilyList");
         var pp = {
             uid: argu.uid,
-            token: argu.token,
+            t: argu.t,
         }
         var url = allDefine.serverAddress + '/g1/family/list';
         Request.Post(url, callback, context, pp, false);

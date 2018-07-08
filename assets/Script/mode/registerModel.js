@@ -86,8 +86,8 @@ var registerModel = cc.Class({
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
-                userMode.getInstance().uid = result.data._id;
-                userMode.getInstance().uid = result.t;
+                userMode.getInstance().user.uid = result.data._id;
+                userMode.getInstance().user.t = result.t;
 
                 if (callback) callback.apply(context, [result]);
             },
@@ -139,13 +139,13 @@ var registerModel = cc.Class({
         var self = this;
         var params = {
             uid: argu.uid,
-            t:argu.token,
+            t:argu.t,
             nick: argu.nick,
             sex: argu.sex,
             face_id: argu.face_id,
             password: argu.password
         }
-        console.log("----->repUpdateUser");
+        console.log("----->repUpdateUser  params: ", params);
         // var url = allDefine.serverAddress + '/g1/user/update';
         // Request.Post(url, callback, context, params, false);
 

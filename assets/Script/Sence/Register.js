@@ -195,8 +195,8 @@ cc.Class({
 
         var token = data.t;
         var uid = data.data._id;
-        userMode.getInstance().token = token;
-        userMode.getInstance().uid = uid;
+        userMode.getInstance().user.t = token;
+        userMode.getInstance().user.uid = uid;
 
         cc.director.loadScene('PerfectInfo');
 
