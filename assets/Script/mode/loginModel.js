@@ -151,11 +151,11 @@ repImageCode  (argu, callback, target) {
     var requestResultMethod = {
         context: this,
         onSuccess: function(result) {
-            console.log("----->repUserSimple  onSuccess: ", result);
+            console.log("----->repImageCode  onSuccess: ", result);
             if (callback) callback.apply(target, [result]);
         },
         onFail: function(result, errorCode) {
-            console.log("----->repUserSimple  onFail: ", result , errorCode);
+            console.log("----->repImageCode  onFail: ", result , errorCode);
 
         }
     };

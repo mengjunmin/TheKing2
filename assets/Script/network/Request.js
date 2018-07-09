@@ -242,9 +242,8 @@ var RequestWrapper = cc.Class({
         try {
             data = JSON.parse(data);
         } catch (e) {
-            data = {error:ErrorCode.JSON_PARSE_ERROR};
+            data = {error:ErrorCode.JSON_PARSE_ERROR, data:data};
         }
-
         console.log(" --> res :", this._req.response);
 
         this.releaseTimeout();

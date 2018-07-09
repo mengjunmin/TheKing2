@@ -37,7 +37,7 @@ cc.Class({
         },
         checkImg:{
             default:null,
-            type:cc.Sprite
+            type:cc.Node
         },
         checkLable:{
             default:null,
@@ -75,6 +75,7 @@ cc.Class({
         loginCount:0,
         selectAcount:null,
         showImage:null,
+        group:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -96,8 +97,19 @@ cc.Class({
     },
 
     start () {
-        cc.log('start: ');
+        cc.log('[Login]    start: ');
         popupManager.init(this);
+
+        // var group = this.addComponent('R.group');
+        // // group.scale = cc.v2(5, 5);
+        // cc.loader.loadRes('svg/tiger', (err, txt) => {
+        //     if (err) {
+        //         cc.error(err.toString());
+        //         return;
+        //     }
+        //     cc.log('svg/tiger    txt: ', txt);
+        //     group.loadSvg(txt);
+        // });
     },
 
     onEnable: function () {
@@ -286,7 +298,7 @@ cc.Class({
         var image = data.image;
         this.showImage = image;
         this.showImgCode(image);
-
+        this.getImgCode();
     },
 
     onToggleBtton: function(btn) {
@@ -315,8 +327,18 @@ cc.Class({
     //图片验证码
     showImgCode(isshow){
         this.editCheck.node.active = isshow;
-        this.checkImg.node.active = isshow;
+        this.checkImg.active = isshow;
         this.checkLable.node.active = isshow;
+
+        if(isshow){
+            this.checkImg.on(cc.Node.EventType.TOUCH_END, this.onImgCode, this);
+        }else{
+            this.checkImg.off(cc.Node.EventType.TOUCH_END, this.onImgCode, this);
+        }
+    },
+
+    onImgCode(){
+        this.getImgCode();
     },
 
     getImgCode(){
@@ -333,7 +355,27 @@ cc.Class({
     },
 
     requestImgCode(data){
-        cc.log('----->requestImgCode: ', data);
+        var img = this.checkImg.getChildByName('img');
+        if(img){
+            var group = img.getComponent('R.group');
+            group.node.destroy();
+        }
+
+        var img  = new cc.Node('img');
+        this.checkImg.addChild(img);
+        var group = img.addComponent('R.group');
+        group.loadSvg(data.data);
+        
+        // cc.loader.loadRes('svg/tiger', (err, txt) => {
+        //     if (err) {
+        //         cc.error(err.toString());
+        //         return;
+        //     }
+        //     cc.log('svg/tiger    txt: ', txt);
+        //     group.loadSvg(txt);
+        // });
+
+  
     },
 
 

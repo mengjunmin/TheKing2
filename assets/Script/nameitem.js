@@ -33,6 +33,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
+        this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     },
 
