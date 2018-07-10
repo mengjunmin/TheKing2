@@ -288,8 +288,8 @@ cc.Class({
 
     requestLogin: function(data) {
         //登录成功，返回个人数据。
-        userMode.getInstance().updataUser(data.data);
-
+        userMode.getInstance().updataUser(data);
+        cc.log('userMode.getInstance().user: ', userMode.getInstance().user);
         cc.director.loadScene('mainScene');
     },
 

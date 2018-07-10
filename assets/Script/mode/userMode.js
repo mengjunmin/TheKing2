@@ -58,9 +58,12 @@ var userMode = cc.Class({
     },
 
     updataUser(data){
-        for(var key in data){
-            this.user[key] = data[key];
+        this.user['t']=data.t;
+        var user = data.data;
+        for(var key in user){
+            this.user[key] = user[key];
         }
+        this.user['uid'] = user['_id'];
     },
 
 

@@ -72,9 +72,11 @@ cc.Class({
     },
 
     getList(){
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
         }
         familyModel.repFamilyList(pp, this.repFamilyList, this);
     },
@@ -122,9 +124,11 @@ cc.Class({
 
     onJoin:function(obj,data){
         cc.log('----->onJoin');
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
         }
         familyModel.repFamilyJoin(pp, this.reqJoin, this);
 
