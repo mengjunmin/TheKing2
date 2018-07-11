@@ -8,15 +8,15 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var global = require('Global'); 
+var global = require('Global');
 var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        _currFrame:'',
-        _currAvatar:'',
+        _currFrame: '',
+        _currAvatar: '',
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -32,32 +32,32 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        nickName:{
-            default:null,
-            type:cc.Label,
+        nickName: {
+            default: null,
+            type: cc.Label,
         },
-        userLevel:{
-            default:null,
-            type:cc.Label,
+        userLevel: {
+            default: null,
+            type: cc.Label,
         },
-        userFrame:{
-            default:null,
-            type:cc.Sprite,
+        userFrame: {
+            default: null,
+            type: cc.Sprite,
         },
-        userAvatar:{
-            default:null,
-            type:cc.Sprite,
+        userAvatar: {
+            default: null,
+            type: cc.Sprite,
         },
-        userGold:{
-            default:null,
-            type:cc.Label,
+        userGold: {
+            default: null,
+            type: cc.Label,
         },
     },
 
-   
+
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         // this.userAvatar;
         var self = this;
         // cc.loader.loadRes("frame001", function (err, texture) {
@@ -75,11 +75,11 @@ cc.Class({
         this.setLevel(global.user['userLevel']);
     },
 
-    start () {
+    start() {
 
     },
 
-    onPay:function(obj,data){
+    onPay: function(obj, data) {
         cc.log('----->onPay');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
@@ -87,51 +87,51 @@ cc.Class({
 
     },
 
-    setName:function(name){
+    setName: function(name) {
         this.nickName.string = name;
     },
 
-    setLevel:function(level){
+    setLevel: function(level) {
         this.userLevel.string = level;
     },
 
-    setGold:function(gold){
+    setGold: function(gold) {
         this.userGold.string = gold;
     },
-    
-    setUserFrame:function(frame){
-        var self = this;
-        if(frame == '') return;
 
-        if(this._currFrame != ''){
+    setUserFrame: function(frame) {
+        var self = this;
+        if (frame == '') return;
+
+        if (this._currFrame != '') {
             var frame = "frame" + this._currFrame;
             cc.loader.releaseRes(frame, cc.SpriteFrame);
         }
 
         this._currFrame = frame;
         var newframe = "frame" + "001";
-        cc.loader.loadRes(newframe, cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes(newframe, cc.SpriteFrame, function(err, spriteFrame) {
             cc.log('----->spriteFrame:', spriteFrame);
             self.userFrame.spriteFrame = spriteFrame;
         });
     },
 
-    setUserAvatar:function(avatar){
+    setUserAvatar: function(avatar) {
         var self = this;
-        if(avatar<10){
-            avatar = '00'+avatar;
-        }else{
-            avatar = '0'+avatar;
+        if (avatar < 10) {
+            avatar = '00' + avatar;
+        } else {
+            avatar = '0' + avatar;
         }
 
-        if(this._currAvatar != ''){
-            var avatar = "monster" + this._currFrame + '_s';
-            cc.loader.releaseRes(avatar, cc.SpriteFrame);
+        if (this._currAvatar != '') {
+            var oldavatar = "monster" + this._currFrame + '_s';
+            cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
         }
 
         this._currAvatar = avatar;
         var newavatar = "monster" + avatar + '_s';
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes(newavatar, cc.SpriteFrame, function(err, spriteFrame) {
             cc.log('----->spriteFrame:', spriteFrame);
             self.userAvatar.spriteFrame = spriteFrame;
         });

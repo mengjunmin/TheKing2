@@ -21,22 +21,22 @@ cc.Class({
         //     }
         // },
 
-        callback:null,
-        objecttarget:null,
+        callback: null,
+        objecttarget: null,
 
     },
-    mainSence:null,
+    mainSence: null,
 
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
-      
+    start() {
+
     },
 
-    onUserInfo:function(obj,data){
+    onUserInfo: function(obj, data) {
         cc.log('----->onUserInfo');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
@@ -44,7 +44,7 @@ cc.Class({
         this.mainSence.goToLayer("userinfo");
     },
 
-    onMail:function(obj,data){
+    onMail: function(obj, data) {
         cc.log('----->onMail');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
@@ -52,7 +52,7 @@ cc.Class({
         this.onCallBack('onMail');
     },
 
-    onGame:function(obj,data){
+    onGame: function(obj, data) {
         cc.log('----->onGame');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
@@ -60,7 +60,7 @@ cc.Class({
         this.onCallBack('onGame');
     },
 
-    onShop:function(obj,data){
+    onShop: function(obj, data) {
         cc.log('----->onShop');
         // cc.log('----->obj:', obj);
         // cc.log('----->data:', data);
@@ -69,20 +69,28 @@ cc.Class({
 
     },
 
-    onFamily:function(obj,data){
+    onFamily: function(obj, data) {
         this.mainSence.goToLayer("family");
         // Utils.goToLayer(this.mainSence, currname);
 
     },
 
-    setCallBack:function(fun,target){
+    setCallBack: function(fun, target) {
         this.callback = fun;
         this.objecttarget = target;
 
     },
 
-    onCallBack:function(data){
+    onCallBack: function(data) {
         if (this.callback) this.callback.apply(this.objecttarget, [data, 9]);
-    }
+    },
+
+    onIn: function() {
+        cc.log('----->mainMenu onIn');
+    },
+
+    onOut: function() {
+        cc.log('----->mainMenu onOut');
+    },
     // update (dt) {}, family
 });
