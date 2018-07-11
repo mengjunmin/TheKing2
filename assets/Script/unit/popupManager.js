@@ -27,6 +27,9 @@ var popupManager = {
             return;
         }
 
+        if(!context){
+            context = {};
+        }
         var closeBack = function(...args){
             // cc.log('---->closeBack:', this);
             // cc.log('---->args:', args);

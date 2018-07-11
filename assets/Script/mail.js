@@ -1,6 +1,6 @@
 var basePopup = require("./basePopup");
 var mailModel = require("./mode/mailModel");
-
+var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: basePopup,
@@ -42,47 +42,49 @@ cc.Class({
     },
 
     getMailList(){
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
         }
-        // mailModel.repMailList(pp, this.repMailList, this);
-        this.repMailList(null);
+        mailModel.repMailList(pp, this.repMailList, this);
+        // this.repMailList(null);
     },
 
     repMailList(data){
         console.log("======>repMailList");
-        this._data = data;
-        this._data = [
-            {
-                "id": 1,
-                "title": "11111",
-                "content": "121212",
-                "action": "",
-                "status": 0
-            },
-            {
-                "id": 1,
-                "title": "222222",
-                "content": "212121212",
-                "action": "",
-                "status": 1
-            },
-            {
-                "id": 1,
-                "title": "3333333",
-                "content": "212121212",
-                "action": "",
-                "status": 1
-            },
-            {
-                "id": 1,
-                "title": "4444444",
-                "content": "212121212",
-                "action": "",
-                "status": 1
-            }
-        ];
+        this._data = data.list;
+        // this._data = [
+        //     {
+        //         "id": 1,
+        //         "title": "11111",
+        //         "content": "121212",
+        //         "action": "",
+        //         "status": 0
+        //     },
+        //     {
+        //         "id": 1,
+        //         "title": "222222",
+        //         "content": "212121212",
+        //         "action": "",
+        //         "status": 1
+        //     },
+        //     {
+        //         "id": 1,
+        //         "title": "3333333",
+        //         "content": "212121212",
+        //         "action": "",
+        //         "status": 1
+        //     },
+        //     {
+        //         "id": 1,
+        //         "title": "4444444",
+        //         "content": "212121212",
+        //         "action": "",
+        //         "status": 1
+        //     }
+        // ];
 
         this.updataList();
     },
@@ -99,16 +101,19 @@ cc.Class({
 
 
     dellMail(id){
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
             ids:id
         }
+
         mailModel.repDellMail(pp, this.repDellMail, this);
     },
 
     repDellMail(data){
-        this._data = data;
+        this._data = data.list;
 
         this.updataList();
     },

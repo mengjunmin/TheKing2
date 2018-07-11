@@ -65,8 +65,9 @@ cc.Class({
         //     self.userHead.setTexture(texture);
         // });
 
-        var faceid = userMode.getInstance().user.face_id;
-        var nick = userMode.getInstance().user.nick;
+        var faceid = userMode.getInstance().user.face_id || 1;
+        var nick = userMode.getInstance().user.nick || '无名先生';
+        var level = userMode.getInstance().user.level || 1;
 
         this.setUserAvatar(faceid);
         this.setUserFrame(global.user['frame'] || '001');
@@ -92,7 +93,7 @@ cc.Class({
     },
 
     setLevel: function(level) {
-        this.userLevel.string = level;
+        this.userLevel.string = 'LV.' +level;
     },
 
     setGold: function(gold) {

@@ -5,7 +5,7 @@ var popupManager = require("../unit/popupManager");
 var userMode = require("./userMode");
 
 
-var mailModel = {
+var mailModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -39,14 +39,27 @@ var mailModel = {
 }
 */
     repMailList(argu, callback, context) {
+
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repMailList");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/mg/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repMailList  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repMailList  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
 //  家族列表
@@ -58,21 +71,36 @@ var mailModel = {
 */
     repDellMail(argu, callback, context) {
         var self = this;
-        console.log("----->repDellMail");
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
-            ids:1
+            ids:argu.ids,
         }
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/mg/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repDellMail  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repDellMail  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
 
 
 
-};
+});
 
-module.exports = mailModel;
+
+
+var MailModel = new mailModel();
+module.exports = MailModel;
 

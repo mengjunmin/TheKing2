@@ -1,7 +1,6 @@
 var basePopup = require("basePopup");
 var userMode = require("./mode/userMode");
 var familyModel = require("./mode/familyModel");
-var Utils = require("./mode/Utils");
 
 cc.Class({
     extends: cc.Component,

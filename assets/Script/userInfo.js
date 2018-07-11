@@ -1,7 +1,7 @@
 var userMode = require("./mode/userMode");
 var userInfoModel = require("./mode/userInfoModel");
 var Utils = require("./mode/Utils");
-
+var popupManager = require("./unit/popupManager");
 
 
 cc.Class({
@@ -84,13 +84,15 @@ cc.Class({
     },
 
     start() {
-        this.getFullUserIfo();
+        
     },
 
     getFullUserIfo() {
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
         }
         userInfoModel.repFullUserInfo(pp, this.repFullUserInfo, this);
     },
@@ -115,18 +117,30 @@ cc.Class({
     onHistoryScoreBtn: function(obj, data) {
         cc.log('----->onHistoryScoreBtn');
 
-
+        var conf = {
+            closeCallback: this.aaa, // 取消按钮的回调方法
+            closeCallbackObj: this, // 取消按钮的回调this
+        };
+        popupManager.create('historyscore', conf);
     },
 
     onInvitationCardBtn: function(obj, data) {
         cc.log('----->onInvitationCardBtn');
-
+        var conf = {
+            closeCallback: this.aaa, // 取消按钮的回调方法
+            closeCallbackObj: this, // 取消按钮的回调this
+        };
+        popupManager.create('mycard', conf);
 
     },
 
     onRewardBtn: function(obj, data) {
         cc.log('----->onRewardBtn');
-
+        var conf = {
+            closeCallback: this.aaa, // 取消按钮的回调方法
+            closeCallbackObj: this, // 取消按钮的回调this
+        };
+        popupManager.create('myreward', conf);
     },
 
     onBack: function(obj, data) {
@@ -139,6 +153,7 @@ cc.Class({
 
     onIn: function() {
         cc.log('----->userInfo onIn');
+        this.getFullUserIfo();
     },
 
     onOut: function() {

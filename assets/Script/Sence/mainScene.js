@@ -3,7 +3,7 @@ var hud = require('../hud');
 var Singleton = require("../mode/Singleton");
 var basePopup = require("../basePopup");
 var Utils = require("../mode/Utils");
-var popupManager = require("../popupManager");
+var popupManager = require("../unit/popupManager");
 
 cc.Class({
     extends: cc.Component,

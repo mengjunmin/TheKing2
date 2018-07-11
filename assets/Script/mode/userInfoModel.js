@@ -4,7 +4,7 @@ var GeneralServerRequest = require("../network/GeneralServerRequest");
 var popupManager = require("../unit/popupManager");
 var userMode = require("./userMode");
 
-var userInfoModel = {
+var userInfoModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -39,63 +39,131 @@ var userInfoModel = {
 */
     repFullUserInfo(argu, callback, context) {
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repMailList");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/user/full';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repFullUserInfo  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repFullUserInfo  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
     repHistoryScore:function(argu, callback, context){
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repHistoryScore");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/user/points/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repHistoryScore  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repHistoryScore  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
     repInvitationCard:function(argu, callback, context){
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repInvitationCard");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/user/invite/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repInvitationCard  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repInvitationCard  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
 
     },
 
     repReward:function(argu, callback, context){
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repReward");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/user/award/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repReward  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repReward  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
-//  家族列表
-/*
-{
-    "result": 1,
-    "msg": "成功删除邮件"
-}
-*/
+
+    repMySuns:function(argu, callback, context){
+        var self = this;
+        var params = {
+            uid: argu.uid,
+            t: argu.t,
+        }
+    
+        var router = '/g1/user/child/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repMySuns  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repMySuns  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+    },
 
 
 
 
 
-};
+});
 
-module.exports = userInfoModel;
+
+
+
+var UserInfoModel = new userInfoModel();
+module.exports = UserInfoModel;
 

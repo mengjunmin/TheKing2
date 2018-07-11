@@ -1,6 +1,6 @@
 var basePopup = require("./basePopup");
 var myCardModel = require("./mode/myCardModel");
-
+var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: basePopup,
@@ -42,12 +42,14 @@ cc.Class({
     },
 
     getList(){
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
         }
-        // shopModel.repShopList(pp, this.repList, this);
-        this.repList(null);
+        myCardModel.repList(pp, this.repList, this);
+        // this.repList(null);
     },
 
     repList(data){

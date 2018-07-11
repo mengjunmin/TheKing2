@@ -5,7 +5,7 @@ var popupManager = require("../unit/popupManager");
 var userMode = require("./userMode");
 
 
-var shopModel = {
+var shopModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -38,15 +38,28 @@ var shopModel = {
     ] 
 }
 */
-    repShopList(argu, callback, context) {
+    repList(argu, callback, context) {
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repMailList");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+        console.log("----->repShopList");
+
+        var router = '/g1/goods/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repShopList  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repShopList  onFail: ", result , errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
 //  家族列表
@@ -72,7 +85,10 @@ var shopModel = {
 
 
 
-};
+});
 
-module.exports = shopModel;
+
+
+var ShopModel = new shopModel();
+module.exports = ShopModel;
 

@@ -1,6 +1,6 @@
 var basePopup = require("./basePopup");
 var shopModel = require("./mode/shopModel");
-
+var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: basePopup,
@@ -42,39 +42,41 @@ cc.Class({
     },
 
     getShopList(){
+        var uid = userMode.getInstance().user.uid;
+        var t = userMode.getInstance().user.t;
         var pp = {
-            uid: 11111,
-            t: 'qeqeqweqeqwe',
+            uid: uid,
+            t: t,
         }
-        // shopModel.repShopList(pp, this.repShopList, this);
-        this.repShopList(null);
+        shopModel.repList(pp, this.repShopList, this);
+        // this.repShopList(null);
     },
 
     repShopList(data){
         console.log("======>repShopList");
-        this._data = data;
-        this._data = [
-            {
-                "id": 1,
-                "name": "11111",
-                "price": "121212",
-            },
-            {
-                "id": 2,
-                "name": "11111",
-                "price": "121212",
-            },
-            {
-                "id": 3,
-                "name": "11111",
-                "price": "121212",
-            },
-            {
-                "id": 4,
-                "name": "11111",
-                "price": "121212",
-            }
-        ];
+        this._data = data.list;
+        // this._data = [
+        //     {
+        //         "id": 1,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     },
+        //     {
+        //         "id": 2,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     },
+        //     {
+        //         "id": 3,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     },
+        //     {
+        //         "id": 4,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     }
+        // ];
 
         this.updataList();
     },

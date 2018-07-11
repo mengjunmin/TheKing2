@@ -5,7 +5,7 @@ var popupManager = require("../unit/popupManager");
 var userMode = require("./userMode");
 
 
-var myRewardModel = {
+var myRewardModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -40,13 +40,25 @@ var myRewardModel = {
 */
     repList(argu, callback, context) {
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repMailList");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/user/award/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repReward  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repReward  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
 
@@ -54,7 +66,10 @@ var myRewardModel = {
 
 
 
-};
+});
 
-module.exports = myRewardModel;
+
+
+var MyRewardModel = new myRewardModel();
+module.exports = MyRewardModel;
 

@@ -5,7 +5,7 @@ var popupManager = require("../unit/popupManager");
 var userMode = require("./userMode");
 
 
-var historyScoreModel = {
+var historyScoreModel = cc.Class({
     // 成员变量
     callback: null,
     target: null,
@@ -40,20 +40,35 @@ var historyScoreModel = {
 */
     repList(argu, callback, context) {
         var self = this;
-        var pp = {
+        var params = {
             uid: argu.uid,
             t: argu.t,
         }
-        console.log("----->repMailList");
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+    
+        var router = '/g1/user/points/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repHistoryScore  onSuccess: ", result);
+                if (callback) callback.apply(target, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repHistoryScore  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
 
 
 
 
 
-};
+});
 
-module.exports = historyScoreModel;
+
+
+var HistoryScoreModel = new historyScoreModel();
+module.exports = HistoryScoreModel;
 
