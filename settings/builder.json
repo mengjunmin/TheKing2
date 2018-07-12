@@ -14,20 +14,20 @@
   "oauthLoginServer": "",
   "optimizeHotUpdate": false,
   "orientation": {
-    "landscapeLeft": true,
-    "landscapeRight": true,
+    "landscapeLeft": false,
+    "landscapeRight": false,
     "portrait": false,
-    "upsideDown": false
+    "upsideDown": true
   },
-  "packageName": "org.cocos2d.helloworld",
+  "packageName": "org.cocos2d.theking",
   "privateKey": "",
   "qqplay": {
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
   "renderMode": "0",
-  "startScene": "2d2f792f-a40c-49bb-a189-ed176a246e49",
-  "title": "hello_world",
+  "startScene": "cd9110be-e9f9-40db-b21c-481b2c466124",
+  "title": "TheKing",
   "webOrientation": "auto",
   "wechatgame": {
     "appid": "wx6ac3f5090a6b99c5",

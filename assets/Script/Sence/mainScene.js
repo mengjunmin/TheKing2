@@ -21,6 +21,11 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        gameLobbyPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+
         hudPrefab: {
             default: null,
             type: cc.Prefab
@@ -114,8 +119,8 @@ cc.Class({
 
             popupManager.create('shop', {});
         } else if (data == 'onGame') {
-
-            popupManager.create('note', {});
+            cc.director.loadScene('Game');
+           
         }
 
     },
@@ -194,7 +199,22 @@ cc.Class({
             }
             this.allLayer['userinfo'] = obj;
             userinfoJs.onIn();
+        }else if (layer == "gamelobby") {
+            var gameLobby = cc.instantiate(this.gameLobbyPrefab);
+            this.baselayerNode.addChild(gameLobby);
+            var gameLobbyJs = gameLobby.getComponent('gamelobby'); //family
+            gameLobbyJs.mainSence = this;
+            var obj = {
+                com: gameLobby,
+                js: gameLobbyJs
+            }
+            this.allLayer['gamelobby'] = obj;
+            gameLobbyJs.onIn();
         }
+
+
+
+
     },
 
     // update (dt) {},

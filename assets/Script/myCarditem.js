@@ -9,26 +9,22 @@ cc.Class({
             default:null,
             type:cc.Sprite
         },
-        price:{
+        use:{
             default:null,
             type:cc.Label,
         },
 
-        prodname:{
+        invite:{
             default:null,
             type:cc.Label,
         },
 
-        payBtn:{
-            default:null,
-            type:cc.Button,
-        },
 
         _data:null,
         _fun:null,
         _target:null,
     },
-
+//{"invite":"JHJ290S","obsolete":"2018/4/12","use":"2018/4/11","user":"JHJ290S@13468305254","status":1}
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
@@ -43,8 +39,9 @@ cc.Class({
     },
 
     updateView(){
-        this.prodname.string = this._data.name;
-        this.price.string = this._data.price;
+        cc.log('----->this._data:', this._data);
+        this.invite.string = this._data.invite;
+        this.use.string = this._data.use;
     },
 
     setIcon:function(icon){

@@ -38,41 +38,27 @@ cc.Class({
 
     onUserInfo: function(obj, data) {
         cc.log('----->onUserInfo');
-        // cc.log('----->obj:', obj);
-        // cc.log('----->data:', data);
-
         this.mainSence.goToLayer("userinfo");
     },
 
     onMail: function(obj, data) {
         cc.log('----->onMail');
-        // cc.log('----->obj:', obj);
-        // cc.log('----->data:', data);
-
         this.onCallBack('onMail');
     },
 
     onGame: function(obj, data) {
         cc.log('----->onGame');
-        // cc.log('----->obj:', obj);
-        // cc.log('----->data:', data);
-
-        this.onCallBack('onGame');
+        this.mainSence.goToLayer("gamelobby");//
     },
 
     onShop: function(obj, data) {
         cc.log('----->onShop');
-        // cc.log('----->obj:', obj);
-        // cc.log('----->data:', data);
-
         this.onCallBack('onShop');
 
     },
 
     onFamily: function(obj, data) {
         this.mainSence.goToLayer("family");
-        // Utils.goToLayer(this.mainSence, currname);
-
     },
 
     setCallBack: function(fun, target) {

@@ -50,7 +50,7 @@ var historyScoreModel = cc.Class({
             context: this,
             onSuccess: function(result) {
                 console.log("----->repHistoryScore  onSuccess: ", result);
-                if (callback) callback.apply(target, [result]);
+                if (callback) callback.apply(context, [result]);
             },
             onFail: function(result, errorCode) {
                 console.log("----->repHistoryScore  onFail: ", result , errorCode);

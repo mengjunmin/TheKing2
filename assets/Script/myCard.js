@@ -54,29 +54,29 @@ cc.Class({
 
     repList(data){
         console.log("======>repList");
-        this._data = data;
-        this._data = [
-            {
-                "id": 1,
-                "name": "11111",
-                "price": "121212",
-            },
-            {
-                "id": 2,
-                "name": "11111",
-                "price": "121212",
-            },
-            {
-                "id": 3,
-                "name": "11111",
-                "price": "121212",
-            },
-            {
-                "id": 4,
-                "name": "11111",
-                "price": "121212",
-            }
-        ];
+        this._data = data.list;
+        // this._data = [
+        //     {
+        //         "id": 1,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     },
+        //     {
+        //         "id": 2,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     },
+        //     {
+        //         "id": 3,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     },
+        //     {
+        //         "id": 4,
+        //         "name": "11111",
+        //         "price": "121212",
+        //     }
+        // ];
 
         this.updataList();
     },

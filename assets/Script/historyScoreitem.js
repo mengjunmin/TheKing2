@@ -9,20 +9,19 @@ cc.Class({
             default:null,
             type:cc.Sprite
         },
-        price:{
+        content:{
+            default:null,
+            type:cc.Label,
+        },
+        time:{
+            default:null,
+            type:cc.Label,
+        },
+        points:{
             default:null,
             type:cc.Label,
         },
 
-        prodname:{
-            default:null,
-            type:cc.Label,
-        },
-
-        payBtn:{
-            default:null,
-            type:cc.Button,
-        },
 
         _data:null,
         _fun:null,
@@ -43,8 +42,8 @@ cc.Class({
     },
 
     updateView(){
-        this.prodname.string = this._data.name;
-        this.price.string = this._data.price;
+        this.points.string = this._data.points;
+        this.time.string = this._data.time;
     },
 
     setIcon:function(icon){
@@ -68,9 +67,7 @@ cc.Class({
             this._fun.call(this._target, data);
     },
 
-    onButton(){
-        this.onCallBack(this._data);
-    }
+
 
     // update (dt) {},
 });

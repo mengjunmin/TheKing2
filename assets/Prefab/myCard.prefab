@@ -419,7 +419,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
+      "width": 211,
       "height": 40
     },
     "_rotationX": 0,
@@ -454,7 +454,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "商店",
+    "_N$string": " 我的邀请卡",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",

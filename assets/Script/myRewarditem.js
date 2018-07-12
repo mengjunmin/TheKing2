@@ -9,7 +9,7 @@ cc.Class({
             default:null,
             type:cc.Sprite
         },
-        price:{
+        time:{
             default:null,
             type:cc.Label,
         },
@@ -19,16 +19,13 @@ cc.Class({
             type:cc.Label,
         },
 
-        payBtn:{
-            default:null,
-            type:cc.Button,
-        },
+
 
         _data:null,
         _fun:null,
         _target:null,
     },
-
+//{"id":"1","name":"300元加油卡","image":"","time":"2018-7-13 00:36:24"}
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
@@ -44,7 +41,7 @@ cc.Class({
 
     updateView(){
         this.prodname.string = this._data.name;
-        this.price.string = this._data.price;
+        this.time.string = this._data.time;
     },
 
     setIcon:function(icon){

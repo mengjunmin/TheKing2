@@ -45,7 +45,7 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0,
-    "autoReleaseAssets": false
+    "autoReleaseAssets": true
   },
   {
     "__type__": "cc.Node",
@@ -348,6 +348,9 @@
     },
     "userinfoPrefab": {
       "__uuid__": "fce24158-c086-4254-a696-375501ac0807"
+    },
+    "gameLobbyPrefab": {
+      "__uuid__": "e60c294f-b8fd-4289-aa2f-31d71cda3fe8"
     },
     "hudPrefab": {
       "__uuid__": "8b0532dc-a7cd-46fa-9543-f2bd923227f6"
