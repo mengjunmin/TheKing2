@@ -40,8 +40,8 @@ cc.Class({
     },
 
     onGame: function(obj, data) {
-        cc.log('----->onGame ', obj, data);
-
+        // cc.log('----->onGame ', obj, data);
+        cc.director.loadScene('game');
     },
 
     onIn: function() {

@@ -1,6 +1,6 @@
 
 var Request = require("./Request");
-var allDefine = require("./AllDefine");
+var allDefine = require("../mode/AllDefine");
 var popupManager = require("../unit/popupManager");
 
 

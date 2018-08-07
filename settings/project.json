@@ -16,11 +16,8 @@
   "excluded-modules": [
     "ParticleSystem",
     "TiledMap",
-    "VideoPlayer",
-    "WebView",
     "RichText",
-    "Physics",
-    "Camera"
+    "Physics"
   ],
   "fit-height": false,
   "fit-width": true,
@@ -32,7 +29,7 @@
     "height": 640,
     "width": 960
   },
-  "start-scene": "a8ba4bc8-db8a-4b05-b037-8b66ccf98213",
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false
+  "use-project-simulator-setting": false,
+  "start-scene": "current"
 }

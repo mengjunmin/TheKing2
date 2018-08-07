@@ -1,6 +1,6 @@
 var RetrievePasswordModel = require("../mode/RetrievePasswordModel");
 var userMode = require("../mode/userMode");
-var popupManager = require("../popupManager");
+var popupManager = require("../unit/popupManager");
 var loginModel = require("../mode/loginModel");
 
 cc.Class({

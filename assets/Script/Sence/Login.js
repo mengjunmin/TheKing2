@@ -2,7 +2,7 @@
 
 var loginModel = require("../mode/loginModel");
 var userMode = require("../mode/userMode");
-var popupManager = require("../popupManager");
+var popupManager = require("../unit/popupManager");
 
 cc.Class({
     extends: cc.Component,

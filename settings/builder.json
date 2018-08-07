@@ -1,7 +1,7 @@
 {
   "appKey": "",
   "appSecret": "",
-  "encryptJs": true,
+  "encryptJs": false,
   "excludeScenes": [],
   "fb-instant-games": {},
   "includeAnySDK": false,
@@ -26,7 +26,7 @@
     "orientation": "portrait"
   },
   "renderMode": "0",
-  "startScene": "cd9110be-e9f9-40db-b21c-481b2c466124",
+  "startScene": "a8ba4bc8-db8a-4b05-b037-8b66ccf98213",
   "title": "TheKing",
   "webOrientation": "auto",
   "wechatgame": {

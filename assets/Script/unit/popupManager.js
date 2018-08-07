@@ -1,7 +1,7 @@
 
 
 var Request = require("../network/Request");
-var allDefine = require("./AllDefine");
+var allDefine = require("../mode/AllDefine");
 
 var _sence = null;
 var _layer = null;
