@@ -14,9 +14,12 @@
   "design-resolution-height": 1280,
   "design-resolution-width": 720,
   "excluded-modules": [
-    "ParticleSystem",
+    "Canvas Renderer",
     "TiledMap",
+    "Spine Skeleton",
+    "DragonBones",
     "RichText",
+    "VideoPlayer",
     "Physics"
   ],
   "fit-height": false,

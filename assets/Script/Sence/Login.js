@@ -147,7 +147,7 @@ cc.Class({
     },
 
     requestLrole(data){
-        var list = data.list;
+        var list = data.list || [];
         if(list.length>0){
             var one = list[0];
             var _id = one._id;

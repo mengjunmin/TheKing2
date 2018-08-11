@@ -31,11 +31,11 @@ cc.Class({
 
     ctor:function () {
         cc.log("Square");   // 再调用子构造函数
-        var Size = cc.director.getVisibleSize();
+        // var Size = cc.director.getVisibleSize();
         console.log('----->base popup');
          var self = this;
 
-        var ws = cc.director.getWinSize();
+        // var ws = cc.director.getWinSize();
 
 
 

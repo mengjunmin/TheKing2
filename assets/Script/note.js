@@ -60,7 +60,6 @@ cc.Class({
  
 
     updataView(){
-        var vs = cc.director.getVisibleSize();	
         this.title.string = this._conf['title'] || '';
         this.textcontent.string = this._conf['content'] || '';
 

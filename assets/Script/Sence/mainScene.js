@@ -76,12 +76,12 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        var ws = cc.director.getWinSize();
-        var vs = cc.director.getVisibleSize();
-        var vo = cc.director.getVisibleOrigin();
-        cc.log('----->ws', ws);
-        cc.log('----->vs', vs);
-        cc.log('----->vo', vo);
+        // var ws = cc.director.getWinSize();
+        // var vs = cc.director.getVisibleSize();
+        // var vo = cc.director.getVisibleOrigin();
+        // cc.log('----->ws', ws);
+        // cc.log('----->vs', vs);
+        // cc.log('----->vo', vo);
 
         this.allLayer = {};
         this.allJs = {};
