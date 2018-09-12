@@ -7,190 +7,259 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        notePrefab:{
-        	default:null,
-        	type:cc.Prefab
+        notePrefab: {
+            default: null,
+            type: cc.Prefab
         },
 
-        popupNode:{
+        popupNode: {
+            default: null,
+            type: cc.Node
+        },
+
+        editPhone: {
+            default: null,
+            type: cc.EditBox
+        },
+
+        editPassWord: {
+            default: null,
+            type: cc.EditBox
+        },
+
+        editRePassWord: {
+            default: null,
+            type: cc.EditBox
+        },
+
+        editCheck: {
+            default: null,
+            type: cc.EditBox
+        },
+
+
+        checkBtn: {
+            default: null,
+            type: cc.Button
+        },
+
+        alreadyBtn: {
+            default: null,
+            type: cc.Button
+        },
+
+        loginBtn: {
+            default: null,
+            type: cc.Button
+        },
+
+        misstips:{
             default:null,
-            type:cc.Node
+            type:cc.Label
         },
-
-        editPhone:{
-            default:null,
-            type:cc.EditBox
-        },
-
-
-        editInvitation:{
-            default:null,
-            type:cc.EditBox
-        },
-
-        editCheck:{
-            default:null,
-            type:cc.EditBox
-        },
-
-
-        checkBtn:{
-            default:null,
-            type:cc.Button
-        },
-
-        alreadyBtn:{
-            default:null,
-            type:cc.Button
-        },
-
-        loginBtn:{
-            default:null,
-            type:cc.Button
-        },
-
-        checkCount:null,
-
+        checkCount: null,
+        timerout:0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-
+    onLoad() {
+        this.misstips.enabled = false;
 
     },
 
-    start () {
+    start() {
         popupManager.init(this);
         this.checkCount = 0;
+        this.timerout = -1;
         cc.log('------->this.checkBtn: ', this.checkBtn);
     },
 
     // update (dt) {},
-//phone
-    onPhoneEditDidBegan: function(editbox, customEventData) {
+    //phone
+    onPhoneEditDidBegan: function (editbox, customEventData) {
 
     },
     //假设这个回调是给 editingDidEnded 事件的
-    onPhoneEditDidEnded: function(editbox, customEventData) {
+    onPhoneEditDidEnded: function (editbox, customEventData) {
 
     },
     //假设这个回调是给 textChanged 事件的
-    onPhoneTextChanged: function(text, editbox, customEventData) {
+    onPhoneTextChanged: function (text, editbox, customEventData) {
 
         // this.label.string = text;
     },
     //假设这个回调是给 editingReturn 事件的
-    onPhoneEditingReturn: function(editbox,  customEventData) {
+    onPhoneEditingReturn: function (editbox, customEventData) {
 
     },
 
     //邀请码
-     onInvitationEditDidBegan: function(editbox, customEventData) {
+    onInvitationEditDidBegan: function (editbox, customEventData) {},
+
+    onInvitationEditDidEnded: function (editbox, customEventData) {
+
     },
 
-    onInvitationEditDidEnded: function(editbox, customEventData) {
+    onInvitationTextChanged: function (text, editbox, customEventData) {
 
+        editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
 
-    onInvitationTextChanged: function(text, editbox, customEventData) {
-
-      editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
-    },
-
-    onInvitationEditingReturn: function(editbox,  customEventData) {
+    onInvitationEditingReturn: function (editbox, customEventData) {
 
     },
 
 
     //Check验证码
-    onCheckEditDidBegan: function(editbox, customEventData) {
+    onCheckEditDidBegan: function (editbox, customEventData) {
 
     },
 
-    onCheckEditDidEnded: function(editbox, customEventData) {
+    onCheckEditDidEnded: function (editbox, customEventData) {
 
     },
 
-    onCheckTextChanged: function(text, editbox, customEventData) {
+    onCheckTextChanged: function (text, editbox, customEventData) {
 
-        editbox.string=editbox.string.replace(/[^\w\/]/ig,'');//英文数字
-    },
-    
-    onCheckEditingReturn: function(editbox,  customEventData) {
-
+        editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
 
-    onCheckBtton: function(btn) {
+    onCheckEditingReturn: function (editbox, customEventData) {
+
+    },
+
+    //密码
+    onPassWordEditDidBegan: function (editbox, customEventData) {
+
+    },
+
+    onPassWordEditDidEnded: function (editbox, customEventData) {
+
+    },
+
+    onPassWordTextChanged: function (text, editbox, customEventData) {
+
+        editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
+    },
+
+    onPassWordEditingReturn: function (editbox, customEventData) {
+
+    },
+
+    //确认密码
+    onRePassWordEditDidBegan: function (editbox, customEventData) {
+
+    },
+
+    onRePassWordEditDidEnded: function (editbox, customEventData) {
+
+    },
+
+    onRePassWordTextChanged: function (text, editbox, customEventData) {
+
+        editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
+    },
+
+    onRePassWordEditingReturn: function (editbox, customEventData) {
+
+    },
+
+
+    onCheckBtton: function (btn) {
         cc.log('btn: ', btn);
         var phone = this.editPhone.string;
-        if(phone.length != 11){
+        if (phone.length != 11) {
             cc.log('手机号不够11位 ');
-        }else{
+        } else {
             registerModel.repSMS(phone, this.requestGetSMS, this);
             this.lockCheckBtn();
         }
     },
 
-    checkBtnCount(d){
+    checkBtnCount(d) {
         var lable = this.checkBtn.node.getChildByName('title');
         var title = lable.getComponent(cc.Label);
         // cc.log('------->title: ', title);
-        if(this.checkCount == 0){
+        if (this.checkCount == 0) {
             this.unschedule(this.checkBtnCount);
             this.checkBtn.enabled = true;
             title.string = '获取验证码';
             return;
         }
         this.checkCount--;
-        title.string = ''+this.checkCount;
+        title.string = '' + this.checkCount;
         // cc.log('------->lable.string: ', lable.string);
 
     },
-    lockCheckBtn(){
+    lockCheckBtn() {
         this.checkBtn.enabled = false;
         this.checkCount = 120;
         this.schedule(this.checkBtnCount, 1);
     },
 
-    requestGetSMS (data){
+    requestGetSMS(data) {
         cc.log('---->onGetSMS: ', data);
     },
 
-    onAlreadyBtton: function(btn) {
+    onAlreadyBtton: function (btn) {
 
         cc.director.loadScene('Login');
 
     },
 
-    onLoginBtton: function(btn) {
-        var phone = this.editPhone.string;
-        var code = this.editCheck.string;
-        var invitation = this.editInvitation.string;
+    showTIPS(){
+        var self = this;
+        self.misstips.enabled = true;
+        if(self.timerout != -1){
+            clearTimeout(self.timerout);
+            self.timerout = -1;
+        }
+        self.timerout = setTimeout(function() {
+            self.misstips.enabled = false;
 
-        if(phone.length != 11){//11
-            cc.log('手机号不够11位 ');
-            return;
-        }
-        if(code.length != 4){//4
-            cc.log('验证码错误');
-            return;
-        }
-        if(invitation.length != 6){//6
-            cc.log('邀请码错误');
-            return;
-        }
+        }, 2000);
 
-         var pp = {
-            phone:phone,
-            code: code,
-            invite: invitation
-         }
-        registerModel.repRegister(pp, this.requestLogin, this);
-    
+        
     },
 
-    requestLogin (data){
+    onLoginBtton: function (btn) {
+        var phone = this.editPhone.string;
+        var code = this.editCheck.string;
+        var password = this.editPassWord.string;
+        var repassword = this.editRePassWord.string;
+
+        if (phone.length != 11) { //11
+            cc.log('手机号不够11位 ');
+            this.showTIPS();
+            return;
+        }
+        if (code.length != 4) { //4
+            cc.log('验证码错误');
+            this.showTIPS();
+            return;
+        }
+        if(password.length ==0){
+            cc.log('密码不能为空');
+            this.showTIPS();
+            return;
+        }
+        if(password != repassword){
+            cc.log('密码不一致');
+            this.showTIPS();
+            return;
+        }
+
+        var pp = {
+            phone: phone,
+            code: code,
+            // invite: invitation
+        }
+        registerModel.repRegister(pp, this.requestLogin, this);
+
+    },
+
+    requestLogin(data) {
         cc.log('---->requestLogin: ', data);
 
         var token = data.t;
