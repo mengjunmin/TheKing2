@@ -45,7 +45,7 @@ cc.Class({
         this.rankvalue.string = this._data.rankvalue;
         this.activevalue.string = this._data.activevalue;
         this.scorevalue.string = this._data.scorevalue;
-
+        cc.log('----->role item');
         this.setUserAvatar(this._data.avatar);
     },
 
