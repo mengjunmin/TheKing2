@@ -58,7 +58,9 @@ cc.Class({
     },
 
     onFamily: function(obj, data) {
-        this.mainSence.goToLayer("family");
+        // this.mainSence.goToLayer("family");
+        // this.mainSence.goToLayer("createRole");//
+        this.mainSence.goToLayer("roleList");//
     },
 
     setCallBack: function(fun, target) {

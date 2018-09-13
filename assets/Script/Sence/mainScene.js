@@ -67,8 +67,18 @@ cc.Class({
             default: null,
             type: cc.Node
         },
-
-
+        createRolePrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        characterInfoPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        avatarlistPrefab:{
+        	default:null,
+        	type:cc.Prefab
+        },
 
     },
     allLayer: null,
@@ -76,13 +86,6 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        // var ws = cc.director.getWinSize();
-        // var vs = cc.director.getVisibleSize();
-        // var vo = cc.director.getVisibleOrigin();
-        // cc.log('----->ws', ws);
-        // cc.log('----->vs', vs);
-        // cc.log('----->vo', vo);
-
         this.allLayer = {};
         this.allJs = {};
 
@@ -210,10 +213,32 @@ cc.Class({
             }
             this.allLayer['gamelobby'] = obj;
             gameLobbyJs.onIn();
+        }else if (layer == "createRole") {
+            var createRole = cc.instantiate(this.createRolePrefab);
+            this.baselayerNode.addChild(createRole);
+            var createRoleJs = createRole.getComponent('createRole'); //family
+            createRoleJs.mainSence = this;
+            var obj = {
+                com: createRole,
+                js: createRoleJs
+            }
+            this.allLayer['createRole'] = obj;
+            createRoleJs.onIn();
+        }else if (layer == "roleList") {
+            var roleList = cc.instantiate(this.characterInfoPrefab);
+            this.baselayerNode.addChild(roleList);
+            var roleListJs = roleList.getComponent('characterinfo'); //family
+            roleListJs.mainSence = this;
+            var obj = {
+                com: roleList,
+                js: roleListJs
+            }
+            this.allLayer['roleList'] = obj;
+            roleListJs.onIn();
         }
 
 
-
+        
 
     },
 
