@@ -67,6 +67,10 @@ cc.Class({
             default: null,
             type: cc.Node
         },
+        horseNode:{
+            default:null,
+            type:cc.Node
+        },
         createRolePrefab: {
             default: null,
             type: cc.Prefab
@@ -79,6 +83,11 @@ cc.Class({
         	default:null,
         	type:cc.Prefab
         },
+        horsePrefab:{
+            default:null,
+            type:cc.Prefab
+        },
+
 
     },
     allLayer: null,
@@ -93,6 +102,9 @@ cc.Class({
 
         var hud = cc.instantiate(this.hudPrefab);
         this.hudNode.addChild(hud);
+
+        var house = cc.instantiate(this.horsePrefab);
+        this.horseNode.addChild(house);
 
         // var popup = new basePopup();
         // this.popupNode.addChild(popup);
