@@ -36,7 +36,7 @@ cc.Class({
         for(var i=0;i<data.length;i++){
 
         }
-        var mis = "<color=#00ff00>Cocos2d-x</color>是一个开源的移动2D游戏框架，MIT许可证下发布的。这是一个<color=#00ffff>C++ Cocos2d-iPhone</color>项目的版本。";
+        var mis = "<color=#00ff00>据台媒消息</color>台湾地标101前的广场近来有人群聚集并高举<color=#00ffff>五星红旗</color>欢迎大陆游客来台观光。";
         this._allNote.push(mis);
         this._allNote.push(mis);
         this._allNote.push(mis);

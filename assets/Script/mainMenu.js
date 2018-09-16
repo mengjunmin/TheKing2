@@ -1,5 +1,5 @@
 var Utils = require("./mode/Utils");
-
+var popupManager = require("./unit/popupManager");
 
 cc.Class({
     extends: cc.Component,
@@ -36,48 +36,54 @@ cc.Class({
 
     },
 
-    onUserInfo: function(obj, data) {
+    onUserInfo: function (obj, data) {
         cc.log('----->onUserInfo');
         this.mainSence.goToLayer("userinfo");
     },
 
-    onMail: function(obj, data) {
+    onMail: function (obj, data) {
         cc.log('----->onMail');
         this.onCallBack('onMail');
     },
 
-    onGame: function(obj, data) {
+    onGame: function (obj, data) {
         cc.log('----->onGame');
-        this.mainSence.goToLayer("gamelobby");//
+        this.mainSence.goToLayer("gamelobby"); //
     },
 
-    onShop: function(obj, data) {
+    onShop: function (obj, data) {
         cc.log('----->onShop');
         this.onCallBack('onShop');
 
     },
 
-    onFamily: function(obj, data) {
+    onFamily: function (obj, data) {
         // this.mainSence.goToLayer("family");
         // this.mainSence.goToLayer("createRole");//
-        this.mainSence.goToLayer("roleList");//
+        // this.mainSence.goToLayer("roleList");//
+
+        var CONF = {
+            title: '1234',
+            content: "仅仅能访问节点自己的组件通常是不够的，脚本通常还需要进行多个节点之间的交互。例如，一门自动瞄准玩家的大炮，就需要不断获取玩家的最新位置。Cocos Creator 提供了一些不同的方法来获得其它节点或组件"
+        };
+        popupManager.create('noticeBoard', CONF);
     },
 
-    setCallBack: function(fun, target) {
+    setCallBack: function (fun, target) {
         this.callback = fun;
         this.objecttarget = target;
 
     },
 
-    onCallBack: function(data) {
+    onCallBack: function (data) {
         if (this.callback) this.callback.apply(this.objecttarget, [data, 9]);
     },
 
-    onIn: function() {
+    onIn: function () {
         cc.log('----->mainMenu onIn');
     },
 
-    onOut: function() {
+    onOut: function () {
         cc.log('----->mainMenu onOut');
     },
     // update (dt) {}, family

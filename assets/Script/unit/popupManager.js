@@ -63,6 +63,10 @@ var popupManager = {
         }else if(name == 'note'){
             newpopup = cc.instantiate(_sence.notePrefab);
             var popupJs = newpopup.getComponent('note');  
+        }else if(name == 'noticeBoard'){
+            newpopup = cc.instantiate(_sence.noticeBoardPrefab);
+            cc.log('------>noticeBoardPrefab ', newpopup);
+            var popupJs = newpopup.getComponent('noticeBoard');  
         }else if(name == 'avatarlist'){
             newpopup = cc.instantiate(_sence.avatarlistPrefab);
             var popupJs = newpopup.getComponent('avatarList');  
@@ -73,7 +77,7 @@ var popupManager = {
 
 
         conf = context;
-        if(newpopup){
+        if(newpopup){//注册默认的关闭回调
             for(var key in mastconf){
                 conf[key] = mastconf[key];
             }

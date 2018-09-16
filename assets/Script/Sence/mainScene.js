@@ -54,7 +54,10 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-
+        noticeBoardPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
         baselayerNode: {
             default: null,
             type: cc.Node
