@@ -3,10 +3,13 @@ var Utils = require("../mode/Utils");
 var popupManager = require("../unit/popupManager");
 var fileManager = require("../mode/fileManager");
 var userMode = require("../mode/userMode");
+var MessageCenter = require("../Signal/MessageCenter");
+
 
 cc.Class({
     extends: cc.Component,
 
+    name:'startSence',
     properties: {
 
 
@@ -22,11 +25,12 @@ cc.Class({
     start() {
         var self = this;
         cc.log('----->start');
-
+        MessageCenter.GAME.on(this.onEventBack, this);
         userMode.getInstance();
         this.scheduleOnce(function () {
             // 这里的 this 指向 component
-            this.readData();
+            MessageCenter.GAME.emit({1:2});
+            self.readData();
         }, 2);
 
     },
@@ -42,5 +46,8 @@ cc.Class({
         }
     },
 
+    onEventBack(data){
+        cc.log('----->onEventBack: ', data);
+    },
     // update (dt) {},
 });
