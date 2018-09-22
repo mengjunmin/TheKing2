@@ -90,6 +90,7 @@ cc.Class({
 
     setName: function(name) {
         this.nickName.string = name;
+        // cc.log('----> this.nickName: ', this.nickName);
     },
 
     setLevel: function(level) {
