@@ -52,6 +52,10 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+        temp: {
+            default: null,
+            type: cc.Label,
+        },
     },
 
 
@@ -74,6 +78,7 @@ cc.Class({
         this.setName(nick);
         this.setGold(global.user['userGold']);
         this.setLevel(global.user['userLevel']);
+        this.temp.enabled = false;
     },
 
     start() {

@@ -11,10 +11,6 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
-        userLevel: {
-            default: null,
-            type: cc.Label,
-        },
         userFrame: {
             default: null,
             type: cc.Sprite,
@@ -22,6 +18,10 @@ cc.Class({
         userAvatar: {
             default: null,
             type: cc.Sprite,
+        },
+        check:{
+            type:cc.Node,
+            default:null,
         },
 
         _data: null,
@@ -94,16 +94,34 @@ cc.Class({
         });
     },
 
+    sun(num){
+        var earn1 = this.check.getChildByName('earn1');
+        var earn2 = this.check.getChildByName('earn2');
+        var earn3 = this.check.getChildByName('earn3');
+
+        var arry = [earn1, earn2, earn3];
+
+        for(var i=0;i<arry.length; i++){
+            if(i<num){
+                arry[i].color = cc.Color.GREEN;
+            }else{
+                arry[i].color = cc.Color.GRAY;
+            }
+        }
+    },
+
     setData(data) {
         this._data = data;
         cc.log('[head] setData:', data);
         var nick = this._data.nick;
         var faceid = this._data.face_id;
         var frame = this._data['frame'] || 1;
+        var sun = this._data['sun'] || 1;
 
         this.setName(nick);
         this.setUserAvatar(faceid);
         this.setUserFrame(frame);
+        this.sun(sun);
     },
 
 

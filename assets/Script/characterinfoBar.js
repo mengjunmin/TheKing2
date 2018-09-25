@@ -23,6 +23,10 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+        roleType:{
+            default: null,
+            type: cc.Label
+        },
 
         _data: null,
     },

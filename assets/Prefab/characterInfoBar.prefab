@@ -89,7 +89,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 83,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -152,7 +152,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 90,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -182,7 +182,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "80haaCGbhE1rAJ9yPA0yPS"
+    "_id": "28A6mnRbdOWJLsn5ymOvrG"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -254,7 +254,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 91,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -284,7 +284,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "9dreaP5W5Nr7fbtn+wlXwf"
+    "_id": "a0s7C88zBMSbLU9Ndro9Pb"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -356,7 +356,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 92,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -383,7 +383,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "306YR79itKA6AfDhnRMJ7b"
+    "_id": "bdRMw8MS1Ko6IRmPM1i2Oi"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -455,7 +455,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 93,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -482,7 +482,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "3bcUFFrttPzZ2WRiC0DphN"
+    "_id": "11olaGBZBOlZLf8yh4vF3p"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -557,7 +557,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 94,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -620,7 +620,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 554,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -647,7 +647,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "74TivkgnFA/q0UDHku6LUA"
+    "_id": "68/6BcgBhFGKHSzYLWteam"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -719,7 +719,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 557,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -746,7 +746,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "f49LOxAlxC3prdWvd0vcJF"
+    "_id": "b62abcmBlBfKX8YyNWi1He"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -832,7 +832,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 95,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -895,7 +895,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 554,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -922,7 +922,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "84ZuWTI55Bgb9hxR2gUN/y"
+    "_id": "8cr+taT7ZP3YBN5yONt1uS"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -994,7 +994,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 557,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -1021,7 +1021,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "41kw7cHRdK0b4eyHVvx1nB"
+    "_id": "909HSYjcZLR6Nl+BWn1lTI"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1107,7 +1107,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 96,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -1170,7 +1170,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 554,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -1197,7 +1197,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "8ce0jM8qZHOaoyS//gjyFl"
+    "_id": "6auefwlMxNa7ifkyyUGRgt"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1269,7 +1269,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 557,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -1296,7 +1296,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "8dxsx8s71B+7eFR1aMZ5Sb"
+    "_id": "e9JF25lQhBQpSk3AD8QcaM"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1343,8 +1343,11 @@
     "scorevalue": {
       "__id__": 35
     },
+    "roleType": {
+      "__id__": 12
+    },
     "_data": null,
-    "_id": "6c/LQB1NBOsIcVWpJbIxzS"
+    "_id": "17A5b5FltDSIZ+unv8VePf"
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -54,15 +54,15 @@ cc.Class({
         bg.opacity = 100;
         this.node.addChild(bg,-1);
         
-        bg.on(cc.Node.EventType.TOUCH_START, function (event) {
-            console.log('----->base popup  TOUCH_START');
-            return true;
-        }, this);
+        // bg.on(cc.Node.EventType.TOUCH_START, function (event) {
+        //     console.log('----->base popup  TOUCH_START');
+        //     return true;
+        // }, this);
 
-        bg.on(cc.Node.EventType.TOUCH_END, function (event) {
+        // bg.on(cc.Node.EventType.TOUCH_END, function (event) {
 
-            console.log('----->base popup  TOUCH_END');
-        }, this)
+        //     console.log('----->base popup  TOUCH_END');
+        // }, this)
     },
     
     start () {

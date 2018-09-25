@@ -20,7 +20,10 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-
+        paytip:{
+            default:null,
+            type:cc.Node,
+        },
         callback: null,
         objecttarget: null,
 
@@ -54,6 +57,12 @@ cc.Class({
     onShop: function (obj, data) {
         cc.log('----->onShop');
         this.onCallBack('onShop');
+
+    },
+
+    onPay: function (obj, data) {
+        cc.log('----->onPay');
+  
 
     },
 
