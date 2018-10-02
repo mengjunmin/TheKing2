@@ -1,6 +1,8 @@
 
 var mailModel = require("./mode/mailModel");
 var userMode = require("./mode/userMode");
+var RolePool = require('./pool/RolePool');
+
 
 cc.Class({
     extends: cc.Component,
@@ -35,7 +37,9 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        cc.log('onLoad: ');
         console.log('mail list  onLoad');
+        RolePool.init(this.itemPrefab);
         this._list = this.node.getChildByName('scrollview');
         var view = this._list.getChildByName('view');
         this._listcontent = view.getChildByName('content');
@@ -47,7 +51,18 @@ cc.Class({
     },
 
     start () {
+        cc.log('start: ');
+        
+    },
+
+    onEnable: function () {
+        cc.log('onEnable: ');
         this.getRoleList();
+    },
+
+    onDisable: function () {
+        cc.log('onDisable: ');
+        this.cleanList();
     },
 
     getRoleList(){
@@ -122,31 +137,32 @@ cc.Class({
     updataList(){
         this.cleanList();
         for(var i=0;i<this._data.length;i++){
-            var item = cc.instantiate(this.itemPrefab);
-            // var itemJs = item.getComponent('characterInfoBar');
-            // itemJs.setData(this._data[i]);
-            this._listcontent.addChild(item);
+            // var item = cc.instantiate(this.itemPrefab);
+            // // var itemJs = item.getComponent('characterInfoBar');
+            // // itemJs.setData(this._data[i]);
+            // this._listcontent.addChild(item);
             console.log('----->i:', i);
+
+            var item = RolePool.create(null);
+            this._listcontent.addChild(item);
         }
+        var children = this._listcontent.children;
+        console.log('----->children:', children);
     },
 
 
 
     cleanList(){
         if(this._listcontent){
-            this._listcontent.removeAllChildren();
+            var children = this._listcontent.children;
+            var num = children.length;
+            for(var i=num-1;i>=0;i--){
+                RolePool.put(children[i]);
+            }
+            console.log('----->children:', children);
         }
     },
 
-    onCloseBtn(){
-        console.log('  mail onCloseBtn');
-        if(this._conf.closeCallback){
-            this._conf.closeCallback.apply(this._conf.closeCallbackObj, [this.node]);
-        }
-
-        this.cleanList();
-        this.node.destroy();
-    },
 
     onBackBtn(){
         this.mainSence.goToLayer("mainMenu");
@@ -162,11 +178,16 @@ cc.Class({
 
     onIn: function() {
         cc.log('----->createRole onIn');
-
+        if(!this.enabled){
+            this.enabled = true;
+        }
     },
 
     onOut: function() {
         cc.log('----->createRole onOut');
+        if(this.enabled){
+            this.enabled = false;
+        }
     },
 
 

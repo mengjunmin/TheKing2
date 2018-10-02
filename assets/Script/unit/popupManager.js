@@ -65,14 +65,19 @@ var popupManager = {
             var popupJs = newpopup.getComponent('note');  
         }else if(name == 'noticeBoard'){
             newpopup = cc.instantiate(_sence.noticeBoardPrefab);
-            cc.log('------>noticeBoardPrefab ', newpopup);
             var popupJs = newpopup.getComponent('noticeBoard');  
+        }else if(name == 'noticeBoardUrl'){
+            newpopup = cc.instantiate(_sence.noticeBoardUrlPrefab);
+            var popupJs = newpopup.getComponent('noticeBoardUrl');  
         }else if(name == 'avatarlist'){
             newpopup = cc.instantiate(_sence.avatarlistPrefab);
             var popupJs = newpopup.getComponent('avatarList');  
         }else if(name == 'namelist'){
             newpopup = cc.instantiate(_sence.nameListPrefab);
             var popupJs = newpopup.getComponent('nameList');  
+        }else if(name == 'noticePic'){
+            newpopup = cc.instantiate(_sence.noticePicPrefab);
+            var popupJs = newpopup.getComponent('noticePic'); 
         }
 
 

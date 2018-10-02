@@ -58,6 +58,14 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        noticeBoardUrlPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        noticePicPrefab:{
+            default: null,
+            type: cc.Prefab
+        },
         baselayerNode: {
             default: null,
             type: cc.Node
@@ -121,8 +129,6 @@ cc.Class({
     onMenuCallBack(data) {
         cc.log('----->onMenuCallBack:', data);
         if (data == 'onMail') {
-            // var mail = cc.instantiate(this.mailPrefab);
-            // this.popupNode.addChild(mail);
 
             var conf = {
                 closeCallback: this.aaa, // 取消按钮的回调方法
@@ -132,14 +138,11 @@ cc.Class({
 
 
         } else if (data == 'onShop') {
-            // var shop = cc.instantiate(this.shopPrefab);
-            // this.popupNode.addChild(shop);
-
             popupManager.create('shop', {});
         } else if (data == 'onGame') {
             cc.director.loadScene('Game');
            
-        }
+        } 
 
     },
 

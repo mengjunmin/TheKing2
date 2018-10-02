@@ -36,12 +36,11 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        // this.updateView();
     },
 
     setData(data) {
         this._data = data;
-        this.updateView();
     },
 
     updateView() {

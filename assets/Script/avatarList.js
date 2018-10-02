@@ -69,12 +69,18 @@ cc.Class({
         this._selectIdx = idx;
     },
 
+
     cleanList(){
         if(this._listcontent){
-            this._listcontent.removeAllChildren();
+            var children = this._listcontent.children;
+            var num = children.length;
+            console.log('  avatarList num:', num);
+            for(var i=num-1;i>=0;i--){
+                children[i].destroy();
+            }
+            
         }
     },
-
 
     onCallBack(data){
         if(this._fun)

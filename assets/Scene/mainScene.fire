@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.28671875,
-      "y": 0.28671875,
+      "x": 0.4125,
+      "y": 0.4125,
       "z": 1
     },
     "_quat": {
@@ -601,6 +601,12 @@
     },
     "noticeBoardPrefab": {
       "__uuid__": "e899258c-fcba-4081-9c70-e1fd9a3dcd20"
+    },
+    "noticeBoardUrlPrefab": {
+      "__uuid__": "8409fb10-95a2-4245-9c42-11aab03c6473"
+    },
+    "noticePicPrefab": {
+      "__uuid__": "3ac76c28-e5e9-4bde-815a-d630891537c5"
     },
     "baselayerNode": {
       "__id__": 5

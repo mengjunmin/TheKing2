@@ -66,16 +66,22 @@ cc.Class({
 
     },
 
-    onFamily: function (obj, data) {
-        // this.mainSence.goToLayer("family");
-        // this.mainSence.goToLayer("createRole");//
-        // this.mainSence.goToLayer("roleList");//
+    onRoleList: function (obj, data) {
+        cc.log('----->onRoleList');
+        this.mainSence.goToLayer("roleList");
 
-        var CONF = {
-            title: '1234',
-            content: "仅仅能访问节点自己的组件通常是不够的，脚本通常还需要进行多个节点之间的交互。例如，一门自动瞄准玩家的大炮，就需要不断获取玩家的最新位置。Cocos Creator 提供了一些不同的方法来获得其它节点或组件"
-        };
-        popupManager.create('noticeBoard', CONF);
+    },
+
+    onFamily: function (obj, data) {
+        this.mainSence.goToLayer("family");
+        // this.mainSence.goToLayer("createRole");//
+        // //
+
+        // var CONF = {
+        //     title: '8888888',
+        //     content: "仅仅能访问节点自己的组件通常是不够的，脚本通常还需要进行多个节点之间的交互。例如，一门自动瞄准玩家的大炮，就需要不断获取玩家的最新位置。Cocos Creator 提供了一些不同的方法来获得其它节点或组件"
+        // };
+        // popupManager.create('noticeBoard', CONF);
     },
 
     setCallBack: function (fun, target) {

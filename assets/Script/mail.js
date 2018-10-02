@@ -1,7 +1,7 @@
 var basePopup = require("./basePopup");
 var mailModel = require("./mode/mailModel");
 var userMode = require("./mode/userMode");
-
+var MailPool = require('./pool/MailPool');
 cc.Class({
     extends: basePopup,
 
