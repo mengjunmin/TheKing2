@@ -1,9 +1,10 @@
 var global = require('../mode/Global');
 var hud = require('../hud');
-var Singleton = require("../mode/Singleton");
 var basePopup = require("../basePopup");
 var Utils = require("../mode/Utils");
 var popupManager = require("../unit/popupManager");
+var userMode = require("../mode/userMode");
+var MessageCenter = require('../Signal/MessageCenter');
 
 cc.Class({
     extends: cc.Component,
@@ -25,7 +26,10 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-
+        toasterPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
         hudPrefab: {
             default: null,
             type: cc.Prefab
@@ -66,6 +70,14 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        lockPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        lockNode: {
+            default: null,
+            type: cc.Node
+        },
         baselayerNode: {
             default: null,
             type: cc.Node
@@ -99,7 +111,7 @@ cc.Class({
             type:cc.Prefab
         },
 
-
+        _lockScreen:null,
     },
     allLayer: null,
     allJs: null,
@@ -108,17 +120,20 @@ cc.Class({
     onLoad() {
         this.allLayer = {};
         this.allJs = {};
+        this._lockScreen = null;
 
-        this.createLayer("mainMenu");
+        if(userMode.getInstance().showLayer == ''){
+            this.createLayer("mainMenu");
+        }else{
+            this.createLayer(userMode.getInstance().showLayer);
+        }
+        
 
         var hud = cc.instantiate(this.hudPrefab);
         this.hudNode.addChild(hud);
 
         var house = cc.instantiate(this.horsePrefab);
         this.horseNode.addChild(house);
-
-        // var popup = new basePopup();
-        // this.popupNode.addChild(popup);
 
     },
 
@@ -159,10 +174,18 @@ cc.Class({
 
     },
 
+    onEnable: function () {
+        MessageCenter.LOCKSCREEN.on(this.lockScreen, this);
+        // this.lockScreen(true);
+    },
+
+    onDisable: function () {
+        MessageCenter.LOCKSCREEN.off(this.lockScreen, this);
+    },
     // var alllayer = ['familyNode', 'menuNode'];
 
     goToLayer(layername) {
-        var ws = cc.director.getWinSize();;
+        var ws = cc.winSize;
         var currname = layername;
         for (var i = 0; i < Utils.alllayer.length; i++) {
             var layername = Utils.alllayer[i];
@@ -234,7 +257,7 @@ cc.Class({
         }else if (layer == "createRole") {
             var createRole = cc.instantiate(this.createRolePrefab);
             this.baselayerNode.addChild(createRole);
-            var createRoleJs = createRole.getComponent('createRole'); //family
+            var createRoleJs = createRole.getComponent('createRole');
             createRoleJs.mainSence = this;
             var obj = {
                 com: createRole,
@@ -245,7 +268,7 @@ cc.Class({
         }else if (layer == "roleList") {
             var roleList = cc.instantiate(this.characterInfoPrefab);
             this.baselayerNode.addChild(roleList);
-            var roleListJs = roleList.getComponent('characterinfo'); //family
+            var roleListJs = roleList.getComponent('characterinfo');
             roleListJs.mainSence = this;
             var obj = {
                 com: roleList,
@@ -260,5 +283,19 @@ cc.Class({
 
     },
 
+    lockScreen(lock){
+        if(lock){
+            if(!this._lockScreen){
+                this._lockScreen = cc.instantiate(this.lockPrefab);
+                this.lockNode.addChild(this._lockScreen);
+            }
+        }else{
+            if(this._lockScreen){
+                this._lockScreen.destroy();
+                this._lockScreen = null;
+            }
+        }
+
+    },
     // update (dt) {},
 });

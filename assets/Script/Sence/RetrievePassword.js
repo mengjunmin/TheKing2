@@ -2,6 +2,7 @@ var RetrievePasswordModel = require("../mode/RetrievePasswordModel");
 var userMode = require("../mode/userMode");
 var popupManager = require("../unit/popupManager");
 var loginModel = require("../mode/loginModel");
+var MessageCenter = require('../Signal/MessageCenter');
 
 cc.Class({
     extends: cc.Component,
@@ -14,6 +15,18 @@ cc.Class({
         nameListPrefab: {
             default: null,
             type: cc.Prefab
+        },
+        toasterPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        lockPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        lockNode: {
+            default: null,
+            type: cc.Node
         },
         popupNode: {
             default: null,
@@ -81,6 +94,21 @@ cc.Class({
         this.checkCount = 0;
     },
 
+    onEnable: function () {
+        MessageCenter.LOCKSCREEN.on(this.lockScreen, this);
+    },
+
+    onDisable: function () {
+        MessageCenter.LOCKSCREEN.off(this.lockScreen, this);
+    },
+
+    lockScreen(){
+
+    },
+    unlockScreen(){
+
+    },
+    
     // update (dt) {},
     //phone
     onPhoneEditDidBegan: function (editbox, customEventData) {},
@@ -279,7 +307,6 @@ cc.Class({
         var pp = {
             phone: phone,
             code: code,
-            // invite: invite,
             password: password,
         };
 
@@ -292,8 +319,8 @@ cc.Class({
         //保存登录密码。
         var lastPhone = this.editPhone.string;
         var passWord = this.editPassword.string;
-        userMode.getInstance().setLastPhone(lastPhone);
-        userMode.getInstance().saveLoginPassWord(passWord);
+        userMode.getInstance().saveLastPhone(lastPhone);
+        userMode.getInstance().saveLoginPassWord(lastPhone, passWord);
 
         cc.director.loadScene('Login');
 

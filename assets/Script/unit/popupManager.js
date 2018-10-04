@@ -78,6 +78,9 @@ var popupManager = {
         }else if(name == 'noticePic'){
             newpopup = cc.instantiate(_sence.noticePicPrefab);
             var popupJs = newpopup.getComponent('noticePic'); 
+        }else if(name == 'Toaster'){
+            newpopup = cc.instantiate(_sence.toasterPrefab);
+            var popupJs = newpopup.getComponent('Toaster'); 
         }
 
 

@@ -16,35 +16,42 @@ var userInfoModel = cc.Class({
         this.callback = null;
         this.target = null;
     },
-
-/*
-{
-    "list": [
-        {
-            "id": 1,
-            "title": "",
-            "content": "",
-            "action": "",
-            "status": 0
-        },
-        {
-            "id": 1,
-            "title": "",
-            "content": "",
-            "action": "",
-            "status": 1
+//更新用户角色信息
+    repUpdateUserInfo(argu, callback, context) {
+        var self = this;
+        var params = {
+            token: argu.token,
+            invite:argu.invite,
+            nick:argu.nick,
+            sex:argu.sex,
+            face_id:argu.face_id,
         }
-    ] 
-}
-*/
+    
+        var router = '/gapi/account/update';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repUpdateUserInfo  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repUpdateUserInfo  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+    },
+
+//获取用户角色完整信息
     repFullUserInfo(argu, callback, context) {
         var self = this;
         var params = {
-            uid: argu.uid,
-            t: argu.t,
+            token: argu.token,
+            invite: argu.invite,
         }
     
-        var router = '/g1/user/full';
+        var router = '/gapi/account/full';
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
@@ -59,6 +66,35 @@ var userInfoModel = cc.Class({
     
         GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     },
+
+//获取用户角色简单信息
+    repSimpleUserInfo(argu, callback, context) {
+        var self = this;
+        var params = {
+            token: argu.token,
+            invite: argu.invite,
+        }
+    
+        var router = '/gapi/account/simple';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function(result) {
+                console.log("----->repSimpleUserInfo  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function(result, errorCode) {
+                console.log("----->repSimpleUserInfo  onFail: ", result , errorCode);
+    
+            }
+        };
+    
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+    },
+
+
+
+
+
 
     repHistoryScore:function(argu, callback, context){
         var self = this;

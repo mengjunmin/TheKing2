@@ -3,13 +3,11 @@ var Utils = require("../mode/Utils");
 var popupManager = require("../unit/popupManager");
 var fileManager = require("../mode/fileManager");
 var userMode = require("../mode/userMode");
-var MessageCenter = require("../Signal/MessageCenter");
-
+var MessageCenter = require('../Signal/MessageCenter');
 
 cc.Class({
     extends: cc.Component,
 
-    name:'startSence',
     properties: {
 
 
@@ -47,6 +45,7 @@ cc.Class({
     readData() {
         cc.log('----->readData');
         var value = fileManager.getInstance().readStartApp();
+        fileManager.getInstance().saveStartApp();
         cc.log('----->value: ', value);
         if (value == 1) {
             cc.director.loadScene('Login');

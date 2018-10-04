@@ -29,21 +29,39 @@ cc.Class({
         },
 
         _data: null,
+        _callBack:null,
+        _callBackTarget:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        
+    },
 
     start() {
-        // this.updateView();
+        
+    },
+
+    onEnable: function () {
+        this.updateView();
+    },
+
+    onDisable: function () {
+        
     },
 
     setData(data) {
         this._data = data;
     },
 
+    setCallBack(fun, target) {
+        this._callBack = fun;
+        this._callBackTarget = target;
+    },
+
     updateView() {
+
         this.nickname.string = this._data.nickname;
         this.rankvalue.string = this._data.rankvalue;
         this.activevalue.string = this._data.activevalue;
@@ -64,5 +82,10 @@ cc.Class({
         });
     },
 
+    onBtn(){
+        if (this._callBack) {
+            this._callBack.apply(this._callBackTarget, [this._data]);
+        }
+    },
     // update (dt) {},
 });

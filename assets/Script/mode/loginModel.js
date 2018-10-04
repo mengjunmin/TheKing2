@@ -16,12 +16,10 @@ var loginModel = cc.Class({
         var self = this;
         var params = {
             phone: argu.phone,
-            invite: argu.invite,
             password: argu.password,
-            code: argu.code
         }
 
-        var router = '/g1/user/login2';
+        var router = '/gapi/user/login';
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {

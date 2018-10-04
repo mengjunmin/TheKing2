@@ -3,60 +3,7 @@ var allDefine = require("./AllDefine");
 var GeneralServerRequest = require("../network/GeneralServerRequest");
 var popupManager = require("../unit/popupManager");
 var userMode = require("./userMode");
-// var registerModel = cc.Class({
-//     // 成员变量
-//     callback: null,
-//     target: null,
 
-
-
-//     ctor() {
-//         console.log('--->registerModel ctor');
-//         this.callback = null;
-//         this.target = null;
-//     },
-
-
-//     repRegister(argu, callback, context) {
-//         var self = this;
-//         var pp = {
-//             phone: argu.phone,
-//             code: argu.code,
-//             invite: argu.invite
-//         }
-//         console.log("----->repRegister");
-//         var url = serverAddress + 'onRegister';
-//         Request.Post(url, callback, context, pp, false);
-
-//     },
-
-//     //  /g1/code/sms
-//     repSMS(phone, callback, context) {
-//         var self = this;
-//         console.log("----->repSMS");
-//         var url = serverAddress + '/g1/code/sms';
-//         Request.Post(url, callback, context, { phone: phone }, false);
-
-//     },
-
-//     repFullInfo(argu, callback, context) {
-//         var self = this;
-//         var params = {
-//             uid: argu.uid,
-//             nick: argu.nick,
-//             sex: argu.sex,
-//             head: argu.head,
-//             password: argu.password,
-//             anpassword: argu.anpassword
-//         }
-//         console.log("----->repFullInfo");
-//         var url = serverAddress + '/g1/user/update';
-//         Request.Post(url, callback, context, params, false);
-
-//     },
-
-
-// });
 
 
 var registerModel = cc.Class({
@@ -78,45 +25,54 @@ var registerModel = cc.Class({
         var params = {
             phone: argu.phone,
             code: argu.code,
-            invite: argu.invite
+            password: argu.password
         }
         console.log("----->repRegister");
 
-        var router = '/g1/user/login1';
+        var router = '/gapi/user/reg';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
-                userMode.getInstance().user.uid = result.data._id;
-                userMode.getInstance().user.t = result.t;
+            onSuccess: function (result) {
+                userMode.getInstance().user.uid = result._id;
+                userMode.getInstance().user.phone = result.phone;
+                userMode.getInstance().user.token = result.token;
 
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repRegister  onFail: ", result , errorCode);
+            onFail: function (result, errorCode) {
+                console.log("----->repRegister  onFail: ", result, errorCode);
 
             }
         };
 
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
 
     },
 
-    //  /g1/code/sms
+    /*
+       *功能：检查用户是否已经存在。
+       *参数：phone：11位手机号。
+       *数据：{
+           "exists": true,
+           "phone": "13468305254",
+           "status": 0//用户状态
+       }
+       */
     repSMS(phone, callback, context) {
         var self = this;
 
         var params = {
             phone: phone
         };
-        var router = '/g1/code/sms';
+        var router = '/gapi/code/sms';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
+            onSuccess: function (result) {
                 console.log("----->repSMS  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repSMS  onFail: ", result , errorCode);
+            onFail: function (result, errorCode) {
+                console.log("----->repSMS  onFail: ", result, errorCode);
 
                 // var CONF = {
                 //     title:'1234',
@@ -132,39 +88,41 @@ var registerModel = cc.Class({
             }
         };
 
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
     },
 
-    repUpdateUser(argu, callback, context) {
+    /*
+    *功能：检查用户是否已经存在。
+    *参数：phone：11位手机号。
+    *数据：{
+        "exists": true,
+        "phone": "13468305254",
+        "status": 0//用户状态
+    }
+    */
+    repUserExist(phone, callback, context) {
         var self = this;
-        var params = {
-            uid: argu.uid,
-            t:argu.t,
-            nick: argu.nick,
-            sex: argu.sex,
-            face_id: argu.face_id,
-            password: argu.password
-        }
-        console.log("----->repUpdateUser  params: ", params);
-        // var url = allDefine.serverAddress + '/g1/user/update';
-        // Request.Post(url, callback, context, params, false);
 
-        var router = '/g1/user/update';
+        var params = {
+            phone: phone
+        };
+        var router = '/gapi/user/reg/check';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
-                console.log("----->repUpdateUser  onSuccess: ", result);
+            onSuccess: function (result) {
+                console.log("----->repUserExist  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repUpdateUser  onFail: ", result , errorCode);
-
+            onFail: function (result, errorCode) {
+                console.log("----->repUserExist  onFail: ", result, errorCode);
             }
         };
 
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
-
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
     },
+
+
+
 
 
 });

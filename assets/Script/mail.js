@@ -1,31 +1,32 @@
 var basePopup = require("./basePopup");
 var mailModel = require("./mode/mailModel");
 var userMode = require("./mode/userMode");
-var MailPool = require('./pool/MailPool');
+// var MailPool = require('./pool/MailPool');
+
 
 cc.Class({
     extends: basePopup,
 
     properties: {
-        closeBtn:{
-            default:null,
-            type:cc.Button
+        closeBtn: {
+            default: null,
+            type: cc.Button
         },
-        itemPrefab :{
-            default:null,
-            type:cc.Prefab,
+        itemPrefab: {
+            default: null,
+            type: cc.Prefab,
         },
 
-        _mailList:null,
-        _listcontent:null,
-        _data:null,
+        _mailList: null,
+        _listcontent: null,
+        _data: null,
 
 
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.setBlackGroud();
         console.log('mail list  onLoad');
         this._mailList = this.node.getChildByName('scrollview');
@@ -34,15 +35,15 @@ cc.Class({
 
     },
 
-    setData(data){
+    setData(data) {
         this._conf = data;
     },
 
-    start () {
+    start() {
         this.getMailList();
     },
 
-    getMailList(){
+    getMailList() {
         var uid = userMode.getInstance().user.uid;
         var t = userMode.getInstance().user.t;
         var pp = {
@@ -53,7 +54,7 @@ cc.Class({
         // this.repMailList(null);
     },
 
-    repMailList(data){
+    repMailList(data) {
         console.log("======>repMailList");
         this._data = data.list;
         // this._data = [
@@ -90,9 +91,9 @@ cc.Class({
         this.updataList();
     },
 
-    updataList(){
+    updataList() {
         this.cleanList();
-        for(var i=0;i<this._data.length;i++){
+        for (var i = 0; i < this._data.length; i++) {
             var item = cc.instantiate(this.itemPrefab);
             var itemJs = item.getComponent('mailitem');
             itemJs.setData(this._data[i]);
@@ -101,34 +102,34 @@ cc.Class({
     },
 
 
-    dellMail(id){
+    dellMail(id) {
         var uid = userMode.getInstance().user.uid;
         var t = userMode.getInstance().user.t;
         var pp = {
             uid: uid,
             t: t,
-            ids:id
+            ids: id
         }
 
         mailModel.repDellMail(pp, this.repDellMail, this);
     },
 
-    repDellMail(data){
+    repDellMail(data) {
         this._data = data.list;
 
         this.updataList();
     },
 
 
-    cleanList(){
-        if(this._listcontent){
+    cleanList() {
+        if (this._listcontent) {
             this._listcontent.removeAllChildren();
         }
     },
 
-    onCloseBtn(){
+    onCloseBtn() {
         console.log('  mail onCloseBtn');
-        if(this._conf.closeCallback){
+        if (this._conf.closeCallback) {
             this._conf.closeCallback.apply(this._conf.closeCallbackObj, [this.node]);
         }
 

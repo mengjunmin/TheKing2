@@ -53,7 +53,7 @@ cc.Class({
         this.scheduleOnce(function () {
             // self.getNote();
             // self.runNoteTimer();
-            self.setData([]);
+            // self.setData([]);
         }, time);
     },
 

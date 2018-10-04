@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4125,
-      "y": 0.4125,
+      "x": 0.30546875,
+      "y": 0.30546875,
       "z": 1
     },
     "_quat": {
@@ -79,16 +79,19 @@
       },
       {
         "__id__": 11
+      },
+      {
+        "__id__": 12
       }
     ],
     "_active": true,
     "_level": 1,
     "_components": [
       {
-        "__id__": 12
+        "__id__": 13
       },
       {
-        "__id__": 13
+        "__id__": 14
       }
     ],
     "_prefab": null,
@@ -542,6 +545,63 @@
     "_id": "90FfACVT1GZqZcMFk/pQCW"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "lock",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 2,
+    "_components": [],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_zIndex": 0,
+    "groupIndex": 0,
+    "_id": "a9TNP6rZJCYbXxI9m0DYj2"
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 0,
@@ -578,6 +638,9 @@
     "gameLobbyPrefab": {
       "__uuid__": "e60c294f-b8fd-4289-aa2f-31d71cda3fe8"
     },
+    "toasterPrefab": {
+      "__uuid__": "5b2121de-b366-44a8-9bb2-8ab3cc943e79"
+    },
     "hudPrefab": {
       "__uuid__": "5fdcef4c-61d5-4db9-9668-c6972e086d5e"
     },
@@ -608,6 +671,12 @@
     "noticePicPrefab": {
       "__uuid__": "3ac76c28-e5e9-4bde-815a-d630891537c5"
     },
+    "lockPrefab": {
+      "__uuid__": "245ba852-ae00-41d0-ad1b-4f1a65513ed7"
+    },
+    "lockNode": {
+      "__id__": 12
+    },
     "baselayerNode": {
       "__id__": 5
     },
@@ -632,6 +701,7 @@
     "horsePrefab": {
       "__uuid__": "83f48aa3-c00e-4ef5-a9c4-c792815ec3d1"
     },
+    "_lockScreen": null,
     "_id": "88YWka4TlJFbXTXG7PpoGk"
   }
 ]

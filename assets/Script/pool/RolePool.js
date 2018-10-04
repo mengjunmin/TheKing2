@@ -1,12 +1,9 @@
-
-
-
-var RolePool =  cc.Class({
+var RolePool = cc.Class({
 
     ObjPool: null,
-    Prefab:null,
+    Prefab: null,
 
-    ctor () {
+    ctor() {
         cc.log('---->create RolePool'); // true
         this.ObjPool = new cc.NodePool();
     },
@@ -16,21 +13,22 @@ var RolePool =  cc.Class({
         this.Prefab = prefab;
     },
 
-    create (data) {
-        if(!this.Prefab) return null;
-        
+    create(data, fun, target) {
+        if (!this.Prefab) return null;
+
         let role = null;
         if (this.ObjPool.size() > 0) {
             console.log('----->RolePool one from pool');
             role = this.ObjPool.get();
-        } else { 
+        } else {
             role = cc.instantiate(this.Prefab);
             console.log('----->RolePool create one');
         }
-        var js = role.getComponent('characterInfoBar'); 
-        // js.setData(data);
+        var itemJs = role.getComponent('characterInfoBar');
+        itemJs.setData(data);
+        itemJs.setCallBack(fun, target);
 
-        return  role;
+        return role;
     },
 
     put(role) {

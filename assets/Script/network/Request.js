@@ -15,7 +15,7 @@
 //var testurl = "http://httpbin.org/post";
 //var serverAddress = "http://192.168.0.14:3000/up";
 
-
+var MessageCenter = require('../Signal/MessageCenter');
 
 var HttpMethod_GET = "GET";
 var HttpMethod_POST = "POST";
@@ -175,7 +175,7 @@ var RequestWrapper = cc.Class({
 
         this._req.send(data);
 
-        this.waitForTimeout();
+        // this.waitForTimeout();
     },
 
     genRequest() {
@@ -188,8 +188,8 @@ var RequestWrapper = cc.Class({
 
         xhr.open(this._data.type, this._data.url);
         xhr.setRequestHeader("Content-Type","text/json;charset=UTF-8"); // 目前固定
-        //xhr.addEventListener(egret.Event.COMPLETE, this.onComplete, this);
-        //xhr.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onError, this);
+        // xhr.addEventListener(egret.Event.COMPLETE, this.onComplete, this);
+        // xhr.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onError, this);
 //
         xhr.timeout = 9000;
 
@@ -246,7 +246,7 @@ var RequestWrapper = cc.Class({
         }
         console.log(" --> res :", this._req.response);
 
-        this.releaseTimeout();
+        // this.releaseTimeout();
         this.releaseRequest();
         this.releaseLockScreen();
 
@@ -261,9 +261,9 @@ var RequestWrapper = cc.Class({
 
     waitForTimeout() {
         var self = this;
-        //this._timeoutId = setTimeout(function () {
-        //    self.retry();
-        //}, 15000);
+        this._timeoutId = setTimeout(function () {
+           self.retry();
+        }, 15000);
 
         //this.scheduleOnce(this.tick, 5.0);
     },
@@ -278,7 +278,7 @@ var RequestWrapper = cc.Class({
         console.log(" this._retry:",this._retry);
         this._retry ++;
 
-        //this.releaseTimeout();
+        // this.releaseTimeout();
 
         if (this._req) {
             this._req.abort();
@@ -321,6 +321,7 @@ var RequestWrapper = cc.Class({
         // 锁屏
         if (!this._data.isHideLoading) {
             //game.GameEvent.LOCK_SCREEN.dispatch(true);
+            MessageCenter.LOCKSCREEN.emit(true);
         }
     },
 
@@ -328,6 +329,7 @@ var RequestWrapper = cc.Class({
         // 取消锁屏
         if (!this._data.isHideLoading) {
             //game.GameEvent.LOCK_SCREEN.dispatch(false);
+            MessageCenter.LOCKSCREEN.emit(false);
         }
     }
 

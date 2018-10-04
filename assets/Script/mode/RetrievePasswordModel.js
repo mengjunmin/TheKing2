@@ -24,7 +24,7 @@ var retrievePasswordModel = cc.Class({
         var params = {
             phone: phone
         };
-        var router = '/g1/code/sms';
+        var router = '/gapi/code/sms';
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
@@ -46,12 +46,11 @@ var retrievePasswordModel = cc.Class({
         var params = {
             phone: argu.phone,
             code: argu.code,
-            invite: argu.invite,
             password:argu.password,
         }
         console.log("----->repRetrievePassword");
 
-        var router = '/g1/user/fgt';
+        var router = '/gapi/user/fgt';
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {

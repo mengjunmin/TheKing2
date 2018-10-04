@@ -10,6 +10,7 @@
 
 var global = require('Global');
 var userMode = require("./mode/userMode");
+var MessageCenter = require('./Signal/MessageCenter');
 
 cc.Class({
     extends: cc.Component,
@@ -17,21 +18,7 @@ cc.Class({
     properties: {
         _currFrame: '',
         _currAvatar: '',
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+
         nickName: {
             default: null,
             type: cc.Label,
@@ -62,13 +49,25 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        // this.userAvatar;
         var self = this;
-        // cc.loader.loadRes("frame001", function (err, texture) {
-        //     cc.log('----->texture:', texture);
-        //     self.userHead.setTexture(texture);
-        // });
 
+        self.updateView();
+
+    },
+
+    start() {
+
+    },
+
+    onEnable: function () {
+        MessageCenter.UPDATE_HUD.on(this.updateView, this);
+    },
+
+    onDisable: function () {
+        MessageCenter.UPDATE_HUD.off(this.updateView, this);
+    },
+
+    updateView(){
         var faceid = userMode.getInstance().user.face_id || 1;
         var nick = userMode.getInstance().user.nick || '无名先生';
         var level = userMode.getInstance().user.level || 1;
@@ -79,10 +78,6 @@ cc.Class({
         this.setGold(global.user['userGold']);
         this.setLevel(global.user['userLevel']);
         this.temp.enabled = false;
-    },
-
-    start() {
-
     },
 
     onPay: function(obj, data) {

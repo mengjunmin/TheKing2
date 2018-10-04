@@ -1,7 +1,7 @@
 var registerModel = require("../mode/registerModel");
 var userMode = require("../mode/userMode");
 var popupManager = require("../unit/popupManager");
-
+var MessageCenter = require('../Signal/MessageCenter');
 
 cc.Class({
     extends: cc.Component,
@@ -11,7 +11,18 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-
+        toasterPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        lockPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        lockNode: {
+            default: null,
+            type: cc.Node
+        },
         popupNode: {
             default: null,
             type: cc.Node
@@ -75,95 +86,78 @@ cc.Class({
         cc.log('------->this.checkBtn: ', this.checkBtn);
     },
 
+    onEnable: function () {
+        MessageCenter.LOCKSCREEN.on(this.lockScreen, this);
+    },
+
+    onDisable: function () {
+        MessageCenter.LOCKSCREEN.off(this.lockScreen, this);
+    },
+
+    lockScreen(){
+
+    },
+    unlockScreen(){
+
+    },
+    
     // update (dt) {},
-    //phone
-    onPhoneEditDidBegan: function (editbox, customEventData) {
 
-    },
-    //假设这个回调是给 editingDidEnded 事件的
-    onPhoneEditDidEnded: function (editbox, customEventData) {
-
-    },
-    //假设这个回调是给 textChanged 事件的
+    onPhoneEditDidBegan: function (editbox, customEventData) {},
+    onPhoneEditDidEnded: function (editbox, customEventData) {},
     onPhoneTextChanged: function (text, editbox, customEventData) {
-
-        // this.label.string = text;
+        var phone = editbox.string;
+        if(phone.length == 11){
+            registerModel.repUserExist(phone, this.repUserExist, this);
+        }
     },
-    //假设这个回调是给 editingReturn 事件的
-    onPhoneEditingReturn: function (editbox, customEventData) {
+    onPhoneEditingReturn: function (editbox, customEventData) {},
+    repUserExist(result){
+        cc.log('------->repUserExist: ', result);
+        var exists = result.exists;
+        if(exists){//用户已经存在
+            var conf = {
+                content: '用户已经存在',
+                type: 2,
+            };
+            popupManager.create('Toaster', conf);
+        }else{
 
+        }
     },
 
     //邀请码
     onInvitationEditDidBegan: function (editbox, customEventData) {},
-
-    onInvitationEditDidEnded: function (editbox, customEventData) {
-
-    },
-
+    onInvitationEditDidEnded: function (editbox, customEventData) {},
     onInvitationTextChanged: function (text, editbox, customEventData) {
-
         editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
-
-    onInvitationEditingReturn: function (editbox, customEventData) {
-
-    },
+    onInvitationEditingReturn: function (editbox, customEventData) {},
 
 
     //Check验证码
-    onCheckEditDidBegan: function (editbox, customEventData) {
-
-    },
-
-    onCheckEditDidEnded: function (editbox, customEventData) {
-
-    },
-
+    onCheckEditDidBegan: function (editbox, customEventData) {},
+    onCheckEditDidEnded: function (editbox, customEventData) {},
     onCheckTextChanged: function (text, editbox, customEventData) {
-
         editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
-
-    onCheckEditingReturn: function (editbox, customEventData) {
-
-    },
+    onCheckEditingReturn: function (editbox, customEventData) {},
 
     //密码
-    onPassWordEditDidBegan: function (editbox, customEventData) {
-
-    },
-
-    onPassWordEditDidEnded: function (editbox, customEventData) {
-
-    },
-
+    onPassWordEditDidBegan: function (editbox, customEventData) {},
+    onPassWordEditDidEnded: function (editbox, customEventData) {},
     onPassWordTextChanged: function (text, editbox, customEventData) {
-
         editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
-
-    onPassWordEditingReturn: function (editbox, customEventData) {
-
-    },
+    onPassWordEditingReturn: function (editbox, customEventData) {},
 
     //确认密码
-    onRePassWordEditDidBegan: function (editbox, customEventData) {
-
-    },
-
-    onRePassWordEditDidEnded: function (editbox, customEventData) {
-
-    },
-
+    onRePassWordEditDidBegan: function (editbox, customEventData) {},
+    onRePassWordEditDidEnded: function (editbox, customEventData) {},
     onRePassWordTextChanged: function (text, editbox, customEventData) {
-
         editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
-
-    onRePassWordEditingReturn: function (editbox, customEventData) {
-
-    },
+    onRePassWordEditingReturn: function (editbox, customEventData) {},
 
 
     onCheckBtton: function (btn) {
@@ -171,10 +165,18 @@ cc.Class({
         var phone = this.editPhone.string;
         if (phone.length != 11) {
             cc.log('手机号不够11位 ');
+            var conf = {
+                content: '手机号不够11位',
+                type: 2,
+            };
+            popupManager.create('Toaster', conf);
         } else {
             registerModel.repSMS(phone, this.requestGetSMS, this);
             this.lockCheckBtn();
         }
+    },
+    requestGetSMS(data) {
+        cc.log('---->onGetSMS: ', data);
     },
 
     checkBtnCount(d) {
@@ -189,7 +191,6 @@ cc.Class({
         }
         this.checkCount--;
         title.string = '' + this.checkCount;
-        // cc.log('------->lable.string: ', lable.string);
 
     },
     lockCheckBtn() {
@@ -198,14 +199,10 @@ cc.Class({
         this.schedule(this.checkBtnCount, 1);
     },
 
-    requestGetSMS(data) {
-        cc.log('---->onGetSMS: ', data);
-    },
+
 
     onAlreadyBtton: function (btn) {
-
         cc.director.loadScene('Login');
-
     },
 
     showTIPS(){
@@ -253,7 +250,7 @@ cc.Class({
         var pp = {
             phone: phone,
             code: code,
-            // invite: invitation
+            password: password
         }
         registerModel.repRegister(pp, this.requestLogin, this);
 
@@ -262,13 +259,11 @@ cc.Class({
     requestLogin(data) {
         cc.log('---->requestLogin: ', data);
 
-        var token = data.t;
-        var uid = data.data._id;
-        userMode.getInstance().user.t = token;
-        userMode.getInstance().user.uid = uid;
+        userMode.getInstance().updataUser(data);
+        // cc.director.loadScene('PerfectInfo');
 
-        cc.director.loadScene('PerfectInfo');
-
+        userMode.getInstance().showLayer = 'roleList';
+        cc.director.loadScene('mainScene');
     },
 
 

@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4285247011720339,
-      "y": 0.4285247011720339,
+      "x": 0.30546875,
+      "y": 0.30546875,
       "z": 1
     },
     "_quat": {
@@ -52,7 +52,7 @@
       "z": 0,
       "w": 1
     },
-    "_localZOrder": 70,
+    "_zIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": true,
     "_id": "5e5389c6-7573-4b52-9501-146f33f040ba"
@@ -84,17 +84,20 @@
         "__id__": 95
       },
       {
-        "__id__": 96
+        "__id__": 97
+      },
+      {
+        "__id__": 98
       }
     ],
     "_active": true,
     "_level": 0,
     "_components": [
       {
-        "__id__": 98
+        "__id__": 99
       },
       {
-        "__id__": 99
+        "__id__": 100
       }
     ],
     "_prefab": null,
@@ -139,7 +142,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 71,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "7406XCy/lIIZdHiui4WDKa"
   },
@@ -200,7 +203,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 72,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "a2W93GblpLjYFVTrDQrx3+"
   },
@@ -286,7 +289,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 73,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "592KxUO/pBLqV9k0mnuulK"
   },
@@ -405,7 +408,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 74,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "d8zn16bShKLrk+53X/Dd7x"
   },
@@ -524,7 +527,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 75,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "1aDsil7uZGHb7UH4roBoM7"
   },
@@ -680,7 +683,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 76,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "e5Ub/2eO5LEoiYn+X0/56h"
   },
@@ -744,7 +747,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 77,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "ddDIM+J6FKK5iNbheQ3y8W"
   },
@@ -860,7 +863,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 78,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "ec8+7GCepPbay1pYAlVMSR"
   },
@@ -915,8 +918,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 40
+      "width": 140,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -946,7 +949,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 79,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "dddSEOeFBKB5w5x0g8z8b+"
   },
@@ -963,8 +966,8 @@
     "_useOriginalSize": false,
     "_string": "手机号：",
     "_N$string": "手机号：",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1042,7 +1045,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 80,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "b1vBYCv9JOIb5Vdbh2oHcQ"
   },
@@ -1103,7 +1106,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 81,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "a6okjUcCdFKY7HjJLfQLze"
   },
@@ -1192,7 +1195,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 82,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "874t3SY4JI8o3xyL8xk5ds"
   },
@@ -1278,7 +1281,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 83,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "a9Hu7zd1dIlowaSx13r29Y"
   },
@@ -1428,8 +1431,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 40
+      "width": 140,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1459,7 +1462,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 84,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "48J8qoYYZJUKDGlbUDGG/I"
   },
@@ -1476,8 +1479,8 @@
     "_useOriginalSize": false,
     "_string": "验证码：",
     "_N$string": "验证码：",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1555,7 +1558,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 85,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "0arfJqdBNCZqdSpIr5WY4d"
   },
@@ -1616,7 +1619,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 86,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "b7PstyNuVOpIA0j0S/h5l1"
   },
@@ -1705,7 +1708,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 87,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "553UYHebRC77JPajOP8Jbo"
   },
@@ -1791,7 +1794,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 88,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "000ZUHgWhFuaNdwCjNRafd"
   },
@@ -1941,8 +1944,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 40
+      "width": 105,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1972,7 +1975,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 89,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "60Su7tPghIU4k/EgEa+CiM"
   },
@@ -1989,8 +1992,8 @@
     "_useOriginalSize": false,
     "_string": "密码：",
     "_N$string": "密码：",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -2068,7 +2071,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 90,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "79WtYYlE5KlI1gt7Hd+sD5"
   },
@@ -2129,7 +2132,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 91,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "90SQmPcahOmIbWXSeypU+y"
   },
@@ -2218,7 +2221,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 92,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "d9Bca8SOtFAJlgToMkBvC7"
   },
@@ -2304,7 +2307,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 93,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "81L8NqsNVOqpMC9SMcPage"
   },
@@ -2454,8 +2457,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
-      "height": 40
+      "width": 175,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2485,7 +2488,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 94,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "d96JxFLqBIVaFspLWEcksE"
   },
@@ -2502,8 +2505,8 @@
     "_useOriginalSize": false,
     "_string": "确认密码：",
     "_N$string": "确认密码：",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -2581,7 +2584,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 95,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "4d1PLbHZdLfafgBT7K9iI7"
   },
@@ -2642,7 +2645,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 96,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "81rV3q80JBHYQqVrxcj80q"
   },
@@ -2731,7 +2734,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 97,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "82pT3dmIlJ+ovd99w7TPZd"
   },
@@ -2817,7 +2820,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 98,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "712eTyLlJLY4IqH0QfTL/V"
   },
@@ -3005,7 +3008,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 99,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "04DMlSAxRAjYrayq+SCNKQ"
   },
@@ -3066,7 +3069,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 100,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "e661q85+ZFBJVXqKt5oo8Q"
   },
@@ -3265,7 +3268,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 101,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "4dNUxuFbpP0Iw15QGiFs0h"
   },
@@ -3326,7 +3329,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 102,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "d7eyEsBBlO+byMGlv8TW+D"
   },
@@ -3525,7 +3528,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 103,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "98kpxKHaJCHZbaYQvH8uUI"
   },
@@ -3586,7 +3589,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 104,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "79Ghuuvz5Hr73U3UzLt7FM"
   },
@@ -3750,6 +3753,92 @@
   },
   {
     "__type__": "cc.Node",
+    "_name": "misstips",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 1,
+    "_components": [
+      {
+        "__id__": 96
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 245,
+      "b": 0,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 425.56,
+      "height": 40
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 27,
+      "y": -150,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_zIndex": 0,
+    "groupIndex": 0,
+    "_id": "7fLz272yxNhL6kTnbLDaCt"
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 95
+    },
+    "_enabled": true,
+    "_srcBlendFactor": 1,
+    "_dstBlendFactor": 771,
+    "_useOriginalSize": false,
+    "_string": "验证码错误/两次输入的密码不一致，请重新输入",
+    "_N$string": "验证码错误/两次输入的密码不一致，请重新输入",
+    "_fontSize": 20,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0,
+    "_id": "f2gh8QEJtGbbnAXTW+Avj4"
+  },
+  {
+    "__type__": "cc.Node",
     "_name": "popup",
     "_objFlags": 0,
     "_parent": {
@@ -3801,13 +3890,13 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 105,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": "b0dmW6bMxOx4ohJF2f8Ec8"
   },
   {
     "__type__": "cc.Node",
-    "_name": "misstips",
+    "_name": "lock",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -3815,24 +3904,20 @@
     "_children": [],
     "_active": true,
     "_level": 1,
-    "_components": [
-      {
-        "__id__": 97
-      }
-    ],
+    "_components": [],
     "_prefab": null,
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 245,
-      "b": 0,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 425.56,
-      "height": 40
+      "width": 0,
+      "height": 0
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3841,8 +3926,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 27,
-      "y": -150,
+      "x": 0,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -3862,34 +3947,9 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 106,
+    "_zIndex": 0,
     "groupIndex": 0,
-    "_id": "7fLz272yxNhL6kTnbLDaCt"
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 96
-    },
-    "_enabled": true,
-    "_srcBlendFactor": 1,
-    "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
-    "_string": "验证码错误/两次输入的密码不一致，请重新输入",
-    "_N$string": "验证码错误/两次输入的密码不一致，请重新输入",
-    "_fontSize": 20,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
-    "_id": "f2gh8QEJtGbbnAXTW+Avj4"
+    "_id": "ba7OnnEshHk65/gPpLQ7Q5"
   },
   {
     "__type__": "cc.Canvas",
@@ -3919,8 +3979,17 @@
     "notePrefab": {
       "__uuid__": "e457bbaa-d1b9-47d8-8eab-826535b34a0d"
     },
+    "toasterPrefab": {
+      "__uuid__": "5b2121de-b366-44a8-9bb2-8ab3cc943e79"
+    },
+    "lockPrefab": {
+      "__uuid__": "245ba852-ae00-41d0-ad1b-4f1a65513ed7"
+    },
+    "lockNode": {
+      "__id__": 98
+    },
     "popupNode": {
-      "__id__": 95
+      "__id__": 97
     },
     "editPhone": {
       "__id__": 29
@@ -3944,9 +4013,10 @@
       "__id__": 86
     },
     "misstips": {
-      "__id__": 97
+      "__id__": 96
     },
     "checkCount": null,
+    "timerout": 0,
     "_id": "41dAIX1X5JOIFPv3O0TFJS"
   }
 ]

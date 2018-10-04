@@ -249,7 +249,7 @@ cc.Class({
             userMode.getInstance().user[key] = this.temp[key];
         }
 
-        fileManager.getInstance().saveStartApp();
+        // fileManager.getInstance().saveStartApp();
 
         cc.director.loadScene('mainScene');
     },

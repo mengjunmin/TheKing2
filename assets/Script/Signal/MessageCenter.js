@@ -15,6 +15,8 @@ var MessageCenter = cc.Class({
         console.log('--->MessageCenter ctor');
         this.GAME = new SignalEvent();
         this.GUI = new SignalEvent();
+        this.UPDATE_HUD =  new SignalEvent();
+        this.LOCKSCREEN =  new SignalEvent();
     },
 
 

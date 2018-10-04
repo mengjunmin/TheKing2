@@ -1,8 +1,13 @@
-var registerModel = require("../mode/registerModel");
-var userMode = require("../mode/userMode");
-var popupManager = require("../unit/popupManager");
-var fileManager = require("../mode/fileManager");
 
+var userMode = require("./mode/userMode");
+var popupManager = require("./unit/popupManager");
+var fileManager = require("./mode/fileManager");
+var createRoleModel = require("./mode/createRoleModel");
+var userInfoModel = require("./mode/userInfoModel");
+
+//http://59.110.138.129:112/gapi/account/invite/init?parent_uid=0000-00000000-0000&parent_invite=000000&token=
+//HVGD6
+//c277f42e-16aa-4b28-8eb2-8377473cfe31
 cc.Class({
     extends: cc.Component,
 
@@ -55,8 +60,8 @@ cc.Class({
 
 
         mainSence: null,
-        sex: 0,
-        faceid: 0,
+        sex: true,
+        faceid: 1,
         temp: null,
 
     },
@@ -64,12 +69,14 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-
+        cc.log('this.sex: ', this.sex);
+        cc.log('this.faceid: ', this.faceid);
 
     },
 
     start() {
-
+        cc.log('this.sex: ', this.sex);
+        cc.log('this.faceid: ', this.faceid);
     },
 
     // update (dt) {},
@@ -79,14 +86,12 @@ cc.Class({
     },
     //假设这个回调是给 editingDidEnded 事件的
     onNameEditDidEnded: function (editbox, customEventData) {
-
         cc.log('onEditDidEnded: ', customEventData);
     },
     //假设这个回调是给 textChanged 事件的
     onNameTextChanged: function (text, editbox, customEventData) {
         editbox.string = editbox.string.replace(/(^\s+)|(\s+$)/g, "");//去除空格
         cc.log('onNameTextChanged: ', editbox.string);
-        // this.label.string = text;
     },
     //假设这个回调是给 editingReturn 事件的
     onNameEditingReturn: function (editbox, customEventData) {
@@ -95,22 +100,12 @@ cc.Class({
 
 
     //邀请码
-    onInviteEditDidBegan: function (editbox, customEventData) {
-
-    },
-
-    onInviteEditDidEnded: function (editbox, customEventData) {
-
-    },
-
+    onInviteEditDidBegan: function (editbox, customEventData) {},
+    onInviteEditDidEnded: function (editbox, customEventData) {},
     onInviteTextChanged: function (text, editbox, customEventData) {
-
         editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
-
-    onInviteEditingReturn: function (editbox, customEventData) {
-
-    },
+    onInviteEditingReturn: function (editbox, customEventData) {},
 
 
     onSysBtton: function (btn) {
@@ -162,51 +157,140 @@ cc.Class({
     },
 
     onSexBtton: function (btn, data) {
-        cc.log('onSexBtton: ', data);
-        this.sex = data;
+        this.sex = data==0?true:false;
+        cc.log('this.sex: ', this.sex);
     },
 
     onDoneBtton: function (btn) {
-        //这里 editbox 是一个 cc.EditBox 对象
-        //这里的 customEventData 参数就等于你之前设置的 "foobar"
+        // this.activeRoleNote();
+        // return;
+
         var uid = userMode.getInstance().user.uid;
-        var t = userMode.getInstance().user.t;
+        var token = userMode.getInstance().user.token;
         var nick = this.editName.string;
         var sex = this.sex;
-        var faceid = this.faceid;
+        var face_id = this.faceid;
+        var inviteCode = this.editInviteCode.string;
+        cc.log('----->onDoneBtton inviteCode: ',inviteCode);
+        if (nick == null || nick == '') {
+            cc.log('name can not null');
+            return;
+        }
+        if (inviteCode.length == 0) {
+            cc.log('邀请码不对');
+            return;
+        }
+
+        var params = {
+            token: token,
+            invite:inviteCode,
+        };
+
+        createRoleModel.repCreateRole(params, this.repCreateRole, this.repCreateRoleFail, this);
+    },
+
+    repCreateRole(data) {
+        cc.log('----->createRole success: ',data);
+        this.completeInfo();
+    },
+
+    repCreateRoleFail(data) {
+        cc.log('----->createRole fail: ',data);
+        var self = this;
+        var onOk = function(){
+
+        };
+        var CONF = {
+            title: '',
+            content: "创建新角色失败！",
+            okLabel: null,
+            cancelLabel: null,
+            cancelCallback: null, // 取消
+            cancelCallbackObj: self, // 取消
+            okCallback: onOk, // 确定
+            okCallbackObj: self, // 确定
+        };
+        popupManager.create('note', CONF);
+    },
+
+    completeInfo(){
+        var uid = userMode.getInstance().user.uid;
+        var token = userMode.getInstance().user.token;
+        var nick = this.editName.string;
+        var sex = this.sex;
+        var face_id = this.faceid;
         var inviteCode = this.editInviteCode.string;
 
         if (nick == null || nick == '') {
             cc.log('name can not null');
             return;
         }
-        if (inviteCode.length < 6) {
+        if (inviteCode.length == 0) {
             cc.log('邀请码不对');
             return;
         }
 
         var params = {
-            uid: uid,
-            token: t,
+            token: token,
+            invite:inviteCode,
             nick: nick,
             sex: sex,
-            face_id: faceid,
-            password: password
+            face_id: face_id,
         };
-        this.temp = params;
 
-        registerModel.repUpdateUser(params, this.requestLogin, this);
+        userInfoModel.repUpdateUserInfo(params, this.onCompleteInfo, this);
     },
 
-    requestLogin(data) {
+    onCompleteInfo(data){
+        // this.mainSence.goToLayer("roleList");
+        var self = this;
+        this.activeRoleNote();
+    },
 
-        for (var key in this.temp) {
-            userMode.getInstance().user[key] = this.temp[key];
+    activeRoleNote(){
+        // this.mainSence.goToLayer("roleList");
+        var self = this;
+        var onCancel = function(){
+            self.cancelRoleNote();
         }
+        var onOk = function(){
+            //购买角色代码
+        }
+        var CONF = {
+            title: '角色激活',
+            content: "花费钻石600，激活该角色，是否激活？",
+            okLabel: '激活',
+            cancelLabel: '取消',
+            cancelCallback: onCancel, // 取消
+            cancelCallbackObj: self, // 取消
+            okCallback: onOk, // 确定
+            okCallbackObj: self, // 确定
+            showCloseBtn:false,
+        };
+        popupManager.create('note', CONF);
+    },
 
-        fileManager.getInstance().saveStartApp();
-
-        cc.director.loadScene('mainScene');
+    cancelRoleNote(){
+        // this.mainSence.goToLayer("roleList");
+        var self = this;
+        var onCancel = function(){
+            self.mainSence.goToLayer("mainMenu");
+        }
+        var onOk = function(){
+            self.activeRoleNote();
+        }
+        var CONF = {
+            title: '激活提示',
+            content: "激活失败，请在48小时内激活该角色，超时后角色将被回收",
+            okLabel: '激活',
+            cancelLabel: '取消',
+            cancelCallback: onCancel, // 取消
+            cancelCallbackObj: self, // 取消
+            okCallback: onOk, // 确定
+            okCallbackObj: self, // 确定
+            showCloseBtn:false,
+        };
+        popupManager.create('note', CONF);
     },
 
 
