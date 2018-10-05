@@ -24,7 +24,7 @@ var RolePool = cc.Class({
             role = cc.instantiate(this.Prefab);
             console.log('----->RolePool create one');
         }
-        var itemJs = role.getComponent('characterInfoBar');
+        var itemJs = role.getComponent('characterinfoBar');
         itemJs.setData(data);
         itemJs.setCallBack(fun, target);
 

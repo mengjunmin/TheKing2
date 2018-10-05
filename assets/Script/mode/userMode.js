@@ -3,7 +3,6 @@ var fileManager = require("./fileManager");
 
 
 var userData = {
-    role: {},
 };
 
 var userMode = cc.Class({

@@ -1,7 +1,13 @@
+var userMode = require("./mode/userMode");
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
+        bg: {
+            default: null,
+            type: cc.Sprite
+        },
         avatar: {
             default: null,
             type: cc.Sprite
@@ -23,24 +29,24 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
-        roleType:{
+        roleType: {
             default: null,
             type: cc.Label
         },
 
         _data: null,
-        _callBack:null,
-        _callBackTarget:null,
+        _callBack: null,
+        _callBackTarget: null,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        
+    onLoad() {
+
     },
 
     start() {
-        
+
     },
 
     onEnable: function () {
@@ -48,7 +54,7 @@ cc.Class({
     },
 
     onDisable: function () {
-        
+
     },
 
     setData(data) {
@@ -62,27 +68,59 @@ cc.Class({
 
     updateView() {
 
-        this.nickname.string = this._data.nickname;
-        this.rankvalue.string = this._data.rankvalue;
-        this.activevalue.string = this._data.activevalue;
-        this.scorevalue.string = this._data.scorevalue;
+        this.nickname.string = this._data['nick'] || '';
+        this.rankvalue.string = this._data['rankvalue'] || '0';
+        this.activevalue.string = this._data['activevalue'] || '0';
+        this.scorevalue.string = this._data['scorevalue'] || '0';
         cc.log('----->role item');
-        this.setUserAvatar(this._data.avatar);
+        this.select();
+        this.setUserAvatar(this._data['face_id'] || 1);
     },
 
-    setUserAvatar:function(avatar){
+    select() {
+        var uid = userMode.getInstance().user.uid;
+        var same = this._data['_id'] == uid;
+
+        var color;
+        if (same) {
+            color =  new cc.Color(126, 14, 14);
+        } else {
+            color =  new cc.Color(66, 54, 54);
+        }
+
+        this.bg.node.color = color;
+    },
+
+    setRoleType(status) {
+        switch (status) {
+            case -10:
+                this.roleType.string = '已过期';
+                break;
+            case 0:
+                this.roleType.string = '未使用';
+                break;
+            case 10:
+                this.roleType.string = '未激活';
+                break;
+            case 100:
+                this.roleType.string = '已激活';
+                break;
+        }
+    },
+
+    setUserAvatar: function (avatar) {
         var self = this;
-        
-        var idx = avatar<10?('00'+avatar):('0'+avatar);
+
+        var idx = avatar < 10 ? ('00' + avatar) : ('0' + avatar);
         var newavatar = "monster" + idx + '_s'
         cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
             cc.log('----->spriteFrame:', spriteFrame);
-            self.userAvatar.spriteFrame = spriteFrame;
+            self.avatar.spriteFrame = spriteFrame;
 
         });
     },
 
-    onBtn(){
+    onButton() {
         if (this._callBack) {
             this._callBack.apply(this._callBackTarget, [this._data]);
         }

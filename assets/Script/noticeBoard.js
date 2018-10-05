@@ -27,6 +27,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+        console.log('----->noticeBoard  ctor');
+         var self = this;
+        
+    },
 
     onLoad () {
         this.setBlackGroud();

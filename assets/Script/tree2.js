@@ -15,6 +15,10 @@ cc.Class({
 
 
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+         var self = this;
+        
+    },
 
     onLoad() {
         var self = this;

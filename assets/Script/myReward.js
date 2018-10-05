@@ -23,6 +23,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+        console.log('----->myReward  ctor');
+         var self = this;
+        
+    },
 
     onLoad () {
         this.setBlackGroud();

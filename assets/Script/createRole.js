@@ -67,8 +67,14 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+        console.log('----->createRole  ctor');
+         var self = this;
+        
+    },
 
     onLoad() {
+        this.sex = true;
         cc.log('this.sex: ', this.sex);
         cc.log('this.faceid: ', this.faceid);
 

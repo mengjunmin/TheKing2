@@ -27,7 +27,10 @@ cc.Class({
     },
 //{"id":"1","name":"300元加油卡","image":"","time":"2018-7-13 00:36:24"}
     // LIFE-CYCLE CALLBACKS:
-
+    ctor:function () {
+         var self = this;
+        
+    },
     // onLoad () {},
 
     start () {

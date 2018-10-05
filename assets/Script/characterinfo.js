@@ -4,7 +4,7 @@ var RolePool = require('./pool/RolePool');
 var characterinfoModel = require("./mode/characterinfoModel");
 var popupManager = require("./unit/popupManager");
 var MessageCenter = require('./Signal/MessageCenter');
-
+var UserInfoModel = require('./mode/userInfoModel');
 
 cc.Class({
     extends: cc.Component,
@@ -38,6 +38,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+        console.log('----->characterinfo  ctor');
+         var self = this;
+        
+    },
 
     onLoad() {
         this._canCreateRole = true;
@@ -91,12 +96,19 @@ cc.Class({
     */
     repRoleList(data) {
         console.log("======>repRoleList: ", data);
-
         this._data = data;
-
         this.updataList();
-
         this.skipBtn.node.active = this._data.length == 0 ? true : false;
+    },
+
+    refreshList(){
+        var children = this._listcontent.children;
+        
+        for (var i = 0; i < children.length; i++) {
+            var item = children[i];
+            var itemJs = item.getComponent('characterinfoBar');
+            itemJs.select();
+        }
     },
 
     updataList() {
@@ -111,7 +123,20 @@ cc.Class({
 
     onItemClick(data) {
         console.log('----->onItemClick:', data);
+        var uid = data._id;
+        var token = userMode.getInstance().user.token;
+        var params = {
+            token: token,
+            invite: uid,
+        }
+        UserInfoModel.repFullUserInfo(params, this.repFullUserInfo, this);
     },
+    repFullUserInfo(data) {
+        userMode.getInstance().updataUser(data);
+        MessageCenter.UPDATE_HUD.emit();
+        this.refreshList();
+    },
+
 
     cleanList() {
         if (this._listcontent) {
@@ -143,7 +168,7 @@ cc.Class({
                 okLabel: null,
                 cancelLabel: null,
                 cancelCallback: null, // 取消
-                cancelCallbackObj: self, // 取消
+                cancelCallbackObj: null, // 取消
                 okCallback: onOk, // 确定
                 okCallbackObj: self, // 确定
             };
@@ -158,16 +183,16 @@ cc.Class({
 
     onIn: function () {
         cc.log('----->RoleList onIn');
-        // if(!this.enabled){
-        //     this.enabled = true;
-        // }
+        if(!this.enabled){
+            this.enabled = true;
+        }
     },
 
     onOut: function () {
         cc.log('----->RoleList onOut');
-        // if(this.enabled){
-        //     this.enabled = false;
-        // }
+        if(this.enabled){
+            this.enabled = false;
+        }
     },
 
 

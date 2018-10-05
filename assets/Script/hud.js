@@ -51,7 +51,7 @@ cc.Class({
     onLoad() {
         var self = this;
 
-        self.updateView();
+        self.updateView(null);
 
     },
 
@@ -67,10 +67,11 @@ cc.Class({
         MessageCenter.UPDATE_HUD.off(this.updateView, this);
     },
 
-    updateView(){
-        var faceid = userMode.getInstance().user.face_id || 1;
-        var nick = userMode.getInstance().user.nick || '无名先生';
-        var level = userMode.getInstance().user.level || 1;
+    updateView(args){
+        cc.log('----->hud updateView: ', args);
+        var faceid = userMode.getInstance().user['face_id'] || 1;
+        var nick = userMode.getInstance().user['nick'] || '无名先生';
+        var level = userMode.getInstance().user['level'] || 1;
 
         this.setUserAvatar(faceid);
         this.setUserFrame(global.user['frame'] || '001');
@@ -105,10 +106,10 @@ cc.Class({
         var self = this;
         if (frame == '') return;
 
-        if (this._currFrame != '') {
-            var frame = "frame" + this._currFrame;
-            cc.loader.releaseRes(frame, cc.SpriteFrame);
-        }
+        // if (this._currFrame != '') {
+        //     var frame = "frame" + this._currFrame;
+        //     cc.loader.releaseRes(frame, cc.SpriteFrame);
+        // }
 
         this._currFrame = frame;
         var newframe = "frame" + "001";
@@ -126,11 +127,11 @@ cc.Class({
             avatar = '0' + avatar;
         }
 
-        if (this._currAvatar != '') {
-            var oldavatar = "monster" + this._currFrame + '_s';
-            cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
-        }
-
+        // if (this._currAvatar != '') {
+        //     var oldavatar = "monster" + this._currAvatar + '_s';
+        //     cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
+        // }
+        cc.log('----->this._currAvatar:', this._currAvatar);
         this._currAvatar = avatar;
         var newavatar = "monster" + avatar + '_s';
         cc.loader.loadRes(newavatar, cc.SpriteFrame, function(err, spriteFrame) {

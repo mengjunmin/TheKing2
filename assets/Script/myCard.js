@@ -23,7 +23,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
-
+    ctor:function () {
+        console.log('----->myCard  ctor');
+         var self = this;
+        
+    }, 
     onLoad () {
         this.setBlackGroud();
         console.log('shop list  onLoad');

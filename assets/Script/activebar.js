@@ -22,6 +22,11 @@ cc.Class({
 
     // onLoad () {},
 
+    ctor:function () {
+         var self = this;
+        
+    },
+
     start() {
 
     },

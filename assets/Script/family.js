@@ -56,6 +56,11 @@ cc.Class({
     },
     mainSence: null,
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+        console.log('----->family  ctor');
+         var self = this;
+        
+    },
 
     onLoad() {
 

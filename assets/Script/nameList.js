@@ -22,7 +22,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
-
+    ctor:function () {
+        console.log('----->nameList  ctor');
+         var self = this;
+        
+    }, 
     onLoad () {
         this.setBlackGroud();
         this._List = this.node.getChildByName('scrollview');

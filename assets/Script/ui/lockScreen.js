@@ -26,7 +26,7 @@ cc.Class({
         this.stopAni();
     },
     playAni() {
-        var rotateBy = cc.rotateBy(2,360);
+        var rotateBy = cc.rotateBy(1,-360);
         var repeatForever = cc.repeatForever(rotateBy);
         this.loading.node.runAction(repeatForever);
 

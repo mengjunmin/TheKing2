@@ -22,6 +22,11 @@ cc.Class({
 
     },
 
+    ctor:function () {
+        console.log('----->shop  ctor');
+         var self = this;
+        
+    },
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {

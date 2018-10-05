@@ -25,6 +25,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
+    ctor:function () {
+        console.log('----->mail  ctor');
+         var self = this;
+        
+    },
 
     onLoad() {
         this.setBlackGroud();

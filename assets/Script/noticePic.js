@@ -27,7 +27,11 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
-
+    ctor:function () {
+        console.log('----->noticePic  ctor');
+         var self = this;
+        
+    },
     // onLoad () {},
 
     start () {

@@ -43,7 +43,11 @@ cc.Class({
 
     },
 
-
+    ctor:function () {
+        console.log('----->note  ctor');
+         var self = this;
+        
+    },
 
     onLoad() {
         console.log('  note onLoad: ');

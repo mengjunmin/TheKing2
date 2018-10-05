@@ -46,7 +46,14 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+
+    },
+    
+    ctor:function () {
+         var self = this;
+        
+    },
 
     start () {
         
