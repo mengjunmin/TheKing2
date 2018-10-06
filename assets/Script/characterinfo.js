@@ -122,8 +122,13 @@ cc.Class({
     },
 
     onItemClick(data) {
-        console.log('----->onItemClick:', data);
         var uid = data._id;
+        var user_id = userMode.getInstance().user._id;
+        if(uid == user_id){
+            console.log('----->onItemClick:', uid, user_id);
+            return;
+        }
+        console.log('----->onItemClick:', data);
         var token = userMode.getInstance().user.token;
         var params = {
             token: token,

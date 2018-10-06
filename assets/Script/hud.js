@@ -114,7 +114,7 @@ cc.Class({
         this._currFrame = frame;
         var newframe = "frame" + "001";
         cc.loader.loadRes(newframe, cc.SpriteFrame, function(err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
+            // cc.log('----->spriteFrame:', spriteFrame);
             self.userFrame.spriteFrame = spriteFrame;
         });
     },
@@ -135,7 +135,7 @@ cc.Class({
         this._currAvatar = avatar;
         var newavatar = "monster" + avatar + '_s';
         cc.loader.loadRes(newavatar, cc.SpriteFrame, function(err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
+            // cc.log('----->spriteFrame:', spriteFrame);
             self.userAvatar.spriteFrame = spriteFrame;
         });
     },

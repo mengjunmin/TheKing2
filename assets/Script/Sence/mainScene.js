@@ -123,7 +123,7 @@ cc.Class({
         this._lockScreen = null;
 
         if(userMode.getInstance().showLayer == ''){
-            this.createLayer("mainMenu");
+            this.createLayer("roleList");//mainMenu
         }else{
             this.createLayer(userMode.getInstance().showLayer);
         }

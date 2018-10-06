@@ -1,5 +1,6 @@
 var Utils = require("./mode/Utils");
 var popupManager = require("./unit/popupManager");
+var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: cc.Component,
@@ -97,8 +98,15 @@ cc.Class({
         if (this.callback) this.callback.apply(this.objecttarget, [data, 9]);
     },
 
+    initPayTip(){
+        cc.log('----->mainMenu initPayTip');
+        var user = userMode.getInstance().user;
+        
+    },
+
     onIn: function () {
         cc.log('----->mainMenu onIn');
+        this.initPayTip();
     },
 
     onOut: function () {

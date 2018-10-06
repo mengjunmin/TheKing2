@@ -114,7 +114,7 @@ cc.Class({
         var idx = avatar < 10 ? ('00' + avatar) : ('0' + avatar);
         var newavatar = "monster" + idx + '_s'
         cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
+            // cc.log('----->spriteFrame:', spriteFrame);
             self.avatar.spriteFrame = spriteFrame;
 
         });
