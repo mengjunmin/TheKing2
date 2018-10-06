@@ -110,7 +110,15 @@ var TimeUtil = {
         return format;
     },
 
-
+    //日期字符串转时间戳
+    timeStamp: function (date) {
+        // var date = '2015-03-05 17:59:00.0';
+        date = date.substring(0, 19);
+        date = date.replace(/-/g, '/');
+        var times = new Date(date).getTime();
+        return times;
+    },
+    
     /*
      * 比较日期,是否同一时间
      * ds1:DateStruct
