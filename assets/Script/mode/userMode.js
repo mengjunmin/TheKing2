@@ -14,6 +14,7 @@ var userMode = cc.Class({
     allName: null,
     familyTreeName: null,
     showLayer: null,
+    timespan:null,
 
     ctor() {
         console.log('[userMode]  ctor');
@@ -22,10 +23,16 @@ var userMode = cc.Class({
         this.userAcount = {};
         this.allName = {};
         this.familyTreeName = null;
+        this.timespan = 0;
         console.log('[userMode]   this.user: ', this.user);
     },
 
 
+    getServerDate : function() {
+        var date = new Date();
+        var time = date.getTime();
+        return time + this.timespan;
+    },
 
     getUserAccount() {
         var data = fileManager.getInstance.readUserAcount(this.phone);

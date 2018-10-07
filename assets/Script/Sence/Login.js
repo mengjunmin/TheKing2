@@ -94,10 +94,27 @@ cc.Class({
 
     onEnable: function () {
         MessageCenter.LOCKSCREEN.on(this.lockScreen, this);
+        // this.calibrationTime();
     },
 
     onDisable: function () {
         MessageCenter.LOCKSCREEN.off(this.lockScreen, this);
+    },
+
+    calibrationTime(){
+        var date = new Date();
+        var time = date.getTime();
+        cc.log('calibrationTime  date: ', date);
+        cc.log('calibrationTime  time: ', time);
+        var params = {
+            time: time,
+        };
+        loginModel.repServerTime(params, this.onCalibrationTime, this,  null, this);
+    },
+    onCalibrationTime(data){
+        var timespan = data.timespan;
+
+        cc.log('onCalibrationTime: ', data);
     },
 
     lockScreen(){

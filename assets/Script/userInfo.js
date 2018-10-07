@@ -8,9 +8,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        gameidLable: {
+        avatar: {
             default: null,
-            type: cc.Label,
+            type: cc.Sprite,
         },
         nicknameLable: {
             default: null,
@@ -20,14 +20,7 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
-        familyLable: {
-            default: null,
-            type: cc.Label,
-        },
-        identityLable: {
-            default: null,
-            type: cc.Label,
-        },
+
         levelLable: {
             default: null,
             type: cc.Label,
@@ -43,6 +36,10 @@ cc.Class({
         activityLable: {
             default: null,
             type: cc.Label,
+        },
+        avatarBtn: {
+            default: null,
+            type: cc.Button,
         },
         historyScoreBtn: {
             default: null,
@@ -75,12 +72,12 @@ cc.Class({
 
         mainSence: null,
         data: null,
+        faceid:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
     ctor:function () {
          var self = this;
-        
     },
 
     onLoad() {
@@ -91,8 +88,17 @@ cc.Class({
         
     },
 
+    onEnable: function () {
+        cc.log('onEnable: ');
+        this.updataView();
+    },
+
+    onDisable: function () {
+        cc.log('onDisable: ');
+    },
+
     getFullUserIfo() {
-        var uid = userMode.getInstance().user.uid;
+        var uid = userMode.getInstance().user._id;
         var t = userMode.getInstance().user.t;
         var pp = {
             uid: uid,
@@ -107,15 +113,42 @@ cc.Class({
     },
 
     updataView() {
-        this.gameidLable.string = '123456';
-        this.nicknameLable.string = 'shit';
-        this.sexLable.string = '男';
-        this.familyLable.string = '天下第一帮';
-        this.identityLable.string = '大长老';
-        this.levelLable.string = 'LV.2';
+        var face_id = userMode.getInstance().user.face_id;
+        this.nicknameLable.string = userMode.getInstance().user.nick || '';
+        this.sexLable.string = userMode.getInstance().user.sex?'男':'女';
+        this.levelLable.string = 'LV.' + userMode.getInstance().user.level;
         this.diamondsLable.string = '120';
         this.scoreLable.string = '234990';
         this.activityLable.string = '90%';
+        this.setUserAvatar(face_id || 1);
+    },
+
+    onAvatarBtton: function (btn) {
+
+        var conf = {
+            idx: 1,
+            fun: this.onAvatarList,
+            target: this,
+        };
+        popupManager.create('avatarlist', conf);
+    },
+
+    onAvatarList(data) {
+        this.faceid = data;
+        this.setUserAvatar(data);
+        cc.log('onAvatarList: this.faceid: ', this.faceid);
+    },
+
+    setUserAvatar: function (avatar) {
+        var self = this;
+
+        var idx = avatar < 10 ? ('00' + avatar) : ('0' + avatar);
+        var newavatar = "monster" + idx + '_s'
+        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
+            cc.log('----->spriteFrame:', spriteFrame);
+            self.avatar.spriteFrame = spriteFrame;
+
+        });
     },
 
     onHistoryScoreBtn: function(obj, data) {
@@ -157,7 +190,7 @@ cc.Class({
 
     onIn: function() {
         cc.log('----->userInfo onIn');
-        this.getFullUserIfo();
+        // this.getFullUserIfo();
     },
 
     onOut: function() {

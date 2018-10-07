@@ -36,107 +36,32 @@ var loginModel = cc.Class({
     
     },
     
-        
-    repLrole  (argu, callback, target) {
+     //http://59.110.138.129:112/gapi/power/config?localdatetime=  
+    repServerTime(argu, callback, target, failcallback, failtarget) {
         var self = this;
         var params = {
-            phone: argu.phone
+            localdatetime: argu.time,
         }
 
-        var router = '/g1/user/lrole';
+        var router = '/gapi/power/config';
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
-                console.log("----->repLrole  onSuccess: ", result);
+                console.log("----->repServerTime  onSuccess: ", result);
                 if (callback) callback.apply(target, [result]);
             },
             onFail: function(result, errorCode) {
-                console.log("----->repLrole  onFail: ", result , errorCode);
-
+                console.log("----->repServerTime  onFail: ", result , errorCode);
+                if (failcallback) failcallback.apply(failtarget, [result]);
             }
         };
 
         GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
     
     },
-//完整用户信息
-
-/*
-{
-    "uid": "SF2DS98VCPA@13468305254",
-    "nick": "安琪拉",
-    "sex": 1,
-    "head": "",
-    "family": {
-        "name": "天天向上",
-        "fid": "SKDLKE89VB",
-        "position": 1
-    },
-    "level": "1",
-    "jewels": 300,
-    "points": 2910,
-    "g_vitality": 0.87
-}
-*/
-
-repUserFull  (argu, callback, target) {
-    var self = this;
-    var params = {
-        uid: argu.uid,
-        t: argu.t,
-    }
-
-    var router = '/g1/user/full';
-    var requestResultMethod = {
-        context: this,
-        onSuccess: function(result) {
-            console.log("----->repUserFull  onSuccess: ", result);
-            if (callback) callback.apply(target, [result]);
-        },
-        onFail: function(result, errorCode) {
-            console.log("----->repUserFull  onFail: ", result , errorCode);
-
-        }
-    };
-
-    GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
-
-},
-
-//用户小信息
-
-/*
-{
-    "uid": "SF2DS98VCPA@13468305254",
-    "nick": "安琪拉",
-    "sex": 1,
-    "head": ""
-}
-*/
-repUserSimple  (argu, callback, target) {
-    var self = this;
-    var params = {
-        uid: argu.uid,
-        t: argu.t,
-    }
 
 
-    var router = '/g1/user/simple';
-    var requestResultMethod = {
-        context: this,
-        onSuccess: function(result) {
-            console.log("----->repUserSimple  onSuccess: ", result);
-            if (callback) callback.apply(target, [result]);
-        },
-        onFail: function(result, errorCode) {
-            console.log("----->repUserSimple  onFail: ", result , errorCode);
 
-        }
-    };
-
-    GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
-
-},
 
 
 repImageCode  (argu, callback, target) {

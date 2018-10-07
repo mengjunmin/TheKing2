@@ -187,9 +187,9 @@ var TimeUtil = {
      * 获取服务器日期
      * return DateStruct
      * */
-    getServerDate : function() {
-        return getDate(model.GeneralServerRequest.getServerTime());
-    },
+    // getServerDate : function() {
+    //     return getDate(model.GeneralServerRequest.getServerTime());
+    // },
 
 };
 

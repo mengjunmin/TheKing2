@@ -1,6 +1,8 @@
 var Utils = require("./mode/Utils");
 var popupManager = require("./unit/popupManager");
 var userMode = require("./mode/userMode");
+var TimeUtil = require('./Tool/TimeUtil');
+
 
 cc.Class({
     extends: cc.Component,
@@ -107,6 +109,12 @@ cc.Class({
     onIn: function () {
         cc.log('----->mainMenu onIn');
         this.initPayTip();
+        var invite_use = userMode.getInstance().user.invite_use;
+        if(invite_use){
+            var times = TimeUtil.timeStamp(invite_use);
+            cc.log('----->mainMenu times: ', times);
+        }
+
     },
 
     onOut: function () {

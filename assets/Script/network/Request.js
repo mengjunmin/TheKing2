@@ -191,7 +191,7 @@ var RequestWrapper = cc.Class({
         // xhr.addEventListener(egret.Event.COMPLETE, this.onComplete, this);
         // xhr.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onError, this);
 //
-        xhr.timeout = 9000;
+        xhr.timeout = 10000;
 
         xhr["onloadstart"] = function () {
             console.log("==onloadstart==");

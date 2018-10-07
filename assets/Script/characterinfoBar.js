@@ -78,7 +78,7 @@ cc.Class({
     },
 
     select() {
-        var uid = userMode.getInstance().user.uid;
+        var uid = userMode.getInstance().user._id;
         var same = this._data['_id'] == uid;
 
         var color;

@@ -17,6 +17,14 @@ cc.Class({
             default:null,
             type:cc.Sprite,
         },
+        lock:{
+            default:null,
+            type:cc.Sprite,
+        },
+        selectKuang:{
+            default:null,
+            type:cc.Sprite,
+        },
 
         touchnode:{
             default:null,
@@ -26,13 +34,16 @@ cc.Class({
         _data:null,
         _fun:null,
         _target:null,
+        _isLock:null,
+        _isSelect:null,
     },
 
    
     // LIFE-CYCLE CALLBACKS:
     ctor:function () {
          var self = this;
-        
+        this._isLock = true;
+        this._isSelect = false;
     },
 
     onLoad () {
@@ -65,10 +76,10 @@ cc.Class({
         var self = this;
         if(frame == '') return;
 
-        if(this._currFrame != ''){
-            var frame = "frame" + this._currFrame;
-            cc.loader.releaseRes(frame, cc.SpriteFrame);
-        }
+        // if(this._currFrame != ''){
+        //     var frame = "frame" + this._currFrame;
+        //     cc.loader.releaseRes(frame, cc.SpriteFrame);
+        // }
 
         this._currFrame = frame;
         var newframe = "frame" + "001";
@@ -95,8 +106,24 @@ cc.Class({
     setData(data){
         this._data = data;
 
-        // this.setName(nick);
         this.setUserAvatar(data);
+    },
+
+    setLock(islock){
+        this._isLock = islock;
+        if(islock){
+            this.lock.node.active = true;
+        }else{
+            this.lock.node.active = false;
+        }
+    },
+    setSelect(isselect){
+        this._isSelect = isselect;
+        if(isselect){
+            this.selectKuang.node.active = true;
+        }else{
+            this.selectKuang.node.active = false;
+        }
     },
 
     setCallBack(fun, target){
@@ -105,6 +132,9 @@ cc.Class({
     },
 
     onCallBack(data){
+        if(this._isLock){
+            return;
+        }
         if(this._fun)
             this._fun.call(this._target, data);
     },
