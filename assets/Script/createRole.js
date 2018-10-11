@@ -4,6 +4,7 @@ var popupManager = require("./unit/popupManager");
 var fileManager = require("./mode/fileManager");
 var createRoleModel = require("./mode/createRoleModel");
 var userInfoModel = require("./mode/userInfoModel");
+var Consume = require('./unit/consume');
 
 //http://59.110.138.129:112/gapi/account/invite/init?parent_uid=0000-00000000-0000&parent_invite=000000&token=
 //HVGD6
@@ -261,6 +262,9 @@ cc.Class({
         }
         var onOk = function(){
             //购买角色代码
+            if(Consume.jewelsIsEnough(600)){
+
+            }
         }
         var CONF = {
             title: '角色激活',

@@ -2,6 +2,7 @@ var Utils = require("./mode/Utils");
 var popupManager = require("./unit/popupManager");
 var userMode = require("./mode/userMode");
 var TimeUtil = require('./Tool/TimeUtil');
+var allDefine = require("./mode/AllDefine");
 
 
 cc.Class({
@@ -23,21 +24,22 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        paytip:{
-            default:null,
-            type:cc.Node,
+        paytip: {
+            default: null,
+            type: cc.Node,
         },
         callback: null,
         objecttarget: null,
+
 
     },
     mainSence: null,
 
 
     // LIFE-CYCLE CALLBACKS:
-    ctor:function () {
-         var self = this;
-        
+    ctor: function () {
+        var self = this;
+
     },
     // onLoad () {},
 
@@ -68,7 +70,7 @@ cc.Class({
 
     onPay: function (obj, data) {
         cc.log('----->onPay');
-  
+
 
     },
 
@@ -100,24 +102,40 @@ cc.Class({
         if (this.callback) this.callback.apply(this.objecttarget, [data, 9]);
     },
 
-    initPayTip(){
+    initPayTip() {
         cc.log('----->mainMenu initPayTip');
         var user = userMode.getInstance().user;
-        
-    },
+        var nick = userMode.getInstance().user['nick'];
+        var status = userMode.getInstance().user['status'];
+        cc.log('----->user: ', user);
 
-    onIn: function () {
-        cc.log('----->mainMenu onIn');
-        this.initPayTip();
-        var invite_use = userMode.getInstance().user.invite_use;
-        if(invite_use){
-            var times = TimeUtil.timeStamp(invite_use);
-            cc.log('----->mainMenu times: ', times);
+
+        this.paytip.active = status == allDefine.RoleStatus.NotActive ? true : false;
+        if(this.paytip.active){
+            var payjs =  this.paytip.getComponent('payTip');
+            payjs.runTime();
         }
 
     },
 
+
+    stopPayTip() {
+        if(this.paytip.active){
+            var payjs =  this.paytip.getComponent('payTip');
+            payjs.runTime();
+        }
+    },
+
+
+    onIn: function () {
+        cc.log('----->mainMenu onIn');
+        this.initPayTip();
+
+
+    },
+
     onOut: function () {
+        this.stopPayTip();
         cc.log('----->mainMenu onOut');
     },
     // update (dt) {}, family

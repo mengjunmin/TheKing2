@@ -5,6 +5,7 @@ var Utils = require("../mode/Utils");
 var popupManager = require("../unit/popupManager");
 var userMode = require("../mode/userMode");
 var MessageCenter = require('../Signal/MessageCenter');
+var loginModel = require("../mode/loginModel");
 
 cc.Class({
     extends: cc.Component,
@@ -162,16 +163,28 @@ cc.Class({
     },
 
     start() {
+        var self = this;
         popupManager.init(this);
 
-        var self = this;
-        cc.log('----->start');
-        setTimeout(function() {
-            cc.log('----->2222start');
+        this.getPowerConfig();
 
-        }, 2000);
+    },
 
+    getPowerConfig(){
+        var date = new Date();
+        var time = date.getTime();
+        cc.log('calibrationTime  date: ', date);
+        cc.log('calibrationTime  time: ', time);
+        var params = {
+            time: time,
+        };
+        loginModel.repPowerConfig(params, this.onPowerConfig, this,  null, this);
+    },
+    onPowerConfig(data){
+        var timespan = data.timespan;
+        userMode.getInstance().timespan = timespan;
 
+        // cc.log('onCalibrationTime: ', data);
     },
 
     onEnable: function () {

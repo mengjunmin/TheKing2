@@ -14,7 +14,7 @@ var userMode = cc.Class({
     allName: null,
     familyTreeName: null,
     showLayer: null,
-    timespan:null,
+    timespan: null,
 
     ctor() {
         console.log('[userMode]  ctor');
@@ -28,7 +28,7 @@ var userMode = cc.Class({
     },
 
 
-    getServerDate : function() {
+    getServerTime: function () {//getServerDate
         var date = new Date();
         var time = date.getTime();
         return time + this.timespan;

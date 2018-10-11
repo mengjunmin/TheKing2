@@ -68,7 +68,7 @@ cc.Class({
         this._itemIidex = [];
         this._itemPoint = [];
 
-        this._list.on('scroll-to-top', this.scrollToTop, this);
+        // this._list.on('scroll-to-top', this.scrollToTop, this);
         // this._list.on('scrolling', this.scrolling, this);
         // this._list.on('touch-up', this.touchUp, this);
     },

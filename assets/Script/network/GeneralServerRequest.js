@@ -31,13 +31,13 @@ var GeneralServerRequest = cc.Class({
         /*
         * 获取当前服务器时间
         * */
-    getServerTime() {
-        // 如果修改过服务器时间,返回修改过的时间
-        if (hackedServerTime) {
-            return hackedServerTime + egret.getTimer();
-        }
-        return serverTime + egret.getTimer() - lasetServerTimeUpdateTime;
-    },
+    // getServerTime() {
+    //     // 如果修改过服务器时间,返回修改过的时间
+    //     if (hackedServerTime) {
+    //         return hackedServerTime + egret.getTimer();
+    //     }
+    //     return serverTime + egret.getTimer() - lasetServerTimeUpdateTime;
+    // },
 
         /*
         * 处理接口请求,通用的逻辑可以走这个,不通用的单写去吧.

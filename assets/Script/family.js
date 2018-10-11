@@ -75,18 +75,20 @@ cc.Class({
     },
 
     getList() {
-        var uid = userMode.getInstance().user.uid;
-        var t = userMode.getInstance().user.t;
-        var pp = {
-            uid: uid,
-            t: t,
-        }
-        familyModel.repFamilyList(pp, this.repFamilyList, this);
+        var uid = userMode.getInstance().user._id;
+        var token = userMode.getInstance().user.token;
+
+
+        var params = {
+            invite: uid,
+            token: token,
+            deep: '-1,2',//-1，1
+        };
+        familyModel.repFamilyTree(params, this.repFamilyList, this);
     },
 
     repFamilyList(data) {
-        var istree = data.list && data.list.length > 0;
-
+        var istree = data && data.length > 0;
         if (istree) {
             this.updataTree(data);
 
@@ -103,41 +105,8 @@ cc.Class({
             children[i].destroy();
         }
 
-        data = {
-            "list": [{
-                    "puid": "aa",
-                    "uid": "bb",
-                    "nick": "God1",
-                    "face_id": 1
-                },
-                {
-                    "puid": "bb",
-                    "uid": "cc",
-                    "nick": "God2",
-                    "face_id": 3
-                },
-                {
-                    "puid": "bb",
-                    "uid": "dd",
-                    "nick": "God3",
-                    "face_id": 3
-                },
-                {
-                    "puid": "bb",
-                    "uid": "ee",
-                    "nick": "安琪拉",
-                    "face_id": 1
-                },
-                {
-                    "puid": "ee",
-                    "uid": "aa",
-                    "nick": "张三丰",
-                    "face_id": 2
-                }
-            ]
-        };
-        cc.log('----->updataTree: ', data);
-        var type = 2;
+        var type = this.treeType(data);
+        cc.log('----->Tree  type : ', type);
         var tree = null;
         if (type == 1) { //首领
             tree = cc.instantiate(this.tree1);
@@ -153,6 +122,28 @@ cc.Class({
             this.treeNode.addChild(tree);
         }
 
+    },
+
+    treeType(data){
+        var uid = userMode.getInstance().user._id;
+        var ower = null;
+        var father = null;
+
+        for(var i=0;i<data.length;i++){
+            ower = data[i];
+            if(ower._id == uid){
+                break;
+            }
+        }
+
+        for(var i=0;i<data.length;i++){
+            var one = data[i];
+            if(one._id == ower.parent_invite){
+                return 2;
+            }
+        }
+
+        return 1;
     },
 
     onBack: function(obj, data) {
@@ -189,11 +180,7 @@ cc.Class({
         cc.log('----->family: ', family);
         // this.updataTree(null);
         // // this.getList();
-        if (family) {
-            this.getList();
-        } else {
-
-        }
+        this.getList();
 
         this.joinBtn.node.active = family ? false : false;
     },

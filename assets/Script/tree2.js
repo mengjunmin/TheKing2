@@ -30,7 +30,7 @@ cc.Class({
     },
 
     setData(data) {
-        this._data = data.list;
+        this._data = data;
         cc.log('[tree2]  setData', this._data);
 
         for (var i = 0; i < this._data.length; i++) {

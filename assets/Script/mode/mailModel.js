@@ -18,16 +18,9 @@ var mailModel = cc.Class({
         this.target = null;
     },
 
-/*
-{
-    "list": [
-        {
-            "id": 1,
-            "title": "",
-            "content": "",
-            "action": "",
-            "status": 0
-        },
+    /*
+    {
+        [
         {
             "id": 1,
             "title": "",
@@ -35,66 +28,135 @@ var mailModel = cc.Class({
             "action": "",
             "status": 1
         }
-    ] 
-}
-*/
+        ] 
+    }
+    */
     repMailList(argu, callback, context) {
 
         var self = this;
         var params = {
-            uid: argu.uid,
-            t: argu.t,
-        }
-    
-        var router = '/g1/mg/list';
+            invite: argu.invite,
+            token: argu.token,
+        };
+
+        var router = '/gapi/msg/list';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
+            onSuccess: function (result) {
                 console.log("----->repMailList  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repMailList  onFail: ", result , errorCode);
-    
+            onFail: function (result, errorCode) {
+                console.log("----->repMailList  onFail: ", result, errorCode);
+
             }
         };
-    
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
     },
 
-//  家族列表
-/*
+
+    /*标记已读邮件
 {
-    "result": 1,
-    "msg": "成功删除邮件"
+    [
+    {
+        "id": 1,
+        "title": "",
+        "content": "",
+        "action": "",
+        "status": 1
+    }
+    ] 
 }
 */
+    repMailMarkread(argu, callback, context) {
+
+        var self = this;
+        var params = {
+            invite: argu.invite,
+            token: argu.token,
+            ids: argu.ids,
+        };
+
+        var router = '/gapi/msg/markread';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repMailMarkread  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repMailMarkread  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+    },
+
+
+
+    /*
+    {
+        "result": 1,
+        "msg": "成功删除邮件"
+    }
+    */
     repDellMail(argu, callback, context) {
         var self = this;
         var params = {
-            uid: argu.uid,
-            t: argu.t,
-            ids:argu.ids,
-        }
-    
-        var router = '/g1/mg/list';
+            invite: argu.invite,
+            token: argu.token,
+            ids: argu.ids,
+        };
+
+        var router = '/g1/msg/del';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
+            onSuccess: function (result) {
                 console.log("----->repDellMail  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repDellMail  onFail: ", result , errorCode);
-    
+            onFail: function (result, errorCode) {
+                console.log("----->repDellMail  onFail: ", result, errorCode);
+
             }
         };
-    
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
 
     },
 
 
+    /*
+    {
+        "result": 1,
+        "msg": "成功删除邮件"
+    }
+    */
+   repCheckMail(argu, callback, context) {
+    var self = this;
+    var params = {
+        invite: argu.invite,
+        // token: argu.token,
+    };
+
+    var router = '/gapi/msg/list/check';
+    var requestResultMethod = {
+        context: this,
+        onSuccess: function (result) {
+            console.log("----->repCheckMail  onSuccess: ", result);
+            if (callback) callback.apply(context, [result]);
+        },
+        onFail: function (result, errorCode) {
+            console.log("----->repCheckMail  onFail: ", result, errorCode);
+
+        }
+    };
+
+    GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+
+},
 
 
 });

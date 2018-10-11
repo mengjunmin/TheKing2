@@ -28,8 +28,8 @@ var TimeUtil = {
      * @param delimeter 用来区分format中的分隔符,在提供了format的情况下必须提供此字段
      * */
     timeLeftToTimeFormat : function(leftMiliSec, format = '{hh}:{mm}:{ss}', delimeter = ':') {
-        var formats = format.split(delimeter),
-            result = [];
+        var formats = format.split(delimeter);
+        var result = [];
         if (formats && formats.length) {
             var split;
             while (formats.length) {

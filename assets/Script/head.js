@@ -1,4 +1,6 @@
 var global = require('Global');
+var userMode = require("./mode/userMode");
+var familyModel = require("./mode/familyModel");
 
 cc.Class({
     extends: cc.Component,
@@ -57,6 +59,10 @@ cc.Class({
     },
 
     setUserFrame(frame) {
+        if (frame == 0) {
+            return;
+        } 
+
         var self = this;
         if (frame < 10) {
             frame = '00' + frame;
@@ -64,10 +70,10 @@ cc.Class({
             frame = '0' + frame;
         }
 
-        if (this._currFrame != '') {
-            var oldframe = "frame" + this._currFrame;
-            cc.loader.releaseRes(oldframe, cc.SpriteFrame);
-        }
+        // if (this._currFrame != '') {
+        //     var oldframe = "frame" + this._currFrame;
+        //     cc.loader.releaseRes(oldframe, cc.SpriteFrame);
+        // }
 
         this._currFrame = frame;
         var newframe = "frame" + frame;
@@ -85,10 +91,10 @@ cc.Class({
             avatar = '0' + avatar;
         }
 
-        if (this._currAvatar != '') {
-            var oldavatar = "monster" + this._currFrame + '_s';
-            cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
-        }
+        // if (this._currAvatar != '') {
+        //     var oldavatar = "monster" + this._currFrame + '_s';
+        //     cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
+        // }
 
         this._currAvatar = avatar;
         var newavatar = "monster" + avatar + '_s';
@@ -116,17 +122,23 @@ cc.Class({
 
     setData(data) {
         this._data = data;
-        cc.log('[head] setData:', data);
-        var nick = this._data.nick;
-        var faceid = this._data.face_id;
-        var frame = this._data['frame'] || 1;
-        var sun = this._data['sun'] || 1;
+        var ower = data.ower;
+        var sun = data.sun;
+        cc.log('[====>head] setData:', data);
+
+        var nick = ower['nick'] || '';
+        var faceid = ower['face_id'] || 0;
+        var frame = ower['frame'] || 1;
+ 
 
         this.setName(nick);
         this.setUserAvatar(faceid);
         this.setUserFrame(frame);
-        this.sun(sun);
+        this.sun(sun.length);
+        
+       
     },
+
 
 
     // update (dt) {},

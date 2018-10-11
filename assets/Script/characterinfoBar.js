@@ -75,6 +75,9 @@ cc.Class({
         cc.log('----->role item');
         this.select();
         this.setUserAvatar(this._data['face_id'] || 1);
+
+        var status = this._data['status'] || 0;
+        this.setRoleType(status);
     },
 
     select() {

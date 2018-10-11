@@ -37,7 +37,7 @@ var loginModel = cc.Class({
     },
     
      //http://59.110.138.129:112/gapi/power/config?localdatetime=  
-    repServerTime(argu, callback, target, failcallback, failtarget) {
+    repPowerConfig(argu, callback, target, failcallback, failtarget) {
         var self = this;
         var params = {
             localdatetime: argu.time,
@@ -47,11 +47,11 @@ var loginModel = cc.Class({
         var requestResultMethod = {
             context: this,
             onSuccess: function(result) {
-                console.log("----->repServerTime  onSuccess: ", result);
+                console.log("----->repPowerConfig  onSuccess: ", result);
                 if (callback) callback.apply(target, [result]);
             },
             onFail: function(result, errorCode) {
-                console.log("----->repServerTime  onFail: ", result , errorCode);
+                console.log("----->repPowerConfig  onFail: ", result , errorCode);
                 if (failcallback) failcallback.apply(failtarget, [result]);
             }
         };

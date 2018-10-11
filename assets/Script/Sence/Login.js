@@ -94,7 +94,6 @@ cc.Class({
 
     onEnable: function () {
         MessageCenter.LOCKSCREEN.on(this.lockScreen, this);
-        // this.calibrationTime();
     },
 
     onDisable: function () {
@@ -109,7 +108,7 @@ cc.Class({
         var params = {
             time: time,
         };
-        loginModel.repServerTime(params, this.onCalibrationTime, this,  null, this);
+        loginModel.repPowerConfig(params, this.onCalibrationTime, this,  null, this);
     },
     onCalibrationTime(data){
         var timespan = data.timespan;

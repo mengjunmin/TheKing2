@@ -7,107 +7,183 @@ var userMode = require("./userMode");
 
 var familyModel = cc.Class({
     // 成员变量
-    callback: null,
-    target: null,
-
-
 
     ctor() {
         console.log('--->familyModel ctor');
-        this.callback = null;
-        this.target = null;
+
     },
-//加入家族
-/*
-{
-    "result": 1
-}
-*/
-    repFamilyJoin(argu, callback, context) {
+
+    repFamilyTree(argu, callback, context) {
         var self = this;
+        console.log("----->repFamilyTree");
         var params = {
-            uid: argu.uid,
-            t: argu.t,
+            invite: argu.invite,
+            token: argu.token,
+            deep: argu.deep,//-1，1
         };
 
-        var router = '/g1/family/join';
+        var router = '/gapi/family/tree';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
-                console.log("----->repFamilyJoin  onSuccess: ", result);
+            onSuccess: function (result) {
+                console.log("----->repFamilyTree  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repFamilyJoin  onFail: ", result , errorCode);
+            onFail: function (result, errorCode) {
+                console.log("----->repFamilyTree  onFail: ", result, errorCode);
 
             }
         };
 
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
 
     },
 
-//  家族列表
-/*
-{
-    "list": [
-        {
-            "puid": "",
-            "uid": "",
-            "nick": "",
-            "head": ""
-        },
-        {
-            "puid": "",
-            "uid": "",
-            "nick": "",
-            "head": ""
-        },
-        {
-            "puid": "",
-            "uid": "",
-            "nick":"",
-            "head": ""
-        },
-        {
-            "puid": "",
-            "uid": "",
-            "nick":"",
-            "head": ""
-        },
-        {
-            "puid": "",
-            "uid": "",
-            "nick":"",
-            "head": ""
-        },
-    ]
-}
-*/
-    repFamilyList(argu, callback, context) {
+
+
+    /*
+    *邀请码列表
+    */
+    repInviteList(argu, callback, context) {
         var self = this;
-        console.log("----->repFamilyList");
         var params = {
-            uid: argu.uid,
-            t: argu.t,
+            invite: argu.invite,
+            token: argu.token,
         };
 
-        var router = '/g1/family/list';
+        var router = '/gapi/invite/list';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
-                console.log("----->repFamilyList  onSuccess: ", result);
+            onSuccess: function (result) {
+                console.log("----->repInviteList  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repFamilyList  onFail: ", result , errorCode);
+            onFail: function (result, errorCode) {
+                console.log("----->repInviteList  onFail: ", result, errorCode);
 
             }
         };
 
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
 
     },
+
+
+    /*
+    *活跃度
+    *用于游戏上传积分所用
+    */
+    repFamilyLiveness(argu, callback, context) {
+        var self = this;
+        console.log("----->repFamilyLiveness");
+        var params = {
+            invite: argu.invite,
+            token: argu.token,
+            count: argu.count,//只能是1-5
+        };
+
+        var router = '/gapi/family/liveness';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repFamilyLiveness  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repFamilyLiveness  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+
+    },
+
+
+    /*
+    *积分列表
+    */
+    repFamilyPointsList(argu, callback, context) {
+        var self = this;
+        console.log("----->repFamilyPointsList");
+        var params = {
+            invite: argu.invite,
+            token: argu.token,
+        };
+
+        var router = '/gapi/family/points/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repFamilyPointsList  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repFamilyPointsList  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+
+    },
+
+    /*
+    *奖励列表
+    */
+   repFamilyAwardList(argu, callback, context) {
+    var self = this;
+    console.log("----->repFamilyAwardList");
+    var params = {
+        invite: argu.invite,
+        token: argu.token,
+    };
+
+    var router = '/gapi/family/award/list';
+    var requestResultMethod = {
+        context: this,
+        onSuccess: function (result) {
+            console.log("----->repFamilyAwardList  onSuccess: ", result);
+            if (callback) callback.apply(context, [result]);
+        },
+        onFail: function (result, errorCode) {
+            console.log("----->repFamilyAwardList  onFail: ", result, errorCode);
+
+        }
+    };
+
+    GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+
+},
+
+
+    /*
+    *钻石购买加入家族
+    */
+   repFamilyJoin(argu, callback, context) {
+    var self = this;
+    console.log("----->repFamilyJoin");
+    var params = {
+        // invite: argu.invite,
+        token: argu.token,
+    };
+
+    var router = '/gapi/family/join';
+    var requestResultMethod = {
+        context: this,
+        onSuccess: function (result) {
+            console.log("----->repFamilyJoin  onSuccess: ", result);
+            if (callback) callback.apply(context, [result]);
+        },
+        onFail: function (result, errorCode) {
+            console.log("----->repFamilyJoin  onFail: ", result, errorCode);
+
+        }
+    };
+
+    GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+
+},
 
 
 

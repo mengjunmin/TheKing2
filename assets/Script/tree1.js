@@ -30,11 +30,11 @@ cc.Class({
     },
 
     setData: function(data) {
-        this._data = data.list;
+        this._data = data;
 
         for (var i = 0; i < this._data.length; i++) {
             var one = this._data[i];
-            if (one.uid == userMode.getInstance().user.uid) {
+            if (one._id == userMode.getInstance().user._id) {
                 this._objectSelf = one;
                 break;
             }
@@ -47,28 +47,38 @@ cc.Class({
         if (this._objectSelf) {
             var head1 = this.node.getChildByName("myself");
             var head1Js = head1.getComponent('head');
-            head1Js.setData(this._objectSelf);
+            head1Js.setData({ower:this._objectSelf, sun:[]});
         }
 
-        var branch = this.getBranchForUid(this._objectSelf.uid);
+        var branch = this.getBranchForUid(this._objectSelf._id);
         var num = branch.length;
+        cc.log('---> updataHead: ', num);
 
+        var sun1 = this.node.getChildByName("sun1");
+        var sun1Js = sun1.getComponent('head');
         if (num > 0) {
-            var sun1 = this.node.getChildByName("sun1");
-            var sun1Js = sun1.getComponent('head');
-            sun1Js.setData(branch[0]);
+            var suns1 = this.getBranchForUid(branch[0]._id);
+            sun1Js.setData({ower:branch[0], sun:suns1});
+        }else{
+            sun1Js.setData({ower:{}, sun:[]});
         }
 
+        var sun2 = this.node.getChildByName("sun2");
+        var sun2Js = sun2.getComponent('head');
         if (num > 1) {
-            var sun2 = this.node.getChildByName("sun2");
-            var sun2Js = sun2.getComponent('head');
-            sun2Js.setData(branch[1]);
+            var suns2 = this.getBranchForUid(branch[1]._id);
+            sun2Js.setData({ower:branch[1], sun:suns2});
+        }else{
+            sun2Js.setData({ower:{}, sun:[]});
         }
 
+        var sun3 = this.node.getChildByName("sun3");
+        var sun3Js = sun3.getComponent('head');
         if (num > 2) {
-            var sun3 = this.node.getChildByName("sun3");
-            var sun3Js = sun3.getComponent('head');
-            sun3Js.setData(branch[2]);
+            var suns3 = this.getBranchForUid(branch[2]._id);
+            sun3Js.setData({ower:branch[2], sun:suns3});
+        }else{
+            sun3Js.setData({ower:{}, sun:[]});
         }
 
 
@@ -81,7 +91,7 @@ cc.Class({
 
         for (var i = 0; i < this._data.length; i++) {
             var one = this._data[i];
-            if (one.puid == uid) {
+            if (one.parent_invite == uid) {
                 array.push(one);
             }
         }
@@ -91,11 +101,11 @@ cc.Class({
 
     getBranchForObj(obj) {
         var array = [];
-        var uid = obj.uid;
+        var uid = obj._id;
 
         for (var i = 0; i < this._data.length; i++) {
             var one = this._data[i];
-            if (one.puid == uid) {
+            if (one.parent_invite == uid) {
                 array.push(one);
             }
         }
@@ -103,40 +113,7 @@ cc.Class({
         return array;
     },
 
-    getHigherUpForUid(uid) {
-        var puid = null;
-        for (var i = 0; i < this._data.length; i++) {
-            var one = this._data[i];
-            if (one.uid == uid) {
-                puid = one.puid;
-                break;
-            }
-        }
 
-        if (puid) {
-            for (var i = 0; i < this._data.length; i++) {
-                var one = this._data[i];
-                if (one.uid == puid) {
-                    return one;
-                }
-            }
-        }
-        return null;
-    },
-
-    getHigherUpForObj(obj) {
-        var puid = obj.puid;
-        if (puid) {
-            for (var i = 0; i < this._data.length; i++) {
-                var one = this._data[i];
-                if (one.uid == puid) {
-                    return one;
-                }
-            }
-        }
-
-        return null;
-    },
 
 
     // update (dt) {},
