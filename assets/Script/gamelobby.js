@@ -1,6 +1,6 @@
 
 var userMode = require("./mode/userMode");
-
+var LayerManager = require('./unit/layerManager');
 
 cc.Class({
     extends: cc.Component,
@@ -36,7 +36,7 @@ cc.Class({
 
     onBack: function(obj, data) {
         cc.log('----->onBack');
-        this.mainSence.goToLayer("mainMenu");
+        LayerManager.goToLayer("mainMenu");
     },
 
     onGame: function(obj, data) {
@@ -55,5 +55,10 @@ cc.Class({
         cc.log('----->gamelobby onOut');
     },
 
+    setData(data) {
+        
+    },
+
+    
     // update (dt) {},
 });

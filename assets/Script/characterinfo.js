@@ -5,6 +5,10 @@ var characterinfoModel = require("./mode/characterinfoModel");
 var popupManager = require("./unit/popupManager");
 var MessageCenter = require('./Signal/MessageCenter');
 var UserInfoModel = require('./mode/userInfoModel');
+var LayerManager = require('./unit/layerManager');
+var allDefine = require('./mode/AllDefine');
+
+
 
 cc.Class({
     extends: cc.Component,
@@ -38,10 +42,10 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
-    ctor:function () {
+    ctor: function () {
         console.log('----->characterinfo  ctor');
-         var self = this;
-        
+        var self = this;
+
     },
 
     onLoad() {
@@ -57,9 +61,6 @@ cc.Class({
         this.skipBtn.node.active = false;
     },
 
-    setData(data) {
-        this._conf = data;
-    },
 
     start() {
         cc.log('start: ');
@@ -101,9 +102,9 @@ cc.Class({
         this.skipBtn.node.active = this._data.length == 0 ? true : false;
     },
 
-    refreshList(){
+    refreshList() {
         var children = this._listcontent.children;
-        
+
         for (var i = 0; i < children.length; i++) {
             var item = children[i];
             var itemJs = item.getComponent('characterinfoBar');
@@ -123,10 +124,15 @@ cc.Class({
 
     onItemClick(data) {
         var uid = data._id;
-        var user_id = userMode.getInstance().user._id;
-        if(uid == user_id){
+        var user_id = userMode.getInstance().user.uid;
+        if (uid == user_id) {
             console.log('----->onItemClick:', uid, user_id);
             return;
+        }
+        if(data.status){
+            //如果是申请失败 --》删除
+            //如果申请成功 --》创建角色（自动添加邀请码）
+            // LayerManager.goToLayer("createRole", {invite:invite});
         }
         console.log('----->onItemClick:', data);
         var token = userMode.getInstance().user.token;
@@ -139,6 +145,7 @@ cc.Class({
     repFullUserInfo(data) {
         userMode.getInstance().updataUser(data);
         MessageCenter.UPDATE_HUD.emit();
+        MessageCenter.PAY_TIP.emit(data.status == allDefine.RoleStatus.NotActive);
         this.refreshList();
     },
 
@@ -156,12 +163,12 @@ cc.Class({
 
 
     onBackBtn() {
-        this.mainSence.goToLayer("mainMenu");
+        LayerManager.goToLayer("mainMenu");
     },
 
     onCreateRoleBtn() {
         if (this._canCreateRole) {
-            this.mainSence.goToLayer("createRole");
+            LayerManager.goToLayer("createRole");
         } else {
             var self = this;
             var onOk = function () {
@@ -183,23 +190,25 @@ cc.Class({
     },
 
     onSkipBtn() {
-        this.mainSence.goToLayer("mainMenu");
+        LayerManager.goToLayer("mainMenu");
     },
 
     onIn: function () {
         cc.log('----->RoleList onIn');
-        if(!this.enabled){
+        if (!this.enabled) {
             this.enabled = true;
         }
     },
 
     onOut: function () {
         cc.log('----->RoleList onOut');
-        if(this.enabled){
+        if (this.enabled) {
             this.enabled = false;
         }
     },
 
-
+    setData(data) {
+        
+    },
     // update (dt) {},
 });

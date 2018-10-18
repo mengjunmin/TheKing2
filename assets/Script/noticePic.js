@@ -8,6 +8,14 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+
+/*
+*参数：
+*{
+    url：’‘，
+}
+*
+*/
 cc.Class({
     extends: cc.Component,
 
@@ -38,29 +46,40 @@ cc.Class({
         this.updataView();
     },
 
+    onEnable: function () {
+        this.setPic();
+    },
+
+    onDisable: function () {
+     
+    },
+    
     updataView(){
 
     },
 
     setData(data){
         this._conf = data;
-        
     },
 
-    setPic: function(avatar) {
+    setPic: function() {
         var self = this;
+        var pic = this._conf.url;
+        // cc.loader.loadRes(pic, cc.SpriteFrame, function(err, spriteFrame) {
+        //     cc.log('----->spriteFrame:', spriteFrame);
+        //     self.noticePicture.spriteFrame = spriteFrame;
+        // });
 
-        var pic = "monster" + avatar + '_s';
-        cc.loader.loadRes(pic, cc.SpriteFrame, function(err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.noticePicture.spriteFrame = spriteFrame;
-        });
+        // cc.loader.load(pic, function (err, texture) {
+        //     // Use texture to create sprite frame
+        //     self.noticePicture.spriteFrame.setTexture(texture);
+        // });
     },
 
     releasePic: function() {
         var self = this;
-        var oldavatar = "monster" + this._currFrame + '_s';
-        cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
+        // var oldavatar = "monster" + this._currFrame + '_s';
+        // cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
 
     },
 

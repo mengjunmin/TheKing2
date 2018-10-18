@@ -1,5 +1,4 @@
 var global = require('../mode/Global');
-var Utils = require("../mode/Utils");
 var popupManager = require("../unit/popupManager");
 var fileManager = require("../mode/fileManager");
 var userMode = require("../mode/userMode");

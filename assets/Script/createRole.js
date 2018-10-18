@@ -1,14 +1,15 @@
 
 var userMode = require("./mode/userMode");
 var popupManager = require("./unit/popupManager");
-var fileManager = require("./mode/fileManager");
 var createRoleModel = require("./mode/createRoleModel");
 var userInfoModel = require("./mode/userInfoModel");
 var Consume = require('./unit/consume');
+var LayerManager = require('./unit/layerManager');
+var uiUtil = require('./unit/uiUtil');
 
 //http://59.110.138.129:112/gapi/account/invite/init?parent_uid=0000-00000000-0000&parent_invite=000000&token=
 //HVGD6
-//c277f42e-16aa-4b28-8eb2-8377473cfe31
+//e378b167-3822-4f13-b8f6-c73ca1c6d629
 cc.Class({
     extends: cc.Component,
 
@@ -61,29 +62,30 @@ cc.Class({
 
 
         mainSence: null,
-        sex: true,
-        faceid: 1,
+        _sex: true,
+        _faceid: 1,
         temp: null,
 
     },
 
     // LIFE-CYCLE CALLBACKS:
-    ctor:function () {
+    ctor: function () {
         console.log('----->createRole  ctor');
-         var self = this;
-        
+        var self = this;
+
     },
 
     onLoad() {
-        this.sex = true;
-        cc.log('this.sex: ', this.sex);
-        cc.log('this.faceid: ', this.faceid);
 
     },
 
     start() {
-        cc.log('this.sex: ', this.sex);
-        cc.log('this.faceid: ', this.faceid);
+        this._sex = true;
+        this._faceid = 1;
+
+        cc.log('this._sex: ', this._sex);
+        cc.log('this.faceid: ', this._faceid);
+        this.onAvatarList(this._faceid);//默认头像
     },
 
     // update (dt) {},
@@ -107,35 +109,26 @@ cc.Class({
 
 
     //邀请码
-    onInviteEditDidBegan: function (editbox, customEventData) {},
-    onInviteEditDidEnded: function (editbox, customEventData) {},
+    onInviteEditDidBegan: function (editbox, customEventData) { },
+    onInviteEditDidEnded: function (editbox, customEventData) { },
     onInviteTextChanged: function (text, editbox, customEventData) {
         editbox.string = editbox.string.replace(/[^\w\/]/ig, ''); //英文数字
     },
-    onInviteEditingReturn: function (editbox, customEventData) {},
+    onInviteEditingReturn: function (editbox, customEventData) { },
 
 
     onSysBtton: function (btn) {
-
         cc.log('btn: ', btn);
 
         // cc.director.loadScene('HelloWorld');
     },
 
     onBackBtton: function (btn) {
-        cc.log('btn: ', btn);
-        // this.mainSence.goToLayer("mainMenu");//roleList
-        this.mainSence.goToLayer("roleList");
+        LayerManager.goToLayer("roleList");//"mainMenu"
     },
 
     onAvatarBtton: function (btn) {
-        //换出头像框列表，注册回调获取avatar。
-        // this.head = 1;
-        // var list = cc.instantiate(this.avatarlistPrefab);
-        // this.popupNode.addChild(list);
-        // var avatarJs = list.getComponent('avatarList');  //family
-        // avatarJs.setData(0);
-        // avatarJs.setCallBack(this.onAvatarList, this);
+        return;
 
         var conf = {
             idx: 1,
@@ -146,26 +139,19 @@ cc.Class({
     },
 
     onAvatarList(data) {
-        this.faceid = data;
+        this._faceid = data;
         this.setUserAvatar(data);
-        cc.log('onAvatarList: this.faceid: ', this.faceid);
+        cc.log('onAvatarList: this._faceid: ', this._faceid);
     },
 
     setUserAvatar: function (avatar) {
         var self = this;
-
-        var idx = avatar < 10 ? ('00' + avatar) : ('0' + avatar);
-        var newavatar = "monster" + idx + '_s'
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.userAvatar.spriteFrame = spriteFrame;
-
-        });
+        uiUtil.setAvatar(self.userAvatar, avatar);
     },
 
     onSexBtton: function (btn, data) {
-        this.sex = data==0?true:false;
-        cc.log('this.sex: ', this.sex);
+        this._sex = data == 0 ? true : false;
+        cc.log('this.sex: ', this._sex);
     },
 
     onDoneBtton: function (btn) {
@@ -175,10 +161,8 @@ cc.Class({
         var uid = userMode.getInstance().user.uid;
         var token = userMode.getInstance().user.token;
         var nick = this.editName.string;
-        var sex = this.sex;
-        var face_id = this.faceid;
         var inviteCode = this.editInviteCode.string;
-        cc.log('----->onDoneBtton inviteCode: ',inviteCode);
+        cc.log('----->onDoneBtton inviteCode: ', inviteCode);
         if (nick == null || nick == '') {
             cc.log('name can not null');
             return;
@@ -190,21 +174,21 @@ cc.Class({
 
         var params = {
             token: token,
-            invite:inviteCode,
+            invite: inviteCode,
         };
 
         createRoleModel.repCreateRole(params, this.repCreateRole, this.repCreateRoleFail, this);
     },
 
     repCreateRole(data) {
-        cc.log('----->createRole success: ',data);
+        cc.log('----->createRole success: ', data);
         this.completeInfo();
     },
 
     repCreateRoleFail(data) {
-        cc.log('----->createRole fail: ',data);
+        cc.log('----->createRole fail: ', data);
         var self = this;
-        var onOk = function(){
+        var onOk = function () {
 
         };
         var CONF = {
@@ -220,12 +204,12 @@ cc.Class({
         popupManager.create('note', CONF);
     },
 
-    completeInfo(){
+    completeInfo() {
         var uid = userMode.getInstance().user.uid;
         var token = userMode.getInstance().user.token;
         var nick = this.editName.string;
-        var sex = this.sex;
-        var face_id = this.faceid;
+        var sex = this._sex;
+        var face_id = this._faceid;
         var inviteCode = this.editInviteCode.string;
 
         if (nick == null || nick == '') {
@@ -239,7 +223,7 @@ cc.Class({
 
         var params = {
             token: token,
-            invite:inviteCode,
+            invite: inviteCode,
             nick: nick,
             sex: sex,
             face_id: face_id,
@@ -248,22 +232,39 @@ cc.Class({
         userInfoModel.repUpdateUserInfo(params, this.onCompleteInfo, this);
     },
 
-    onCompleteInfo(data){
-        // this.mainSence.goToLayer("roleList");
+    onCompleteInfo(data) {
         var self = this;
         this.activeRoleNote();
     },
 
-    activeRoleNote(){
-        // this.mainSence.goToLayer("roleList");
+    updateRole(){
+        var token = userMode.getInstance().user.token;
+        var uid = this.editInviteCode.string;
+        var params = {
+            token: token,
+            invite: uid,
+        }
+        UserInfoModel.repFullUserInfo(params, this.repFullUserInfo, this);
+    },
+
+    repFullUserInfo(data) {
+        userMode.getInstance().updataUser(data);
+        MessageCenter.UPDATE_HUD.emit();
+        this.onBackBtton(null);
+        this.activeRoleNote();
+    },
+
+    activeRoleNote() {
         var self = this;
-        var onCancel = function(){
+        var onCancel = function () {
             self.cancelRoleNote();
         }
-        var onOk = function(){
+        var onOk = function () {
             //购买角色代码
-            if(Consume.jewelsIsEnough(600)){
-
+            if (Consume.jewelsIsEnough(600)) {
+                popupManager.create('shop');
+            }else{
+           
             }
         }
         var CONF = {
@@ -275,18 +276,17 @@ cc.Class({
             cancelCallbackObj: self, // 取消
             okCallback: onOk, // 确定
             okCallbackObj: self, // 确定
-            showCloseBtn:false,
+            showCloseBtn: false,
         };
         popupManager.create('note', CONF);
     },
 
-    cancelRoleNote(){
-        // this.mainSence.goToLayer("roleList");
+    cancelRoleNote() {
         var self = this;
-        var onCancel = function(){
-            self.mainSence.goToLayer("mainMenu");
+        var onCancel = function () {
+            LayerManager.goToLayer("mainMenu");
         }
-        var onOk = function(){
+        var onOk = function () {
             self.activeRoleNote();
         }
         var CONF = {
@@ -298,7 +298,7 @@ cc.Class({
             cancelCallbackObj: self, // 取消
             okCallback: onOk, // 确定
             okCallbackObj: self, // 确定
-            showCloseBtn:false,
+            showCloseBtn: false,
         };
         popupManager.create('note', CONF);
     },
@@ -313,5 +313,11 @@ cc.Class({
         cc.log('----->createRole onOut');
     },
 
+    setData(data) {
+        if (!!data) {
+            var invite = data.invite;
+            this.editInviteCode.string = invite;
+        }
+    },
 
 });

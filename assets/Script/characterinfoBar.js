@@ -1,4 +1,6 @@
 var userMode = require("./mode/userMode");
+var uiUtil = require('./unit/uiUtil');
+var allDefine = require("./mode/AllDefine");
 
 cc.Class({
     extends: cc.Component,
@@ -86,41 +88,44 @@ cc.Class({
 
         var color;
         if (same) {
-            color =  new cc.Color(126, 14, 14);
+            color = new cc.Color(126, 14, 14);
         } else {
-            color =  new cc.Color(66, 54, 54);
+            color = new cc.Color(66, 54, 54);
         }
 
         this.bg.node.color = color;
     },
-
+  
     setRoleType(status) {
         switch (status) {
-            case -10:
+            case allDefine.RoleStatus.Expired:
                 this.roleType.string = '已过期';
                 break;
-            case 0:
+            case allDefine.RoleStatus.NotUsed:
                 this.roleType.string = '未使用';
                 break;
-            case 10:
+            case allDefine.RoleStatus.NotActive:
                 this.roleType.string = '未激活';
                 break;
-            case 100:
+            case allDefine.RoleStatus.AlreadyActivated:
                 this.roleType.string = '已激活';
+                break;
+
+            case allDefine.RoleStatus.Applying:
+                this.roleType.string = '申请中';
+                break;
+            case allDefine.RoleStatus.ApplySuccess:
+                this.roleType.string = '申请成功';
+                break;
+            case allDefine.RoleStatus.ApplyFail:
+                this.roleType.string = '申请失败';
                 break;
         }
     },
 
     setUserAvatar: function (avatar) {
         var self = this;
-
-        var idx = avatar < 10 ? ('00' + avatar) : ('0' + avatar);
-        var newavatar = "monster" + idx + '_s'
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
-            // cc.log('----->spriteFrame:', spriteFrame);
-            self.avatar.spriteFrame = spriteFrame;
-
-        });
+        uiUtil.setAvatar(self.avatar, avatar);
     },
 
     onButton() {

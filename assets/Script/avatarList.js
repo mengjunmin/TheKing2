@@ -1,6 +1,5 @@
 var basePopup = require("./basePopup");
-var mailModel = require("./mode/mailModel");
-
+var userMode = require("./mode/userMode");
 
 cc.Class({
     extends: basePopup,
@@ -62,8 +61,11 @@ cc.Class({
         for(var i=0;i<this._avatars.length;i++){
             var item = cc.instantiate(this.itemPrefab);
             var itemJs = item.getComponent('avataritem');
-            itemJs.setData(this._avatars[i]);
+            var own = i==0?1:userMode.getInstance().ownAvatars(i);
+            itemJs.setData({id:this._avatars[i], own:own});
             itemJs.setCallBack(this.onItem, this);
+            
+
             this._listcontent.addChild(item);
         }
     },

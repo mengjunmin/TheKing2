@@ -66,7 +66,7 @@ var RequestNet = cc.Class({
     },
 
     Get(url, callback, context, isHideLoading) {
-        cc.log('----->Get: ', HttpMethod_GET);
+        // cc.log('----->Get: ', HttpMethod_GET);
         this.addQueue(HttpMethod_GET, url, callback, context, null, isHideLoading);
     },
 
@@ -76,7 +76,7 @@ var RequestNet = cc.Class({
 
     addQueue(type, url, callback, context, message, isHideLoading) {
         var data = new RequestData(type, url, callback, context, message, isHideLoading);
-        cc.log('----->addQueue   data: ', data);
+        // cc.log('----->addQueue   data: ', data);
         this.queue.push(data);
         this.next();
     },
@@ -259,20 +259,19 @@ var RequestWrapper = cc.Class({
         this.retry();
     },
 
-    waitForTimeout() {
-        var self = this;
-        this._timeoutId = setTimeout(function () {
-           self.retry();
-        }, 15000);
+    // waitForTimeout() {
+    //     var self = this;
+    //     this._timeoutId = setTimeout(function () {
+    //        self.retry();
+    //     }, 15000);
 
-        //this.scheduleOnce(this.tick, 5.0);
-    },
+    //     //this.scheduleOnce(this.tick, 5.0);
+    // },
 
-    tick(){
-        this.retry();
-        console.log(" time out 5s");
-
-    },
+    // tick(){
+    //     this.retry();
+    //     console.log(" time out 5s");
+    // },
 
     retry() {
         console.log(" this._retry:",this._retry);

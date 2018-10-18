@@ -1,6 +1,13 @@
 var basePopup = require("./basePopup");
 
-
+/*
+*参数：
+*{
+    title：’‘，
+    url：’‘，
+}
+*
+*/
 cc.Class({
     extends: basePopup,
 

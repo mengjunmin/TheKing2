@@ -62,6 +62,25 @@ var userMode = cc.Class({
             this.user[key] = user[key];
         }
         this.user['uid'] = user['_id'];
+
+        this.initAvatarList();
+    },
+
+    initAvatarList(){
+        var list = this.user['face_lst'] || '';
+        var array = list.split(',');
+
+        var obj = {};
+        for(var i=0;i<array.length;i++){
+            var one = array[i];
+            obj[''+one] = 1;
+        }
+        cc.log('----->initAvatarList: ', obj);
+        this.user['avatarlist'] = obj;
+    },
+
+    ownAvatars(avatarid){
+        return this.user['avatarlist'][''+avatarid]==1?1:0;
     },
 
 

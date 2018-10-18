@@ -1,6 +1,9 @@
 var basePopup = require("basePopup");
 var userMode = require("./mode/userMode");
 var familyModel = require("./mode/familyModel");
+var LayerManager = require('./unit/layerManager');
+var allDefine = require("./mode/AllDefine");
+
 
 cc.Class({
     extends: cc.Component,
@@ -52,14 +55,18 @@ cc.Class({
         treeNode: {
             default: null,
             type: cc.Node,
+        },
+        tips: {
+            default: null,
+            type: cc.Label,
         }
     },
     mainSence: null,
     // LIFE-CYCLE CALLBACKS:
-    ctor:function () {
+    ctor: function () {
         console.log('----->family  ctor');
-         var self = this;
-        
+        var self = this;
+
     },
 
     onLoad() {
@@ -70,6 +77,7 @@ cc.Class({
 
     start() {
         //发起联网请求。获取加载那个tree。
+
 
 
     },
@@ -98,7 +106,7 @@ cc.Class({
 
     },
 
-    updataTree: function(data) {
+    updataTree: function (data) {
         cc.log('----->updataTree: ', data);
         var children = this.treeNode.children;
         for (var i = 0; i < children.length; i++) {
@@ -124,21 +132,21 @@ cc.Class({
 
     },
 
-    treeType(data){
+    treeType(data) {
         var uid = userMode.getInstance().user._id;
         var ower = null;
         var father = null;
 
-        for(var i=0;i<data.length;i++){
+        for (var i = 0; i < data.length; i++) {
             ower = data[i];
-            if(ower._id == uid){
+            if (ower._id == uid) {
                 break;
             }
         }
 
-        for(var i=0;i<data.length;i++){
+        for (var i = 0; i < data.length; i++) {
             var one = data[i];
-            if(one._id == ower.parent_invite){
+            if (one._id == ower.parent_invite) {
                 return 2;
             }
         }
@@ -146,12 +154,12 @@ cc.Class({
         return 1;
     },
 
-    onBack: function(obj, data) {
+    onBack: function (obj, data) {
         cc.log('----->onBack');
-        this.mainSence.goToLayer("mainMenu");
+        LayerManager.goToLayer("mainMenu");
     },
 
-    onJoin: function(obj, data) {
+    onJoin: function (obj, data) {
         cc.log('----->onJoin');
         var uid = userMode.getInstance().user.uid;
         var t = userMode.getInstance().user.t;
@@ -168,25 +176,59 @@ cc.Class({
         this.updataTree(data);
     },
 
-    onDuihuan: function(obj, data) {
+    onDuihuan: function (obj, data) {
         cc.log('----->onDuihuan');
 
 
     },
 
-    onIn: function() {
-        cc.log('----->family onIn');
-        var family = userMode.getInstance().user['family'];
-        cc.log('----->family: ', family);
-        // this.updataTree(null);
-        // // this.getList();
-        this.getList();
+    setTip(status) {
+        var text = '';
+        switch (status) {
+            case allDefine.RoleStatus.Expired:
+                break;
+            case allDefine.RoleStatus.NotUsed:
+                text = '立即申请创建家族，\n参加邀请新人得积分活动！\n名额有限，先到先得！';
+                break;
+            case allDefine.RoleStatus.NotActive:
+                break;
+            case allDefine.RoleStatus.AlreadyActivated:
+                break;
+            case allDefine.RoleStatus.Applying:
+                text = '申请中！';
+                break;
+            case allDefine.RoleStatus.ApplySuccess:
+                text = '申请成功';
+                break;
+            case allDefine.RoleStatus.ApplyFail:
+                text = '申请失败';
+                break;
+        }
 
-        this.joinBtn.node.active = family ? false : false;
+        this.tips.string = text;
     },
 
-    onOut: function() {
+
+
+    ////over
+    onIn: function () {
+        cc.log('----->family onIn');
+        var status = userMode.getInstance().user['status'];
+
+        this.getList();
+
+        this.joinBtn.node.active = status==allDefine.RoleStatus.NotActive ? true : false;
+
+     
+        this.setTip(status);
+    },
+
+    onOut: function () {
         cc.log('----->family onOut');
+    },
+
+    setData(data) {
+
     },
 
     // update (dt) {},

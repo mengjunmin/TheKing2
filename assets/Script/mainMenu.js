@@ -1,70 +1,77 @@
-var Utils = require("./mode/Utils");
+
 var popupManager = require("./unit/popupManager");
 var userMode = require("./mode/userMode");
-var TimeUtil = require('./Tool/TimeUtil');
+// var TimeUtil = require('./Tool/TimeUtil');
 var allDefine = require("./mode/AllDefine");
-
+var MessageCenter = require('./Signal/MessageCenter');
+var LayerManager = require('./unit/layerManager');
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
         paytip: {
             default: null,
             type: cc.Node,
         },
         callback: null,
         objecttarget: null,
-
+        isShowPayTip: null,
 
     },
     mainSence: null,
 
-
-    // LIFE-CYCLE CALLBACKS:
     ctor: function () {
         var self = this;
+        this.isShowPayTip = false;
+    },
+
+    onLoad() {
 
     },
-    // onLoad () {},
 
     start() {
 
     },
 
+    onEnable: function () {
+        MessageCenter.PAY_TIP.on(this.updatePayTip, this);
+    },
+
+    onDisable: function () {
+        MessageCenter.PAY_TIP.off(this.updatePayTip, this);
+    },
+
+    updatePayTip(isshow) {
+        // MessageCenter.GAME.emit({1:2});
+        this.isShowPayTip = isshow;
+        if(isshow == false){
+            this.stopPayTip();
+        }
+
+    },
+
     onUserInfo: function (obj, data) {
-        cc.log('----->onUserInfo');
-        this.mainSence.goToLayer("userinfo");
+        LayerManager.goToLayer("userinfo");
     },
 
     onMail: function (obj, data) {
-        cc.log('----->onMail');
-        this.onCallBack('onMail');
+        var mailCallback = function () {
+
+        }
+        var conf = {
+            closeCallback: mailCallback, // 取消按钮的回调方法
+            closeCallbackObj: this, // 取消按钮的回调this
+        };
+        popupManager.create('mail', conf);
     },
 
     onGame: function (obj, data) {
-        cc.log('----->onGame');
-        this.mainSence.goToLayer("gamelobby"); //
+        LayerManager.goToLayer("gamelobby");
     },
 
     onShop: function (obj, data) {
-        cc.log('----->onShop');
-        this.onCallBack('onShop');
+        popupManager.create('shop', {});
 
     },
 
@@ -75,15 +82,11 @@ cc.Class({
     },
 
     onRoleList: function (obj, data) {
-        cc.log('----->onRoleList');
-        this.mainSence.goToLayer("roleList");
-
+        LayerManager.goToLayer("roleList");
     },
 
     onFamily: function (obj, data) {
-        this.mainSence.goToLayer("family");
-        // this.mainSence.goToLayer("createRole");//
-        // //
+        LayerManager.goToLayer("family");
 
         // var CONF = {
         //     title: '8888888',
@@ -105,25 +108,26 @@ cc.Class({
     initPayTip() {
         cc.log('----->mainMenu initPayTip');
         var user = userMode.getInstance().user;
-        var nick = userMode.getInstance().user['nick'];
-        var status = userMode.getInstance().user['status'];
         cc.log('----->user: ', user);
 
 
-        this.paytip.active = status == allDefine.RoleStatus.NotActive ? true : false;
-        if(this.paytip.active){
-            var payjs =  this.paytip.getComponent('payTip');
-            payjs.runTime();
+        var status = userMode.getInstance().user.status;
+        if (status == allDefine.RoleStatus.NotActive) {
+            this.runPayTip();
+        } else {
+            this.stopPayTip();
         }
-
     },
 
-
+    runPayTip() {
+        this.paytip.active = true;
+        var payjs = this.paytip.getComponent('payTip');
+        payjs.runTime();
+    }, 
     stopPayTip() {
-        if(this.paytip.active){
-            var payjs =  this.paytip.getComponent('payTip');
-            payjs.runTime();
-        }
+        this.paytip.active = false;
+        var payjs = this.paytip.getComponent('payTip');
+        payjs.stopTime();
     },
 
 
@@ -138,5 +142,10 @@ cc.Class({
         this.stopPayTip();
         cc.log('----->mainMenu onOut');
     },
-    // update (dt) {}, family
+
+    setData(data) {
+
+    },
+
+    // update (dt) {}, 
 });

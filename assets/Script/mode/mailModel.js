@@ -37,6 +37,7 @@ var mailModel = cc.Class({
         var params = {
             invite: argu.invite,
             token: argu.token,
+            type: argu.type,
         };
 
         var router = '/gapi/msg/list';
@@ -110,7 +111,7 @@ var mailModel = cc.Class({
             ids: argu.ids,
         };
 
-        var router = '/g1/msg/del';
+        var router = '/gapi/msg/del';
         var requestResultMethod = {
             context: this,
             onSuccess: function (result) {
@@ -134,29 +135,29 @@ var mailModel = cc.Class({
         "msg": "成功删除邮件"
     }
     */
-   repCheckMail(argu, callback, context) {
-    var self = this;
-    var params = {
-        invite: argu.invite,
-        // token: argu.token,
-    };
+    repCheckMail(argu, callback, context) {
+        var self = this;
+        var params = {
+            invite: argu.invite,
+            // token: argu.token,
+        };
 
-    var router = '/gapi/msg/list/check';
-    var requestResultMethod = {
-        context: this,
-        onSuccess: function (result) {
-            console.log("----->repCheckMail  onSuccess: ", result);
-            if (callback) callback.apply(context, [result]);
-        },
-        onFail: function (result, errorCode) {
-            console.log("----->repCheckMail  onFail: ", result, errorCode);
+        var router = '/gapi/msg/list/check';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repCheckMail  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repCheckMail  onFail: ", result, errorCode);
 
-        }
-    };
+            }
+        };
 
-    GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
 
-},
+    },
 
 
 });

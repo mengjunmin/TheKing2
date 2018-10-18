@@ -28,13 +28,13 @@ var Consume = cc.Class({
 
 
     rechargePopup(){
-        // this.mainSence.goToLayer("roleList");
         var self = this;
         var onCancel = function(){
             
         }
         var onOk = function(){
             //去充值
+            popupManager.create('jewelShop', {});
         }
         var CONF = {
             title: '',

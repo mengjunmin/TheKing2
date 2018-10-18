@@ -27,46 +27,135 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        icon:{
-            default:null,
-            type:cc.Sprite
+        icon: {
+            default: null,
+            type: cc.Sprite
         },
-        content:{
-            default:null,
-            type:cc.Label,
+        content: {
+            default: null,
+            type: cc.Label,
+        },
+        dellBtn: {
+            default: null,
+            type: cc.Button,
+        },
+        itembtn: {
+            default: null,
+            type: cc.Button,
+        },
+        arrowbtn: {
+            default: null,
+            type: cc.Button,
+        },
+        title: {
+            default: null,
+            type: cc.Label,
         },
 
-        title:{
-            default:null,
-            type:cc.Label,
-        },
-
-        _data:null,
+        _data: null,
+        _callback: null,
+        _objecttarget: null,
+        _isDellIn:null,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
 
     },
-    
-    ctor:function () {
-         var self = this;
+
+    ctor: function () {
+        var self = this;
+        this._isDellIn = false;
+    },
+
+    start() {
+        cc.log('mailItem');
+    },
+
+
+    onEnable: function () {
+        // this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        // this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        // this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        // this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+    },
+
+    onDisable: function () {
         
     },
 
-    start () {
+    onTouchStart(event){
+        cc.log('onTouchStart');
         
     },
+    onTouchMove(event){
+        cc.log('onTouchMove');
+    },
+    onTouchEnd(event){
+        cc.log('onTouchEnd');
+    },
+    onTouchCancel(event){
+        cc.log('--->onTouchCancel');
+    },
 
-    setData(data){
+    setData(data) {
         this._data = data;
         this.updateView();
     },
 
-    updateView(){
-        this.title.string = this._data.title;
-        this.content.string = this._data.content;
+    updateView() {
+        this.title.string = this._data['title'] || '';
+        this.content.string = this._data['content'] || '';
+
+        var status = this._data['status'] || 0;
+    },
+
+    onDellBtn(obj, data) {
+        cc.log('--->onDellBtn');
+        this.onCallBack(this._data, 1);
+    },
+    onItemBtn(obj, data) {
+        cc.log('--->onItemBtn');
+        if(this._isDellIn){
+            this.dellBtnOut();
+            return;
+        }
+        //打开邮件
+        this.onCallBack(this._data, 0);
+    },
+
+    onArrawBtn(obj, data) {
+        cc.log('--->onArrawBtn');
+        this.dellBtnIn();
+
+        
+        
+    },
+
+    setCallBack: function (fun, target) {
+        this._callback = fun;
+        this._objecttarget = target;
+
+    },
+
+    dellBtnIn() {
+
+        this._isDellIn = true;
+        this.arrowbtn.node.x = 187;
+        var move = cc.moveTo(0.5, cc.v2(70, 0));
+        this.dellBtn.node.runAction(move);
+    },
+
+    dellBtnOut() {
+        this._isDellIn = false;
+        this.dellBtn.node.x = 158;
+        this.arrowbtn.node.x = 87;
+    },
+
+//0：代开邮件。1：删除邮件
+    onCallBack: function (data, type) {
+        if (this._callback) this._callback.apply(this._objecttarget, [data, type]);
     },
 
     // update (dt) {},

@@ -49,19 +49,23 @@ cc.Class({
     },
 
     getMailList() {
-        var uid = userMode.getInstance().user.uid;
-        var t = userMode.getInstance().user.t;
-        var pp = {
-            uid: uid,
-            t: t,
+        var invite = userMode.getInstance().user.uid;
+        var token = userMode.getInstance().user.token;
+        var type = 'msg';
+
+        var params = {
+            token: token,
+            invite: invite,
+            type:type,
         }
-        mailModel.repMailList(pp, this.repMailList, this);
+
+        mailModel.repMailList(params, this.repMailList, this);
         // this.repMailList(null);
     },
 
     repMailList(data) {
-        console.log("======>repMailList");
-        this._data = data.list;
+        console.log("======>repMailList：", data);
+        this._data = data;
         // this._data = [
         //     {
         //         "id": 1,
@@ -70,27 +74,6 @@ cc.Class({
         //         "action": "",
         //         "status": 0
         //     },
-        //     {
-        //         "id": 1,
-        //         "title": "222222",
-        //         "content": "212121212",
-        //         "action": "",
-        //         "status": 1
-        //     },
-        //     {
-        //         "id": 1,
-        //         "title": "3333333",
-        //         "content": "212121212",
-        //         "action": "",
-        //         "status": 1
-        //     },
-        //     {
-        //         "id": 1,
-        //         "title": "4444444",
-        //         "content": "212121212",
-        //         "action": "",
-        //         "status": 1
-        //     }
         // ];
 
         this.updataList();
@@ -102,29 +85,66 @@ cc.Class({
             var item = cc.instantiate(this.itemPrefab);
             var itemJs = item.getComponent('mailitem');
             itemJs.setData(this._data[i]);
+            itemJs.setCallBack(this.onClickItem, this);
             this._listcontent.addChild(item);
         }
     },
 
+    onClickItem(...arge){
+        console.log('  mail dell: ', arge[0], arge[1]);
+        var maildata = arge[0];
+        var type = arge[1];
+        var ids = maildata._id;
+// return;
+        if(type == 0){
+            this.readMail(ids);
+        }else if(type == 1){
+            this.dellMail(ids);
+        }
+        
+    },
 
     dellMail(id) {
         var uid = userMode.getInstance().user.uid;
-        var t = userMode.getInstance().user.t;
-        var pp = {
-            uid: uid,
-            t: t,
-            ids: id
-        }
+        var token = userMode.getInstance().user.token;
+        var ids = id;
 
-        mailModel.repDellMail(pp, this.repDellMail, this);
+        var params = {
+            invite: uid,
+            token: token,
+            ids: ids,
+        };
+
+        mailModel.repDellMail(params, this.repDellMail, this);
     },
 
     repDellMail(data) {
-        this._data = data.list;
+        cc.log('---->repDellMail: ', data);
 
-        this.updataList();
+        // this.updataList();
     },
 
+    readMail(id) {
+        var uid = userMode.getInstance().user.uid;
+        var token = userMode.getInstance().user.token;
+        var ids = id;
+
+        var params = {
+            invite: uid,
+            token: token,
+            ids: ids,
+        };
+
+        mailModel.repMailMarkread(params, this.repReadMail, this);
+    },
+
+    repReadMail(data) {
+        cc.log('---->repReadMail: ', data);
+
+        // this.updataList();
+    },
+
+    
 
     cleanList() {
         if (this._listcontent) {

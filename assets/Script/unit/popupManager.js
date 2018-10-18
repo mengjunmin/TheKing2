@@ -19,7 +19,7 @@ var popupManager = {
 
 
 
-    create:function(name, context) {
+    create:function(name, context=null) {
         var self = this;
         var newpopup=null;
         if(!_sence&&!_layer){
@@ -61,13 +61,13 @@ var popupManager = {
             newpopup = cc.instantiate(_sence.myCardPrefab);
             var popupJs = newpopup.getComponent('myCard');  
         }else if(name == 'note'){
-            newpopup = cc.instantiate(_sence.notePrefab);
+            newpopup = cc.instantiate(_sence.notePrefab);//通用提示框
             var popupJs = newpopup.getComponent('note');  
         }else if(name == 'noticeBoard'){
-            newpopup = cc.instantiate(_sence.noticeBoardPrefab);
+            newpopup = cc.instantiate(_sence.noticeBoardPrefab);//纯文本弹框
             var popupJs = newpopup.getComponent('noticeBoard');  
         }else if(name == 'noticeBoardUrl'){
-            newpopup = cc.instantiate(_sence.noticeBoardUrlPrefab);
+            newpopup = cc.instantiate(_sence.noticeBoardUrlPrefab);//网页弹框
             var popupJs = newpopup.getComponent('noticeBoardUrl');  
         }else if(name == 'avatarlist'){
             newpopup = cc.instantiate(_sence.avatarlistPrefab);
@@ -75,15 +75,19 @@ var popupManager = {
         }else if(name == 'namelist'){
             newpopup = cc.instantiate(_sence.nameListPrefab);
             var popupJs = newpopup.getComponent('nameList');  
-        }else if(name == 'noticePic'){
+        }else if(name == 'noticePic'){//图片弹框
             newpopup = cc.instantiate(_sence.noticePicPrefab);
             var popupJs = newpopup.getComponent('noticePic'); 
         }else if(name == 'Toaster'){
             newpopup = cc.instantiate(_sence.toasterPrefab);
             var popupJs = newpopup.getComponent('Toaster'); 
+        }else if(name == 'jewelShop'){
+            newpopup = cc.instantiate(_sence.jewelShopPrefab);
+            var popupJs = newpopup.getComponent('jewelShop'); 
+            cc.log('---->jewelShop  ', popupJs);
         }
 
-
+        
         conf = context;
         if(newpopup){//注册默认的关闭回调
             for(var key in mastconf){

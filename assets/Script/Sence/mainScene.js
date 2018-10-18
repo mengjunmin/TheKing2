@@ -1,11 +1,9 @@
-var global = require('../mode/Global');
-var hud = require('../hud');
-var basePopup = require("../basePopup");
-var Utils = require("../mode/Utils");
+
 var popupManager = require("../unit/popupManager");
 var userMode = require("../mode/userMode");
 var MessageCenter = require('../Signal/MessageCenter');
 var loginModel = require("../mode/loginModel");
+var LayerManager = require('../unit/layerManager');
 
 cc.Class({
     extends: cc.Component,
@@ -47,6 +45,10 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        jewelShopPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
         myRewardPrefab: {
             default: null,
             type: cc.Prefab
@@ -67,7 +69,7 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-        noticePicPrefab:{
+        noticePicPrefab: {
             default: null,
             type: cc.Prefab
         },
@@ -91,9 +93,9 @@ cc.Class({
             default: null,
             type: cc.Node
         },
-        horseNode:{
-            default:null,
-            type:cc.Node
+        horseNode: {
+            default: null,
+            type: cc.Node
         },
         createRolePrefab: {
             default: null,
@@ -103,32 +105,35 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-        avatarlistPrefab:{
-        	default:null,
-        	type:cc.Prefab
+        avatarlistPrefab: {
+            default: null,
+            type: cc.Prefab
         },
-        horsePrefab:{
-            default:null,
-            type:cc.Prefab
+        horsePrefab: {
+            default: null,
+            type: cc.Prefab
         },
 
-        _lockScreen:null,
+        _lockScreen: null,
     },
     allLayer: null,
     allJs: null,
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        cc.log('----->mainScene  onLoad');
         this.allLayer = {};
         this.allJs = {};
         this._lockScreen = null;
+        LayerManager.init(this);
+        popupManager.init(this);
 
-        if(userMode.getInstance().showLayer == ''){
-            this.createLayer("roleList");//mainMenu
-        }else{
-            this.createLayer(userMode.getInstance().showLayer);
+        if (userMode.getInstance().showLayer == '') {
+            LayerManager.goToLayer("roleList");//mainMenu
+        } else {
+            LayerManager.goToLayer(userMode.getInstance().showLayer);
         }
-        
+
 
         var hud = cc.instantiate(this.hudPrefab);
         this.hudNode.addChild(hud);
@@ -138,177 +143,104 @@ cc.Class({
 
     },
 
-    aaa(data) {
-        cc.log('----->aaa:', data);
-    },
-
-    onMenuCallBack(data) {
-        cc.log('----->onMenuCallBack:', data);
-        if (data == 'onMail') {
-
-            var conf = {
-                closeCallback: this.aaa, // 取消按钮的回调方法
-                closeCallbackObj: this, // 取消按钮的回调this
-            };
-            popupManager.create('mail', conf);
-
-
-        } else if (data == 'onShop') {
-            popupManager.create('shop', {});
-        } else if (data == 'onGame') {
-            cc.director.loadScene('Game');
-           
-        } 
-
-    },
 
     start() {
+        cc.log('----->mainScene  start');
         var self = this;
-        popupManager.init(this);
+        
 
-        this.getPowerConfig();
+        // this.getPowerConfig();
 
     },
 
-    getPowerConfig(){
+    getPowerConfig() {
         var date = new Date();
         var time = date.getTime();
-        cc.log('calibrationTime  date: ', date);
-        cc.log('calibrationTime  time: ', time);
+
         var params = {
             time: time,
         };
-        loginModel.repPowerConfig(params, this.onPowerConfig, this,  null, this);
+        loginModel.repPowerConfig(params, this.onPowerConfig, this, null, this);
     },
-    onPowerConfig(data){
+
+    onPowerConfig(data) {
         var timespan = data.timespan;
         userMode.getInstance().timespan = timespan;
+
+        var splash = data['splash']; //image  url
+        var notification_page = data['notification_page']; //html
+        var notification = data['notification']; //next
+        var notice = data['notice']; //UBB
+
+        var calkback = function () {
+
+        }
+
+        if (splash) {
+            cc.log('=====>splash: ', splash);
+            var conf = {
+                url: splash,
+            };
+            popupManager.create('noticePic', conf);
+        }
+
+        // if (notification_page) {
+        //     cc.log('=====>notification_page: ', notification_page);
+        //     var conf = {
+        //         url: notification_page,
+        //     };
+        //     popupManager.create('noticeBoardUrl', conf);
+        // }
+
+        // if (notification) {
+        //     cc.log('=====>notification: ', notification);
+        //     var conf = {
+        //         title: '8888888',
+        //         content: notification,
+        //     };
+        //     popupManager.create('noticeBoard', conf);
+        // }
+
+        // if (notice) {
+        //     cc.log('=====>notice: ', notice);
+        //     var conf = {
+        //         title: '8888888',
+        //         content: notice,
+        //     };
+        //     popupManager.create('noticeBoard', conf);
+        // }
 
         // cc.log('onCalibrationTime: ', data);
     },
 
     onEnable: function () {
+        cc.log('----->mainScene  onEnable');
         MessageCenter.LOCKSCREEN.on(this.lockScreen, this);
-        // this.lockScreen(true);
     },
 
     onDisable: function () {
+        cc.log('----->mainScene  onDisable');
         MessageCenter.LOCKSCREEN.off(this.lockScreen, this);
     },
-    // var alllayer = ['familyNode', 'menuNode'];
-
-    goToLayer(layername) {
-        var ws = cc.winSize;
-        var currname = layername;
-        for (var i = 0; i < Utils.alllayer.length; i++) {
-            var layername = Utils.alllayer[i];
-            if (layername == currname) {
-
-                if (!this.allLayer[layername]) {
-                    this.createLayer(layername);
-                } else {
-                    this.allLayer[layername].com.x = 0;
-                    this.allLayer[layername].js.onIn();
-                }
-
-            } else {
-                if (this.allLayer[layername]) {
-                    this.allLayer[layername].com.x = -ws.width;
-                    this.allLayer[layername].js.onOut();
-                }
-            }
-        }
-
-    },
-
-    createLayer(layer) {
-        if (layer == "mainMenu") {
-            var menu = cc.instantiate(this.menuPrefab);
-            this.baselayerNode.addChild(menu);
-            var menuJs = menu.getComponent('mainMenu'); //family
-            menuJs.setCallBack(this.onMenuCallBack, this);
-            menuJs.mainSence = this;
-            var obj = {
-                com: menu,
-                js: menuJs
-            }
-            this.allLayer['mainMenu'] = obj;
-            menuJs.onIn();
-        } else if (layer == "family") {
-            var family = cc.instantiate(this.familyPrefab);
-            this.baselayerNode.addChild(family);
-            var familyJs = family.getComponent('family'); //family
-            familyJs.mainSence = this;
-            var obj = {
-                com: family,
-                js: familyJs
-            }
-            this.allLayer['family'] = obj;
-            familyJs.onIn();
-        } else if (layer == "userinfo") {
-            var userinfo = cc.instantiate(this.userinfoPrefab);
-            this.baselayerNode.addChild(userinfo);
-            var userinfoJs = userinfo.getComponent('userInfo'); //family
-            userinfoJs.mainSence = this;
-            var obj = {
-                com: userinfo,
-                js: userinfoJs
-            }
-            this.allLayer['userinfo'] = obj;
-            userinfoJs.onIn();
-        }else if (layer == "gamelobby") {
-            var gameLobby = cc.instantiate(this.gameLobbyPrefab);
-            this.baselayerNode.addChild(gameLobby);
-            var gameLobbyJs = gameLobby.getComponent('gamelobby'); //family
-            gameLobbyJs.mainSence = this;
-            var obj = {
-                com: gameLobby,
-                js: gameLobbyJs
-            }
-            this.allLayer['gamelobby'] = obj;
-            gameLobbyJs.onIn();
-        }else if (layer == "createRole") {
-            var createRole = cc.instantiate(this.createRolePrefab);
-            this.baselayerNode.addChild(createRole);
-            var createRoleJs = createRole.getComponent('createRole');
-            createRoleJs.mainSence = this;
-            var obj = {
-                com: createRole,
-                js: createRoleJs
-            }
-            this.allLayer['createRole'] = obj;
-            createRoleJs.onIn();
-        }else if (layer == "roleList") {
-            var roleList = cc.instantiate(this.characterInfoPrefab);
-            this.baselayerNode.addChild(roleList);
-            var roleListJs = roleList.getComponent('characterinfo');
-            roleListJs.mainSence = this;
-            var obj = {
-                com: roleList,
-                js: roleListJs
-            }
-            this.allLayer['roleList'] = obj;
-            roleListJs.onIn();
-        }
 
 
-        
 
-    },
-
-    lockScreen(lock){
-        if(lock){
-            if(!this._lockScreen){
+    lockScreen(lock) {
+        if (lock) {
+            if (!this._lockScreen) {
                 this._lockScreen = cc.instantiate(this.lockPrefab);
                 this.lockNode.addChild(this._lockScreen);
             }
-        }else{
-            if(this._lockScreen){
+        } else {
+            if (this._lockScreen) {
                 this._lockScreen.destroy();
                 this._lockScreen = null;
             }
         }
 
     },
+
     // update (dt) {},
+
+
 });

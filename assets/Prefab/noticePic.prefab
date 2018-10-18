@@ -454,8 +454,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "note",
+    "target": {
+      "__id__": 1
+    },
+    "component": "noticePic",
     "handler": "onCloseBtn",
     "customEventData": "0"
   },

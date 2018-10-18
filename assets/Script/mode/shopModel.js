@@ -18,68 +18,152 @@ var shopModel = cc.Class({
         this.target = null;
     },
 
-/*
-{
-    "list": [
-        {
-            "id": 1,
-            "title": "",
-            "content": "",
-            "action": "",
-            "status": 0
-        },
-        {
-            "id": 1,
-            "title": "",
-            "content": "",
-            "action": "",
-            "status": 1
-        }
-    ] 
-}
-*/
-    repList(argu, callback, context) {
+    /*
+    {
+        "list": [
+            {
+                "id": 1,
+                "title": "",
+                "content": "",
+                "action": "",
+                "status": 0
+            },
+            {
+                "id": 1,
+                "title": "",
+                "content": "",
+                "action": "",
+                "status": 1
+            }
+        ] 
+    }
+    */
+    repProductList(argu, callback, context) {
         var self = this;
         var params = {
-            uid: argu.uid,
-            t: argu.t,
+            token: argu.token,
         }
-        console.log("----->repShopList");
+        console.log("----->repProductList");
 
-        var router = '/g1/goods/list';
+        var router = '/gapi/product/list';
         var requestResultMethod = {
             context: this,
-            onSuccess: function(result) {
-                console.log("----->repShopList  onSuccess: ", result);
+            onSuccess: function (result) {
+                console.log("----->repProductList  onSuccess: ", result);
                 if (callback) callback.apply(context, [result]);
             },
-            onFail: function(result, errorCode) {
-                console.log("----->repShopList  onFail: ", result , errorCode);
+            onFail: function (result, errorCode) {
+                console.log("----->repProductList  onFail: ", result, errorCode);
 
             }
         };
 
-        GeneralServerRequest.preq(router, params, requestResultMethod, null, false , false);
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
     },
 
-//  家族列表
-/*
-{
-    "result": 1,
-    "msg": "成功删除邮件"
-}
-*/
-    repPay(argu, callback, context) {
+    //  获取钻石列表
+    repJewelList(argu, callback, context) {
         var self = this;
-        console.log("----->repDellMail");
-        var pp = {
-            uid: argu.uid,
-            t: argu.t,
-            ids:1
+        var params = {
+            token: argu.token,
         }
-        var url = allDefine.serverAddress + '/g1/msg/list';
-        Request.Post(url, callback, context, pp, false);
+        console.log("----->repJewelList");
 
+        var router = '/gapi/jewel/list';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repJewelList  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repJewelList  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+    },
+
+
+    //  创建钻石购买订单
+    repJewelPay(argu, callback, context) {
+        var self = this;
+        var params = {
+            token: argu.token,
+            invite: argu.invite,
+            jewel_id: argu.jewel_id,//钻石id
+        }
+        console.log("----->repJewelPay");
+
+        var router = '/gapi/jewel/jewelpay';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repJewelPay  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repJewelPay  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+    },
+
+    //  钻石消耗
+    repJewelCost(argu, callback, context) {
+        var self = this;
+        var params = {
+            token: argu.token,
+            invite: argu.invite,
+            product_id: argu.product_id,//钻石id
+        }
+        console.log("----->repJewelCost");
+
+        var router = '/gapi/jewel/jewelcost';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repJewelCost  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repJewelCost  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
+    },
+
+
+    //购买头像
+    repBuyface(argu, callback, context) {
+        var self = this;
+        var params = {
+            token: argu.token,
+            invite: argu.invite,
+            jewelcost_id: argu.jewelcost_id,//钻石消费单号
+            face_id: argu.face_id,//头像id
+        }
+        console.log("----->repBuyface");
+
+        var router = '/gapi/account/buyface';
+        var requestResultMethod = {
+            context: this,
+            onSuccess: function (result) {
+                console.log("----->repBuyface  onSuccess: ", result);
+                if (callback) callback.apply(context, [result]);
+            },
+            onFail: function (result, errorCode) {
+                console.log("----->repBuyface  onFail: ", result, errorCode);
+
+            }
+        };
+
+        GeneralServerRequest.preq(router, params, requestResultMethod, null, false, false);
     },
 
 
@@ -91,4 +175,3 @@ var shopModel = cc.Class({
 
 var ShopModel = new shopModel();
 module.exports = ShopModel;
-

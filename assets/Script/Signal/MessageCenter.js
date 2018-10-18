@@ -17,6 +17,7 @@ var MessageCenter = cc.Class({
         this.GUI = new SignalEvent();
         this.UPDATE_HUD =  new SignalEvent();
         this.LOCKSCREEN =  new SignalEvent();
+        this.PAY_TIP =  new SignalEvent();
     },
 
 

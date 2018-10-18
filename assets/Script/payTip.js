@@ -2,6 +2,7 @@ var userMode = require("./mode/userMode");
 var TimeUtil = require('./Tool/TimeUtil');
 var popupManager = require("./unit/popupManager");
 var Consume = require('./unit/consume');
+// var MessageCenter = require('./Signal/MessageCenter');
 
 cc.Class({
     extends: cc.Component,
@@ -27,12 +28,24 @@ cc.Class({
 
     },
 
+    onEnable: function () {
+        // MessageCenter.PAY_TIP.on(this.updateView, this);
+    },
+
+    onDisable: function () {
+        // MessageCenter.PAY_TIP.off(this.updateView, this);
+    },
+
+    updateView(){
+
+    },
+    
     init() {
         var user = userMode.getInstance().user;
 
         var invite_use = userMode.getInstance().user.invite_use;
         if (invite_use) {
-            var times = TimeUtil.timeStamp(invite_use);
+            var times = ( invite_use - 621355968000000000 )/10000;
             var nowtime = userMode.getInstance().getServerTime();
             var maxtime = 48*60*60*1000;
             this.leftPayTime = maxtime-(nowtime-times);
@@ -51,7 +64,6 @@ cc.Class({
 
     onTimer(t) {
         this.leftPayTime -= 1000;
-        cc.log('----->this.leftPayTime:', this.leftPayTime);
         if (this.leftPayTime <= 0) {
             this.leftPayTime = 0;
             this.unschedule(this.onTimer);
@@ -59,25 +71,27 @@ cc.Class({
 
         var lefttimes = TimeUtil.timeLeftToTimeFormat(this.leftPayTime);
         this.time.string = ''+lefttimes;
-
     },
 
     runTime() {
+        this.active = true;
         this.init();
     },
 
     stopTime() {
         this.unschedule(this.onTimer);
+        this.active = false;
     },
 
     onPay: function (obj, data) {
         cc.log('----->onPay');
+        // this.activeRoleNote();
 
-        this.activeRoleNote();
+        popupManager.create('shop', {});
+        
     },
 
     activeRoleNote(){
-        // this.mainSence.goToLayer("roleList");
         var self = this;
         var onCancel = function(){
             

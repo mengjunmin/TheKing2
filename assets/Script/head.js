@@ -1,6 +1,7 @@
 var global = require('Global');
 var userMode = require("./mode/userMode");
 var familyModel = require("./mode/familyModel");
+var uiUtil = require('./unit/uiUtil');
 
 cc.Class({
     extends: cc.Component,
@@ -85,23 +86,8 @@ cc.Class({
 
     setUserAvatar: function(avatar) {
         var self = this;
-        if (avatar < 10) {
-            avatar = '00' + avatar;
-        } else {
-            avatar = '0' + avatar;
-        }
-
-        // if (this._currAvatar != '') {
-        //     var oldavatar = "monster" + this._currFrame + '_s';
-        //     cc.loader.releaseRes(oldavatar, cc.SpriteFrame);
-        // }
-
         this._currAvatar = avatar;
-        var newavatar = "monster" + avatar + '_s';
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function(err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.userAvatar.spriteFrame = spriteFrame;
-        });
+        uiUtil.setAvatar(self.userAvatar, avatar);
     },
 
     sun(num){

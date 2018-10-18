@@ -2683,7 +2683,7 @@
         "__id__": 81
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 0,
     "_components": [
       {
@@ -4125,8 +4125,8 @@
       "__id__": 78
     },
     "mainSence": null,
-    "sex": 0,
-    "faceid": 0,
+    "_sex": true,
+    "_faceid": 1,
     "temp": null,
     "_id": ""
   },

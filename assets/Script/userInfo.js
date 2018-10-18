@@ -1,8 +1,8 @@
 var userMode = require("./mode/userMode");
 var userInfoModel = require("./mode/userInfoModel");
-var Utils = require("./mode/Utils");
 var popupManager = require("./unit/popupManager");
-
+var LayerManager = require('./unit/layerManager');
+var uiUtil = require('./unit/uiUtil');
 
 cc.Class({
     extends: cc.Component,
@@ -118,7 +118,7 @@ cc.Class({
         this.sexLable.string = userMode.getInstance().user.sex?'男':'女';
         this.levelLable.string = 'LV.' + userMode.getInstance().user.level;
         this.diamondsLable.string = '120';
-        this.scoreLable.string = '234990';
+        this.scoreLable.string = userMode.getInstance().user.score || 0;
         this.activityLable.string = '90%';
         this.setUserAvatar(face_id || 1);
     },
@@ -141,14 +141,7 @@ cc.Class({
 
     setUserAvatar: function (avatar) {
         var self = this;
-
-        var idx = avatar < 10 ? ('00' + avatar) : ('0' + avatar);
-        var newavatar = "monster" + idx + '_s'
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.avatar.spriteFrame = spriteFrame;
-
-        });
+        uiUtil.setAvatar(self.avatar, avatar);
     },
 
     onHistoryScoreBtn: function(obj, data) {
@@ -181,11 +174,7 @@ cc.Class({
     },
 
     onBack: function(obj, data) {
-        cc.log('----->onShop');
-        // cc.log('----->obj:', obj);
-        // cc.log('----->data:', data);
-        // Utils.goToLayer(this.mainSence, "menuNode");
-        this.mainSence.goToLayer("mainMenu");
+        LayerManager.goToLayer("mainMenu");
     },
 
     onIn: function() {
@@ -197,5 +186,9 @@ cc.Class({
         cc.log('----->userInfo onOut');
     },
 
+    setData(data) {
+        
+    },
+    
     // update (dt) {},
 });

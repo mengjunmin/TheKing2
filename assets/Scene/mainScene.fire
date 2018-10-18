@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.30546875,
-      "y": 0.30546875,
+      "x": 0.4125,
+      "y": 0.4125,
       "z": 1
     },
     "_quat": {
@@ -652,6 +652,9 @@
     },
     "shopPrefab": {
       "__uuid__": "49cdd6a7-4563-458b-b5f5-7a997c9c0f1a"
+    },
+    "jewelShopPrefab": {
+      "__uuid__": "ff55fe72-f5df-4a2a-96c6-5e040df71875"
     },
     "myRewardPrefab": {
       "__uuid__": "5eb2f517-1b6f-45ba-88c8-db844932a7a8"

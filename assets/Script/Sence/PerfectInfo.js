@@ -1,7 +1,7 @@
 var registerModel = require("../mode/registerModel");
 var userMode = require("../mode/userMode");
 var popupManager = require("../unit/popupManager");
-var fileManager = require("../mode/fileManager");
+var uiUtil = require('./unit/uiUtil');
 
 cc.Class({
     extends: cc.Component,
@@ -186,14 +186,7 @@ cc.Class({
 
     setUserAvatar:function(avatar){
         var self = this;
-        
-        var idx = avatar<10?('00'+avatar):('0'+avatar);
-        var newavatar = "monster" + idx + '_s'
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.userAvatar.spriteFrame = spriteFrame;
-
-        });
+        uiUtil.setAvatar(self.userAvatar, avatar);
     },
 
     onSexBtton: function(btn, data) {

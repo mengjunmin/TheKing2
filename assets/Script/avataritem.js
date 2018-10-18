@@ -1,6 +1,7 @@
 
 
 var global = require('Global'); 
+var uiUtil = require('./unit/uiUtil');
 
 cc.Class({
     extends: cc.Component,
@@ -47,12 +48,8 @@ cc.Class({
     },
 
     onLoad () {
-        // this.userAvatar;
         var self = this;
-        // cc.loader.loadRes("frame001", function (err, texture) {
-        //     cc.log('----->texture:', texture);
-        //     self.userHead.setTexture(texture);
-        // });
+
   
     },
 
@@ -60,7 +57,7 @@ cc.Class({
         var self = this;
         self.touchnode.on(cc.Node.EventType.TOUCH_END, function (event) {
             console.log('----->base popup  TOUCH_END');
-            self.onCallBack(self._data);
+            self.onCallBack(self._data.id);
         }, self);
     },
 
@@ -74,39 +71,26 @@ cc.Class({
     
     setUserFrame:function(frame){
         var self = this;
-        if(frame == '') return;
-
-        // if(this._currFrame != ''){
-        //     var frame = "frame" + this._currFrame;
-        //     cc.loader.releaseRes(frame, cc.SpriteFrame);
-        // }
-
         this._currFrame = frame;
-        var newframe = "frame" + "001";
-        cc.loader.loadRes(newframe, cc.SpriteFrame, function (err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.userFrame.spriteFrame = spriteFrame;
-        });
+        uiUtil.setFrame(self.userFrame, frame);
+
+        // var newframe = "frame" + "001";
+        // cc.loader.loadRes(newframe, cc.SpriteFrame, function (err, spriteFrame) {
+        //     cc.log('----->spriteFrame:', spriteFrame);
+        //     self.userFrame.spriteFrame = spriteFrame;
+        // });
     },
 
     setUserAvatar:function(avatar){
         var self = this;
-
-
         this._currAvatar = avatar;
-        var idx = avatar<10?('00'+avatar):('0'+avatar);
-        var newavatar = "monster" + idx + '_s'
-        cc.loader.loadRes(newavatar, cc.SpriteFrame, function (err, spriteFrame) {
-            cc.log('----->spriteFrame:', spriteFrame);
-            self.userAvatar.spriteFrame = spriteFrame;
-
-        });
+        uiUtil.setAvatar(self.userAvatar, avatar);
     },
 
     setData(data){
         this._data = data;
-
-        this.setUserAvatar(data);
+        this.setUserAvatar(data.id);
+        this.setLock(data.own!=1);
     },
 
     setLock(islock){
